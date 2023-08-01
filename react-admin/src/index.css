@@ -7,7 +7,7 @@ body,
 .content {
   height: 100%;
   width: 100%;
-  font: 'Source Sans', 'Sans Serif';
+  font: 'Source Sans', 'sans-serif';
 }
 
 .app {
