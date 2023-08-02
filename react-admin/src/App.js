@@ -10,6 +10,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         {/* Reset the CSS to defaults */}
+        <CssBaseline />
         <div className="app">
           <main className="content">
             <Topbar />
