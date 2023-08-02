@@ -34,3 +34,23 @@ body,
 ::-webkit-scrollbar-track:hover{
   background: #555;
 }
+
+.pro-sidebar-inner {
+  background: rgb(249, 249, 249, 0.05);
+}
+
+.pro-icon-wrapper {
+  background-color: transparent;
+}
+
+.pro-inner-item {
+  padding: 5px 35px 5px 20px;
+}
+
+.pro-inner-item:hover {
+  color: #868dfb;
+}
+
+.pro-menu-item.active {
+  color: #6870fa;
+}

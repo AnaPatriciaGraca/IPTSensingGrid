@@ -42,27 +42,19 @@ const SideBar = () => {
   const [selected, setSelected] = useState("Dashboard")
 
   return (
-    <Box 
-      // sx={{
-      //   "& .pro-sidebar-inner": {
-      //     background: `${colors.primary[200]} !important`,
-      //   },
-      //   "& .pro-icon-wrapper": {
-      //     backgroundColor: "transparent !important",
-      //   },
-      //   "& .pro-inner-item": {
-      //     padding: "5px 35px 5px 20px !important",
-      //   },
-      //   "& .pro-inner-item:hover": {
-      //     color: "#868dfb !important",
-      //   },
-      //   "& .pro-menu-item.active": {
-      //     color: "#6870fa !important",
-      //   },
-      // }}
-    >
-      <Sidebar collapsed={isCollapsed} backgroundColor='rgb(249, 249, 249, 0.2)'>
-        <Menu iconShape="square">
+    <Box>
+      <Sidebar collapsed={isCollapsed} backgroundColor={colors.primary[400]}>
+        <Menu iconShape="square" 
+          menuItemStyles={{
+            button: ({ level, active }) => {
+              // only apply styles on first level elements of the tree
+              if (level === 0)
+                return {
+                  backgroundColor: active ? '#6870fa' : undefined,
+                };
+            },
+          }}
+        >
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -117,7 +109,8 @@ const SideBar = () => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            {/* MENU ITEMS */}
+          <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{}}>
             <Item
               title="Dashboard"
               to="/"
