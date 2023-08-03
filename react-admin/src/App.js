@@ -8,14 +8,14 @@ import Sidebar from '../src/scenes/global/Sidebar'
 import Dashboard from '../src/scenes/dashboard'
 import Team from '../src/scenes/team'
 // import Invoice from '../invoice'
-// import Contacts from '.. contacts'
-// import Bar from '../bar'
-// import Form from '../form'
-// import Line from '../line'
-// import Pie from '../pie'
-// import FAQ from '../faq'
-// import Geography from '../geography'
-// import Calendar from '../calendar'
+import Contacts from '../src/scenes/contacts'
+// import Bar from '../src/scenes/bar'
+// import Form from '../src/scenes/form'
+// import Line from '../src/scenes/line'
+// import Pie from '../src/scenes/pie'
+// import FAQ from '../src/scenes/faq'
+// import Geography from '../src/scenes/geography'
+// import Calendar from '../src/scenes/calendar'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -34,7 +34,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               {/* <Route path="/invoice" element={<Invoice />} /> */}
-              {/* <Route path="/contacts" element={<Contacts />} /> */}
+              <Route path="/contacts" element={<Contacts />} />
               {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/form" element={<Form />} /> */}
               {/* <Route path="/line" element={<Line />} /> */}
