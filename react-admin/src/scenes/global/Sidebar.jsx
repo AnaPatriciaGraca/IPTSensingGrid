@@ -42,10 +42,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 
-// const logger = (message) => {
-//   console.log(message)
-// }
-
 const SideBar = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
@@ -54,8 +50,22 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   return (
-    <Box>
-      <Sidebar collapsed={isCollapsed} backgroundColor={colors.primary[400]}>
+    <Box sx={{
+      '.ps-menu-root':{
+        backgroundColor: colors.primary[400]
+      },
+      ".ps-menuitem-root": {
+        backgroundColor: "transparent",
+        // padding: "5px 35px 5px 20px",
+      },
+      ".ps-menu-button:hover": {
+        color: "#6870fa",
+      },
+      ".ps-menu-button.active": {
+        color: "#6870fa",
+      },
+    }}>
+      <Sidebar collapsed={isCollapsed}>
         <Menu iconShape="square" 
           menuItemStyles={{
             button: ({ level, active }) => {
