@@ -7,7 +7,7 @@ import Sidebar from '../src/scenes/global/Sidebar'
 //Pages
 import Dashboard from '../src/scenes/dashboard'
 import Team from '../src/scenes/team'
-// import Invoice from '../invoice'
+import Invoices from '../src/scenes/invoices'
 import Contacts from '../src/scenes/contacts'
 // import Bar from '../src/scenes/bar'
 // import Form from '../src/scenes/form'
@@ -33,7 +33,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
-              {/* <Route path="/invoice" element={<Invoice />} /> */}
+              <Route path="/invoices" element={<Invoices />} />
               <Route path="/contacts" element={<Contacts />} />
               {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/form" element={<Form />} /> */}
