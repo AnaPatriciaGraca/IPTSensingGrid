@@ -17,22 +17,21 @@ const Calendar = () => {
 
     const handleDateClick = (selected) => {
         //standard browser alert pop-up (create a modal for this)
-        const title = prompt('Please enter a new title for your event')
-        const calendarApi = selected.view.Calendar
-        //unselect the date immidietly to enter title of the event
-        calendarApi.unselect()
-
+        const title = prompt("Please enter a new title for your event");
+        const calendarApi = selected.view.calendar;
+        calendarApi.unselect();
+    
         //se titver titulo é porque o utilizador esta a criar o evento
-        if(title){
-            calendarApi.addEvent({
-                id: `${selected.dateStr}-${title}`,
-                title,
-                start: selected.startStr,
-                end: selected.endStr, 
-                allDay: selected.allDay
-            })
+        if (title) {
+          calendarApi.addEvent({
+            id: `${selected.dateStr}-${title}`,
+            title,
+            start: selected.startStr,
+            end: selected.endStr,
+            allDay: selected.allDay,
+          });
         }
-    }
+      };
 
     //create a modal for this
     const handleEventClick = (selected) => {
