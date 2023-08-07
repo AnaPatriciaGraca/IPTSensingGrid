@@ -55,11 +55,11 @@ const SideBar = () => {
         backgroundColor: colors.primary[400]
       },
       ".ps-menuitem-root": {
-        backgroundColor: "transparent",
+        backgroundColor: '"transparent"',
         // padding: "5px 35px 5px 20px",
       },
-      ".ps-menu-button:hover": {
-        color: "#6870fa",
+      ".ps-menuitem-root:hover": {
+        color: "#ff0000",
       },
       ".ps-menu-button.active": {
         color: "#6870fa",
