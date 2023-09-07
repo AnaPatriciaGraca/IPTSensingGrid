@@ -5,11 +5,11 @@ import Header from '../../components/Header'
 const index = () => {
   return (
     <Box m='20px'>
-    <Header title='AULAS A DECORRER' subtitle='Aulas que se encontram a ser leccionadas por curso' />
-    <Box height='75vh'>
-        <CurrentClasses />
+      <Header title='AULAS A DECORRER' subtitle='Aulas que se encontram a ser leccionadas por curso' />
+      <Box height='75vh'>
+          <CurrentClasses />
+      </Box>
     </Box>
-</Box>
   )
 }
 

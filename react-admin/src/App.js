@@ -20,6 +20,7 @@ import Geography from '../src/scenes/geography'
 import Temperature from '../src/scenes/temperature'
 import CurrentClasses from './scenes/currentClasses'
 import Noise from '../src/scenes/noise'
+import SchedulesServices from '../src/scenes/schedulesServices'
 
 function App() {
   const [theme, colorMode] = useMode()
@@ -50,6 +51,7 @@ function App() {
               <Route path="/temperature" element={<Temperature />} />
               <Route path="/currentClasses" element={<CurrentClasses />} />
               <Route path="/noise" element={<Noise />} />
+              <Route path="/schedulesServices" element={<SchedulesServices />} />
             </Routes>
           </main>
         </div>
