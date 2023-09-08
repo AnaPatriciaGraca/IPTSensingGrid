@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const GetScheduleData = () => {
-  const [data, setData] = useState([]);
+const GetScheduleData = (dataFetched) => {
+//   const [data, setData] = useState([dataFetched]);
   let professorStartIndex = -1;
   let professorEndIndex = -1;
+  const professores = ['Carlos Perquilhas', 'Manuel Barros', 'Luís Merca', 'José Ramos', 'Francisco Nunes', 'António Manso', 'Ana Cristina Lopes', 'Raúl Monteiro', 'Paulo Santos', 'Luís Grilo', 'José Casimiro Pereira', 'Carlos Queiroz', 'Casimiro Batista', 'Luís Oliveira', 'António Manso', 'Luís Almeida']
+  const [professorName, setProfessorName] = useState('Carlos Perquilhas');
+    const data = dataFetched;
+    console.log(data.dataFetched['E'])
 
-  useEffect(() => {
-    // Define the URL of your JSON Server resource
-    const apiUrl = 'http://localhost:3001/LEI1TA';
-  
-    // GET request to the JSON Server using Axios
-    axios.get(apiUrl)
-      .then((response) => {
-        // Set the data in the component state
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  const handleSelectChange = (e) => {
+    setProfessorName(e.target.value);
+  };
 
-  //find name of building
+  //find name of building with regex
   const findNameBuilding = (inputString) =>{
     const regexPattern = /^[A-Q]\d{3}(?:\/[A-Q]\d{3})?$/;
     return regexPattern.test(inputString);
@@ -29,10 +22,9 @@ const GetScheduleData = () => {
 
   const findStartIndex = (iteration, dataArray) => {
     let countEmpty = 0
-    let itera = 0
     for (let i=iteration-1; i > 0; i--) {
-        itera++;
 
+        //find empty cells between schedules (for first classes and so)
         if (dataArray[i] === ''){
             countEmpty++;
             if (countEmpty === 2){
@@ -44,6 +36,8 @@ const GetScheduleData = () => {
                 
             }
         }
+
+        //find name of building of previous class
         if (findNameBuilding(dataArray[i])){
             if(dataArray[i+1] !== ''){
                 return i + 1;
@@ -54,73 +48,80 @@ const GetScheduleData = () => {
     }
   }
 
-  const calculateProfessorHours =(professorName) => {
-    //data is not available yet because of the asynchronous request
-    if (!data || !data['G'] || !data['C']) {
+  const professorHoursDay = (professorName, dayData) => {
+    //careful with the data that's not available yet because of the asynchronous request
+    if (!dayData) {
         return 0; // Return an appropriate default value
     }
     
-    let tercaArray = data['G'];
-    let horariosArray = data['C'];
+    // let tercaArray = data['E'];
+    let horariosArray = data.dataFetched['C'];
+    let numberClasses = 0;
+    let totalHours = 0;
     
-    // Find the start and end times of the professor's classes in D Array
-    for (let i = 0; i < tercaArray.length; i++) {
-        if (tercaArray[i] === professorName) {
-            professorStartIndex = findStartIndex(i, tercaArray); 
-          
-          if (tercaArray[i+1] === ''){
+    // Find the start and end times of the professor's classes 
+    for (let i = 0; i < dayData.length; i++) {
+        if (dayData[i] === professorName) {
+            numberClasses++;
+            professorStartIndex = findStartIndex(i, dayData); 
+          //find end Index          
+          if (dayData[i+1] === ''){
             professorEndIndex = i + 2;
           }else {
             professorEndIndex = i + 1;
           }
           
         }
+
+        // calc total hours worked by the professor
+        if (professorStartIndex !== -1 && professorEndIndex !== -1) {
+            const startTime = horariosArray[professorStartIndex];
+            const endTime = horariosArray[professorEndIndex];
+        
+            const [startHour, startMinute] = startTime.split('-')[0].trim().split('.').map(Number);
+            const [endHour, endMinute] = endTime.split('-')[1].trim().split('.').map(Number);
+        
+            totalHours += endHour - startHour + (endMinute - startMinute) / 60;
+            professorEndIndex = -1;
+            professorStartIndex = -1;
+    
+        }
+    }
+    if (numberClasses !== 0){
+        return totalHours;
+    } else { //classes not found for the professor searched
+        return 0;
     }
 
-    // total hours worked by the professor
-    if (professorStartIndex !== -1 && professorEndIndex !== -1) {
-      const startTime = horariosArray[professorStartIndex];
-      const endTime = horariosArray[professorEndIndex];
-  
-      const [startHour, startMinute] = startTime.split('-')[0].trim().split('.').map(Number);
-      const [endHour, endMinute] = endTime.split('-')[1].trim().split('.').map(Number);
-  
-      const totalHours = endHour - startHour + (endMinute - startMinute) / 60;
-      return totalHours;
-
-    } else {
-      return 0; //professor not found
-    }
   }
-  
-  // Example usage:
-  const professorName = 'Pedro Santos';
-  const totalHours = calculateProfessorHours(professorName);
+
+  const professorHoursWeek = (professorName) => {
+    let totalHours = professorHoursDay(professorName, data.dataFetched['D']);
+    console.log('Segunda horas: ' + totalHours)
+    totalHours += professorHoursDay(professorName, data.dataFetched['E']);
+    totalHours += professorHoursDay(professorName, data.dataFetched['F']);
+    totalHours += professorHoursDay(professorName, data.dataFetched['G']);
+    totalHours += professorHoursDay(professorName, data.dataFetched['H']);
+    totalHours += professorHoursDay(professorName, data.dataFetched['I']);
+
+    return totalHours;
+  }
+
+  const hoursWeek = professorHoursWeek(professorName);
   
 
   return (
     <div>
-      <h2>Data from JSON Server</h2>
-      <div>
-        <h3>C Array</h3>
-        <ul>
-          {data['C'] && data['C'].map((item, index) => (
-            <li key={index}>{index} - {item}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h3>Terça Array</h3>
-        <ul>
-          {data['G'] && data['G'].map((item, index) => (
-            <li key={index}>{index} - {item}</li>
-          ))}
-        </ul>
-      </div>
-      <div>Hours</div>
-      <p>Start: {professorStartIndex}   End: {professorEndIndex}</p>
-      <p>{professorName}</p> 
-      <p>Worked for {totalHours} hours.</p>
+        <h3>Hours</h3>
+      <select value={professorName} onChange={handleSelectChange}>
+        <option value="">Selecionar professor</option>
+        {professores.map((professor, index) => (
+          <option key={index} value={professor}>
+            {professor}
+          </option>
+        ))}
+      </select>
+      <p>{professorName} trabalhou {hoursWeek} horas.</p>      
     </div>
   );
 };
