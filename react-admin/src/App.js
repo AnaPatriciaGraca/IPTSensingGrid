@@ -13,7 +13,7 @@ import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
 import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
-// import DashboardRooms from '../src/scenes/dashboardRooms'
+import EstatisticasSalas from './scenes/estatisticasSalas'
 import Bar from '../src/scenes/bar'
 // import Pie from '../src/scenes/pie'
 // import Line from '../src/scenes/line'
@@ -45,7 +45,7 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/dashboardTest" element={<DashboardTest />} />
-              {/* <Route path="/dashboardRooms" element={<DashboardRooms />} /> */}
+              <Route path="/estatisticasSalas" element={<EstatisticasSalas />} />
               <Route path="/bar" element={<Bar />} />
               {/* <Route path="/pie" element={<Pie />} /> */}
               {/* <Route path="/line" element={<Line />} /> */}
