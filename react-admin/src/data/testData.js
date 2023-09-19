@@ -123,6 +123,7 @@ export const events = [
     user: "Paulos Santos",
     date: "2023-09-18",
     hour: "08:30",
+    room: "B356"
   },
   {
     id: '000076',
@@ -130,6 +131,7 @@ export const events = [
     user: "Carlos Queiroz",
     date: "2023-09-06",
     hour: "10:00",
+    room: "O106"
   },
   {
     id: '000933',
@@ -137,6 +139,7 @@ export const events = [
     user: "Renato Panda",
     date: "2023-09-14",
     hour: "11:45",
+    room: "A106"
   },
   {
     id: '000053',
@@ -144,6 +147,7 @@ export const events = [
     user: "José Casimiro Pereira",
     date: "2023-09-07",
     hour: "14:15",
+    room: "O104"
   },
   {
     id: '000013',
@@ -151,6 +155,7 @@ export const events = [
     user: "Ana Cristina Lopes",
     date: "2023-09-01",
     hour: "15:30",
+    room: "B256"
   },
   {
     id: '000027',
@@ -158,6 +163,7 @@ export const events = [
     user: "António Manso",
     date: "2023-10-02",
     hour: "08:45",
+    room: "B356"
   },
   {
     id: '000028',
@@ -165,6 +171,7 @@ export const events = [
     user: "Luis Almeida",
     date: "2023-11-03",
     hour: "11:00",
+    room: "O103"
   },
   {
     id: '000029',
@@ -172,6 +179,7 @@ export const events = [
     user: "Manuel Barros",
     date: "2023-10-07",
     hour: "13:30",
+    room: "I116"
   },
   {
     id: '000111',
@@ -179,6 +187,7 @@ export const events = [
     user: "Maria Cristina Costa",
     date: "2023-09-02",
     hour: "16:00",
+    room: "H105"
   },
 ];
 
@@ -412,3 +421,52 @@ export const freeRooms =
     }
   ]
 }
+
+
+export const usedRooms = [
+  {
+    bloco: "A",
+    "teóricas": 13,
+    "técnicas": 33,
+    "outros": 5,
+    "práticas": 7,
+  },
+    {
+      bloco: "B",
+      "teóricas": 7,
+      "técnicas": 6,
+      "outros": 2,
+      "práticas": 3,
+    },
+
+    {
+      bloco: "C",
+      "teóricas": 6,
+      "técnicas": 18,
+      "outros": 2,
+      "práticas": 5,
+    },
+    {
+      bloco: "D",
+      "teóricas": 3,
+      "técnicas": 4,
+      "outros": 16,
+      "práticas": 13,
+    },
+    {
+      bloco: "E",
+      "teóricas": 21,
+      "técnicas": 22,
+      "outros": 3,
+      "práticas": 4,
+    },
+    {
+      bloco: "F",
+      "teóricas": 3,
+      "técnicas": 34,
+      "outros": 2,
+      "práticas": 5,
+    },
+    
+  
+];

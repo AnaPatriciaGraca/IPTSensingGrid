@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import { usedRooms as data } from "../data/testData";
 
-const BarChart = ({ isDashboard = false }) => {
+const TotalFreeRooms = ({ isDashboard }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -11,61 +11,45 @@ const BarChart = ({ isDashboard = false }) => {
     <ResponsiveBar
       data={data}
       theme={{
-        // added
         axis: {
-          domain: {
+        domain: {
             line: {
-              stroke: colors.grey[100],
+            stroke: colors.grey[100],
             },
-          },
-          legend: {
+        },
+        legend: {
             text: {
-              fill: colors.grey[100],
+            fill: colors.grey[100],
             },
-          },
-          ticks: {
+        },
+        ticks: {
             line: {
-              stroke: colors.grey[100],
-              strokeWidth: 1,
+            stroke: colors.grey[100],
+            strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+            fill: colors.grey[100],
             },
-          },
+        },
         },
         legends: {
-          text: {
+        text: {
             fill: colors.grey[100],
-          },
         },
-      }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        },
+        tooltip: {
+        container: {
+            color: colors.primary[500],
+        },
+        },
+    }}
+      keys={["teóricas", "técnicas", "outros", 'práticas']}
+      indexBy="bloco"
+      margin={{ top: 5, right: 130, bottom: 150, left: 60 }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={{ scheme: "nivo" }}
-      defs={[
-        {
-          id: "dots",
-          type: "patternDots",
-          background: "inherit",
-          color: "#38bcb2",
-          size: 4,
-          padding: 1,
-          stagger: true,
-        },
-        {
-          id: "lines",
-          type: "patternLines",
-          background: "inherit",
-          color: "#eed312",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
-        },
-      ]}
+      colors={{ scheme: "yellow_green_blue" }}
       borderColor={{
         from: "color",
         modifiers: [["darker", "1.6"]],
@@ -76,7 +60,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isDashboard ? undefined : "bloco", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -84,7 +68,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: isDashboard ? undefined : "salas", // changed
         legendPosition: "middle",
         legendOffset: -40,
       }}
@@ -121,10 +105,10 @@ const BarChart = ({ isDashboard = false }) => {
       ]}
       role="application"
       barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
+        return e.id + ": " + e.formattedValue + " in bloco: " + e.indexValue;
       }}
     />
   );
 };
 
-export default BarChart;
+export default TotalFreeRooms;

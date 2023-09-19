@@ -3,7 +3,8 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TreeChart from '../../components/TreeChart'
-import { useHistory } from 'react-router-dom';
+import TotalFreeRooms from '../../components/TotalFreeRooms'
+import { events } from '../../data/testData'
 
 //icons
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
@@ -114,7 +115,54 @@ const EstatisticasSalas = () => {
                         <TreeChart/>
                     </Box>
                 </Box>
-                
+
+                {/* ROW 3 */}
+                {/* Salas livres por bloco - Barchart */}
+                <Box gridColumn='span 8' gridRow='span 2' backgroundColor={colors.primary[400]}>
+                    <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
+                        <Box mb='30px'>
+                        <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
+                            Localização das Salas Ocupadas
+                        </Typography>
+                        <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
+                            Salas Ocupadas por bloco
+                        </Typography>
+                        </Box>
+                        
+                    </Box>
+                    <TotalFreeRooms isDashboard={true}/>
+                </Box>
+
+                <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]} overflow='auto' >
+                    <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
+                        <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
+                        Calendário
+                        </Typography>
+                    </Box>
+
+                    
+                    {events.map((transaction, i) =>(
+                        <Box key={`${transaction.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                        <Box>
+                            <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
+                                {transaction.title}
+                            </Typography>
+                            <Typography color={colors.grey[100]} variant='h6' fontWeight={600}>
+                                {transaction.user}
+                            </Typography>
+                        </Box>
+                        <Box color={colors.grey[100]}>
+                            {transaction.room}
+                        </Box>
+                        <Box color={colors.grey[100]}>
+                            {transaction.date}
+                        </Box>
+                        <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
+                            {transaction.hour}
+                        </Box>
+                        </Box>
+                    ))}
+                    </Box>
 
 
 

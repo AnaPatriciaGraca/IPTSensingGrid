@@ -13,7 +13,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import TrafficIcon from '@mui/icons-material/Traffic'
-import BarChart from '../../components/BarChart'
+import BarChart from '../../components/TotalFreeRooms'
 
 const Dashboard = () => {
   const theme = useTheme()
