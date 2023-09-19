@@ -14,7 +14,8 @@ import Calendar from '../src/scenes/calendar'
 import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
 import EstatisticasSalas from './scenes/estatisticasSalas'
-import Bar from '../src/scenes/bar'
+import ReservasSalas from './scenes/reservasSalas'
+// import Bar from '../src/scenes/bar'
 // import Pie from '../src/scenes/pie'
 // import Line from '../src/scenes/line'
 import Geography from '../src/scenes/geography'
@@ -46,7 +47,8 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/dashboardTest" element={<DashboardTest />} />
               <Route path="/estatisticasSalas" element={<EstatisticasSalas />} />
-              <Route path="/bar" element={<Bar />} />
+              <Route path="/reservasSalas" element={<ReservasSalas />} />
+              {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/pie" element={<Pie />} /> */}
               {/* <Route path="/line" element={<Line />} /> */}
               <Route path="/geography" element={<Geography />} />

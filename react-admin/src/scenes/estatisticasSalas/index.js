@@ -92,13 +92,24 @@ const EstatisticasSalas = () => {
                             Pesquisar ou reservar salas
                         </Typography>
                         </Box>
-                        <Box display="flex" justifyContent="center">
-                        <Button variant='contained' onClick={handleButtonClick} sx={{ backgroundColor: colors.greenAccent[500], width: 300, height: 100 }}>
+                        <Box display="flex" justifyContent="center" flexGrow={1}>
+                        <Button
+                            variant='contained'
+                            onClick={handleButtonClick}
+                            sx={{
+                            backgroundColor: colors.greenAccent[500],
+                            width: '100%', 
+                            height: '100px', 
+                            fontSize: '1rem', 
+                            }}
+                        >
                             Reservar sala
                         </Button>
                         </Box>
                     </Box>
                 </Box>
+
+
                 {/* Button that redirects to 'reservar salas' */}
                 <Box gridColumn='span 9' gridRow='span 2' backgroundColor={colors.primary[400]}>
                     <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
