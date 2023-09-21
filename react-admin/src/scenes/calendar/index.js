@@ -45,12 +45,12 @@ const Calendar = () => {
         <Box display='flex' justifyContent='space-between'>
             {/* CALENDAR SIDEBAR */}
             {/* flex= grow shrink and width */}
-            <Box flex='1 1 20%' backgroundColor={colors.primary[400]} p='15px' borderRadius='4px'>
+            <Box flex='1 1 20%' backgroundColor={colors.primary[400]} p='15px' borderradius='4px'>
                 <Typography variant='h5'>Events</Typography>
                 {/* List of events */}
                 <List>
                     {currentEvents.map((event) => (
-                        <ListItem key={event.id} sx={{ backgroundColor: colors.greenAccent[500]}} margin='10px 0' borderRadius='2px'>
+                        <ListItem key={event.id} sx={{ backgroundColor: colors.greenAccent[500]}} margin='10px 0' borderradius='2px'>
                                 <ListItemText primary={event.title} secondary={formatDate(event.start, {
                                     year: 'numeric',
                                     month: 'short',

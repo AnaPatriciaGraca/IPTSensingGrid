@@ -470,3 +470,31 @@ export const usedRooms = [
     
   
 ];
+
+export const exemploSalas = [
+  { 
+    nome: 'B265',
+    capacidade: "56",
+    projetores: "1",
+    polo: "Tomar",
+    bloco: "B",
+  },{ 
+    nome: 'B165',
+    capacidade: "28",
+    projetores: "1",
+    polo: "Tomar",
+    bloco: "B",
+  },{ 
+    nome: 'I235',
+    capacidade: "70",
+    projetores: "1",
+    polo: "Tomar",
+    bloco: "I",
+  },{ 
+    nome: '0105',
+    capacidade: "28",
+    projetores: "1",
+    polo: "Tomar",
+    bloco: "O",
+  },
+]

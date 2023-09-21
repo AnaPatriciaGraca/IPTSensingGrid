@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import AvailableRooms from "../../components/AvailableRooms";
 
 const initialValues = {
     firstName: '',
@@ -118,6 +119,13 @@ const Form = () => {
                 </form>
             )}
         </Formik>
+
+
+        <AvailableRooms 
+            polo="Tomar"
+            bloco="B"
+            capacity=""
+            projector="" />
     </Box>
   )
 }
