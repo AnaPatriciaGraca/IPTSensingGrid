@@ -239,13 +239,6 @@ const SideBar = () => {
                 setSelected={setSelected}
               />
               <Item
-                title="Pesquisa"
-                to="/pesquisasSalas"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
                 title="Reservas"
                 to="/reservasSalas"
                 icon={<MapOutlinedIcon />}

@@ -15,6 +15,7 @@ import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
 import EstatisticasSalas from './scenes/estatisticasSalas'
 import ReservasSalas from './scenes/reservasSalas'
+import EstatisticasFuncionarios from './scenes/estatistiscasFuncionarios'
 // import Bar from '../src/scenes/bar'
 // import Pie from '../src/scenes/pie'
 // import Line from '../src/scenes/line'
@@ -48,6 +49,7 @@ function App() {
               <Route path="/dashboardTest" element={<DashboardTest />} />
               <Route path="/estatisticasSalas" element={<EstatisticasSalas />} />
               <Route path="/reservasSalas" element={<ReservasSalas />} />
+              <Route path="/estatisticasFuncionarios" element={<EstatisticasFuncionarios />} />
               {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/pie" element={<Pie />} /> */}
               {/* <Route path="/line" element={<Line />} /> */}

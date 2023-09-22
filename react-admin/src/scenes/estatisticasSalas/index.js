@@ -20,7 +20,7 @@ const EstatisticasSalas = () => {
     const navigate = useNavigate()
 
     const handleButtonClick = () => {
-        navigate('reservasSalas');
+        navigate('/reservasSalas');
       }
 
     return (
