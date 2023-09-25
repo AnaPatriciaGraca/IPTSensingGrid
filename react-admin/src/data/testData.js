@@ -623,3 +623,32 @@ export const schedulesServices = [
   },
   
 ];
+
+export const topFuncHorario = [
+  { id: '000023',
+    title: "José Casimiro Pereira",
+    user: "casimiro@ipt.pt",
+    schedule: '10:30'
+  },
+  { id: '000024',
+    title: "Carlos Queiroz",
+    user: "qrz@ipt.pt",
+    schedule: '10:00'
+  },
+  { id: '000025',
+    title: "Paulo Santos",
+    user: "psantos@ipt.pt",
+    schedule: '09:30'
+  },
+  { id: '000026',
+    title: "António Manso",
+    user: "amanso@ipt.pt",
+    schedule: '06:30'
+  },
+  { id: '000027',
+    title: "Luís Almeida",
+    user: "lalmeida@ipt.pt",
+    schedule: '06:30'
+  },
+];
+

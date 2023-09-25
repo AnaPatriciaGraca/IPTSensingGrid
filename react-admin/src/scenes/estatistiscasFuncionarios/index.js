@@ -2,9 +2,8 @@ import { Box, Button, useTheme, Typography } from '@mui/material'
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
-import TreeChart from '../../components/TreeChart'
 import TotalFreeProf from '../../components/TotalFreeProf'
-import { schedulesServices as service } from '../../data/testData'
+import { topFuncHorario as funcionarios } from '../../data/testData'
 import { useNavigate } from 'react-router-dom'
 
 //icons
@@ -104,31 +103,25 @@ const EstatisticasFuncionarios = () => {
                 {/* ROW 3 */}
                 <Box gridColumn='span 6' gridRow='span 3' backgroundColor={colors.primary[400]} overflow='auto' >
                     <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
-                        <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
-                        Serviços
+                        <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
+                        Top funcionários por Carga horária
                         </Typography>
                         <Box color={colors.grey[100]} fontWeight={600}>
-                            Horário Manhã
-                        </Box>
-                        <Box color={colors.grey[100]} fontWeight={600}>
-                            Horário Tarde
+                            Total Horas
                         </Box>
                     </Box>
-                    {service.map((service, i) =>(
-                        <Box key={`${service.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                    {funcionarios.map((funcionario, i) =>(
+                        <Box key={`${funcionario.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                         <Box>
-                            <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
-                                {service.title}
+                            <Typography color={colors.blueAccent[600]} variant='h5' fontWeight={600}>
+                                {funcionario.title}
                             </Typography>
                             <Typography color={colors.grey[100]} variant='h6' fontWeight={600}>
-                                {service.user}
+                                {funcionario.user}
                             </Typography>
                         </Box>
-                        <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-                            {`${service.open} / ${service.closeLunch}`}
-                        </Box>
-                        <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-                            {`${service.openLunch} / ${service.close}`}
+                        <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px'>
+                            {`${funcionario.schedule} h`}
                         </Box>
                         </Box>
                     ))}

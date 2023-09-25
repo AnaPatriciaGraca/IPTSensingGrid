@@ -11,9 +11,6 @@ import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
-import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined'
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
@@ -50,7 +47,6 @@ const SideBar = () => {
   const colors = tokens(theme.palette.mode)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [selected, setSelected] = useState("Dashboard")
-  const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -157,8 +153,8 @@ const SideBar = () => {
               setSelected={setSelected}
             /> */}
             <Item
-              title="Dashboard Teste"
-              to="/dashboardTest"
+              title="Dashboard"
+              to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -246,7 +242,31 @@ const SideBar = () => {
                 setSelected={setSelected}
               />
             </SubMenu>
-            
+
+            <SubMenu variant="h6" label="Funcionários" sx={{ m: "15px 0 5px 20px" }}>
+              <Item
+                title="Estatísticas"
+                to="/estatisticasFuncionarios"
+                icon={<MapOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Pesquisa"
+                to="/pesquisaFuncionarios"
+                icon={<MapOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Horários & Férias"
+                to="/horariosFerias"
+                icon={<MapOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </SubMenu>
+
             <SubMenu variant="h6" label="Equipamentos" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Estatísticas"
@@ -265,37 +285,6 @@ const SideBar = () => {
               <Item
                 title="Reparações & Problemas"
                 to="/ReparacoesEquipamentos"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-            </SubMenu>
-
-            <SubMenu variant="h6" label="Funcionários" sx={{ m: "15px 0 5px 20px" }}>
-              <Item
-                title="Estatísticas"
-                to="/estatisticasFuncionarios"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Professores"
-                to="/professores"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Pesquisa"
-                to="/pesquisaFuncionarios"
-                icon={<MapOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Horários & Férias"
-                to="/horariosFerias"
                 icon={<MapOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
@@ -343,17 +332,6 @@ const SideBar = () => {
                 title="FAQ Page"
                 to="/faq"
                 icon={<HelpOutlineOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-
-
-
-              <Item
-                title="Bar Chart"
-                to="/bar"
-                icon={<BarChartOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />

@@ -119,13 +119,6 @@ const Form = () => {
                 </form>
             )}
         </Formik>
-
-
-        <AvailableRooms 
-            polo="Tomar"
-            bloco="B"
-            capacity=""
-            projector="" />
     </Box>
   )
 }
