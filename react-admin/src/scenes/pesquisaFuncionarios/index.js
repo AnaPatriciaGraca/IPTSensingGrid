@@ -1,27 +1,27 @@
-import { Box, Typography, useTheme } from '@mui/material'
-import { DataGrid, GridToolbar, GridToolbarExport } from '@mui/x-data-grid'
+import { Box, useTheme } from '@mui/material'
+import { DataGrid } from '@mui/x-data-grid'
 import { tokens } from '../../theme'
-import { mockDataContacts } from '../../data/mockData'
+import { dadosFuncionarios } from '../../data/testData'
 import Header from '../../components/Header'
-//Icons
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined'
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined'
-
+import ProfessorCard from '../../components/ProfessorCard'
+import { useState } from 'react'
 
 const PesquisaFuncionarios = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+    const [selectedProfessor, setSelectedProfessor] = useState(null)
+    const [isProfessorCardOpen, setIsProfessorCardOpen] = useState(false);
     const columns = [
-        {field: 'id' , headerName: 'ID', flex: 0.5}, 
+        // {field: 'id' , headerName: 'ID', flex: 0.5}, 
         // {field: 'registrarId', headerName:'Registrar ID'},
-        {field: 'name' , headerName: 'Nome', flex: 1, cellClassName: 'name-column--cell'}, 
-        {field: 'age' , headerName: 'Idade', type: 'number', headerAlign: 'left',align: 'left'},
-        {field: 'phone' , headerName: 'Telefone', flex: 1},
+        {field: 'nome' , headerName: 'Nome', flex: 1, cellClassName: 'name-column--cell'}, 
+        // {field: 'age' , headerName: 'Idade', type: 'number', headerAlign: 'left',align: 'left'},
+        // {field: 'phone' , headerName: 'Telefone', flex: 1},
         {field: 'email' , headerName: 'Email', flex: 1},
-        {field: 'address' , headerName: 'Morada', flex: 1},
-        {field: 'city' , headerName: 'Cidade', flex: 1},
-        {field: 'zipCode' , headerName: 'Código Postal', flex: 1},
+        {field: 'gabinete' , headerName: 'Gabinete', flex: 0.5},
+        {field: 'cidade' , headerName: 'Cidade', flex: 0.5},
+        {field: 'curso' , headerName: 'Cursos', flex: 2},
+        // {field: 'disciplina' , headerName: 'Disciplinas', flex: 1},
     ]
     const localizedTextsMap = {
         columnMenuManage: "Gerir colunas",
@@ -31,7 +31,7 @@ const PesquisaFuncionarios = () => {
         columnMenuFilter: "Filtro",
         columnMenuHideColumn: "Ocultar",
         columnMenuShowColumns: "Mostrar colunas",
-        filterOperatorContains: 'contains',
+        filterOperatorContains: 'conter',
         filterOperatorEquals: 'igual',
         filterOperatorStartsWith: 'começa com',
         filterOperatorEndsWith: 'acaba com',
@@ -41,15 +41,28 @@ const PesquisaFuncionarios = () => {
         filterOperatorOnOrAfter: 'ser ou ser depois',
         filterOperatorBefore: 'ser antes',
         filterOperatorOnOrBefore: 'ser ou ser antes',
-        filterOperatorIsEmpty: 'estar vazio',
-        filterOperatorIsNotEmpty: 'não estar vazio',
+        filterOperatorIsEmpty: 'vazio',
+        filterOperatorIsNotEmpty: 'preenchido',
         filterOperatorIsAnyOf: 'ser algum de',
       };
+
+      //lidar com a linha que é clicada (abrir cartão do professor)
+      const handleEvent = (params, event) => {
+        console.log(`Professor "${params.row.nome}" clicked`);
+        setSelectedProfessor(params.row)
+        setIsProfessorCardOpen(true); 
+      };
+
+      //lidar com o fecho do cartão do professor
+      const handleCloseCard = () => {
+        setIsProfessorCardOpen(false);
+        setSelectedProfessor(null);
+      }
 
   return (
     <Box m='20px'>
         <Header title='Funcionários' subtitle='Pesquisa por funcionários aplicando filtros' />
-
+        {/* personalização da tabela */}
         <Box m='40px 0 0 0' height='75vh' sx={{
             '.MuiDataGrid-root': {
                 border: 'none',
@@ -77,11 +90,21 @@ const PesquisaFuncionarios = () => {
             },
 
         }}>
-            <DataGrid rows={mockDataContacts} 
+            {/* Tabela com os dados */}
+            <DataGrid rows={dadosFuncionarios} 
                     columns={columns} 
                     localeText={localizedTextsMap}
+                    onRowClick={handleEvent}
                     />
+       
         </Box>
+        {isProfessorCardOpen && selectedProfessor && (
+        <ProfessorCard
+            professor={selectedProfessor}
+            isOpen={isProfessorCardOpen}
+            onClose={handleCloseCard}
+        />
+      )}
     </Box>
   )
 }

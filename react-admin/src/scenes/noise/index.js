@@ -5,7 +5,7 @@ import NoiseChart from '../../components/NoiseChart'
 const index = () => {
   return (
     <Box m='20px'>
-        <Header title='NOISE CHART' subtitle='Simple noise chart' />
+        <Header title='Gráfico Ruído' subtitle='SGráfico de Ruído simples' />
         <Box height='75vh'>
             <NoiseChart />
         </Box>
