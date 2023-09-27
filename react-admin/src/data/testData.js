@@ -496,6 +496,12 @@ export const exemploSalas = [
     projetores: "1",
     polo: "Tomar",
     bloco: "O",
+  },{ 
+    nome: '0106',
+    capacidade: "48",
+    projetores: "0",
+    polo: "Tomar",
+    bloco: "O",
   },
 ]
 

@@ -2,10 +2,21 @@ import { Box, useTheme, Typography } from '@mui/material'
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import { schedulesServices as service } from '../../data/testData'
+import ProgressCircle from '../../components/ProgressCircle'
 
 const DetalhesServicos = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
+  //change this function to a real one
+  const calcHoursClose = () => {
+    const random = Math.random()
+    const min = 0.2
+    const max = 0.98
+    const calcRandom = random * (max - min) + min
+
+    return calcRandom
+  }
   
   return (
     <Box m='20px'>
@@ -15,7 +26,7 @@ const DetalhesServicos = () => {
       <Box backgroundColor={colors.primary[400]} overflow='auto' height='800px'>
         <Box
           display='grid'
-          gridTemplateColumns='1fr 1fr 1fr' // Define 3 columns with equal width
+          gridTemplateColumns='1fr 1fr 1fr 0.5fr' // Define 3 columns with equal width
           gap='15px'
           borderBottom={`4px solid ${colors.primary[400]}`}
           p='15px'
@@ -30,6 +41,9 @@ const DetalhesServicos = () => {
             <Typography color={colors.grey[100]} variant='h5' fontWeight={600} textAlign='center' width='150px'>
                 Horário Tarde
             </Typography>
+            <Typography color={colors.grey[100]} variant='h5' fontWeight={600} textAlign='center' width='150px'>
+                Progresso
+            </Typography>
         </Box>
         
         {/* Maear serviços */}
@@ -37,7 +51,7 @@ const DetalhesServicos = () => {
           <Box
             key={`${service.id}-${i}`}
             display='grid'
-            gridTemplateColumns='1fr 1fr 1fr' // Define 3 columns with equal width
+            gridTemplateColumns='1fr 1fr 1fr 0.5fr' // Define 3 columns with equal width
             gap='15px'
             borderBottom={`4px solid ${colors.primary[400]}`}
             p='15px'
@@ -61,6 +75,10 @@ const DetalhesServicos = () => {
             {/* Coluna do horário da parte da tarde */}
             <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px' width='150px' textAlign='center'>
               {`${service.openLunch} / ${service.close}`}
+            </Box>
+            {/* Progress Circle para ter visualmente a informação de há quanto tempo está aberto e quanto tempo falta para fechar */}
+            <Box p='5px 10px' borderRadius='4px' width='150px' align='center'>
+              <ProgressCircle progress={calcHoursClose()} size='40'/>
             </Box>
           </Box>
         ))}
