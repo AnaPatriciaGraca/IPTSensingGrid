@@ -791,3 +791,28 @@ export const dadosFuncionarios = [
   },
 ];
 
+
+// Create an async function to make the fetch request
+async function fetchData() {
+  try {
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/buildings?function_ne=Salas de Aula', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; // Rethrow the error for handling in the calling code
+  }
+}
+
+// Call the async function to fetch data and store it in a variable
+export const buildings = fetchData();
+

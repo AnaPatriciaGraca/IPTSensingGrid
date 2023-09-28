@@ -12,7 +12,8 @@ import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
 import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
-import Mapa from './scenes/mapa'
+import MapaTomar from './scenes/mapaTomar'
+import MapaAbrantes from './scenes/mapaAbrantes'
 import DetalhesServicos from './scenes/detalhesServicos'
 import EstatisticasSalas from './scenes/estatisticasSalas'
 import ReservasSalas from './scenes/reservasSalas'
@@ -39,9 +40,11 @@ function App() {
             <Topbar />
             <Routes>
               <Route path="/" element={<DashboardTest />} />
-              <Route path="/mapa" element={<Mapa />} />
+
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}
+              <Route path="/mapaTomar" element={<MapaTomar />} />
+              <Route path="/mapaAbrantes" element={<MapaAbrantes />} />
               {/* Sensores */}
               <Route path="/temperature" element={<Temperature />} />
               <Route path="/noise" element={<Noise />} />

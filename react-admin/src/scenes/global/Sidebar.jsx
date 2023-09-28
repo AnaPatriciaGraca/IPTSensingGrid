@@ -157,21 +157,14 @@ const SideBar = () => {
             <SubMenu variant="h6" label="Mapa" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Tomar"
-                to="/mapa"
+                to="/mapaTomar"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Abrantes"
-                to="/Abrantes"
-                icon={<PeopleOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Outros"
-                to="/outros"
+                to="/mapaAbrantes"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
