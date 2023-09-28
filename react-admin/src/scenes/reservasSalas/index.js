@@ -4,8 +4,8 @@ import { tokens } from '../../theme'
 import { useTheme } from '@mui/material'
 import Autocomplete from '@mui/material/Autocomplete'
 import { useState, useEffect } from 'react'
-import AvailableRooms from '../../components/AvailableRooms'
 import React from 'react';
+import Rooms from '../../components/Rooms'
 
 // const phoneRegExp = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
@@ -51,9 +51,9 @@ const ReservasSalas = () => {
 
         {/* Room Form */}
    
-                    <Box display='grid' gap='30px' gridTemplateColumns='repeat(4, minmax(0, 1fr))'>
+                    {/* <Box display='grid' gap='30px' gridTemplateColumns='repeat(4, minmax(0, 1fr))'> */}
                     {/* Span 4 is the entire line */}
-                    <TextField fullWidth variant='filled' 
+                    {/* <TextField fullWidth variant='filled' 
                         type='date' 
                         label='Data' 
                         onChange={(e) => {setReservDate(e.target.value);}}
@@ -111,21 +111,23 @@ const ReservasSalas = () => {
                         
                     />
 
-                    </Box>
+                    </Box> */}
 
-        <Box display='flex' justifyContent='end' mt='20px'>
+        {/* <Box display='flex' justifyContent='end' mt='20px'>
             <Button onClick={handleFormSubmit} color='secondary' variant='contained'>
                 Pesquisar
             </Button>
-        </Box>
+        </Box> */}
 
-        { showAvailableRooms && <AvailableRooms
+        {/* { showAvailableRooms && <AvailableRooms
             reservDate={reservDate}
             polo={polo}
             bloco={bloco}
             capacity={capacity}
             projector={projector}
-        />}
+        />} */}
+
+        <Rooms />
         
         
     </Box>
