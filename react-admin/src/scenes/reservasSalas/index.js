@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material'
 import Autocomplete from '@mui/material/Autocomplete'
 import { useState, useEffect } from 'react'
 import React from 'react';
-import Rooms from '../../components/Rooms'
+import SearchRooms from '../../components/SearchRooms'
 
 // const phoneRegExp = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
@@ -127,7 +127,7 @@ const ReservasSalas = () => {
             projector={projector}
         />} */}
 
-        <Rooms />
+        <SearchRooms />
         
         
     </Box>

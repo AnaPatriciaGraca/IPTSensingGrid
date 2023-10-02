@@ -1,9 +1,9 @@
-import { Box, Typography, MenuItem, Select, TextField, Button, Grid } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid'
+import { Box, Typography, MenuItem, Select, TextField, Button, Grid, InputLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { tokens } from '../theme';
 import { useTheme } from '@mui/material';
 import { fetchRoomsData } from '../data/getData'; // Import the function
+import SearchResult from './SearchResult';
 
 const Rooms = () => {
     const theme = useTheme();
@@ -11,7 +11,6 @@ const Rooms = () => {
     const [rooms, setRooms] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchName, setSearchName] = useState('');
-    const [searchType, setSearchType] = useState('');
     const [searchFunction, setSearchFunction] = useState('');
     const [searchProjector, setSearchProjector] = useState('')
     const [searchMaxCapacity, setSearchMaxCapacity] = useState('');
@@ -41,10 +40,6 @@ const Rooms = () => {
     const roomNameOptions = Array.from(new Set(rooms.filter((room) => room.name && room.name.length > 0).map((room) => room.name)))
     const roomFunctionOptions = Array.from(new Set(rooms.filter((room) => room.function && room.function.length > 0).map((room) => room.function)))
     const roomProjectorOptions = [0, 1, 2]
-    const roomCapacityOptions = Array.from(new Set(rooms.filter((room) => room.name && room.maxCapacity.length > 0).map((room) => room.maxCapacity)))
-
-
-      
 
 
     //handle search - ignores the fields that aren't filled
@@ -65,12 +60,10 @@ const Rooms = () => {
 
     return (
         <Box p={3}>
-            <Typography variant="h4" gutterBottom>
-                Search Rooms
-            </Typography>
                 <Box mb={2}>
                     <Grid container spacing={2}>
                     <Grid item xs={6}>
+                    <InputLabel htmlFor="search-name">Nome da Sala</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
@@ -82,7 +75,7 @@ const Rooms = () => {
                                 id: 'name-select',
                             }}
                         >
-                            <MenuItem value="">None</MenuItem> {/* Add an empty option */}
+                            <MenuItem value="">None</MenuItem> 
                             {roomNameOptions.map((name) => (
                                 <MenuItem key={name} value={name}>
                                     {name}
@@ -92,6 +85,7 @@ const Rooms = () => {
                     </Grid>
                  
                     <Grid item xs={6}>
+                    <InputLabel htmlFor="search-function">Função da Sala</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
@@ -112,6 +106,7 @@ const Rooms = () => {
                         </Select>
                     </Grid>
                     <Grid item xs={6}>
+                    <InputLabel htmlFor="search-projectors">Quantidade de Projetores</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
@@ -132,45 +127,51 @@ const Rooms = () => {
                         </Select>
                     </Grid>
                     <Grid item xs={6}>
+                    <InputLabel htmlFor="search-function">Capacidade da Sala</InputLabel>
                         <TextField
                         fullWidth
                         // options={roomMaxCapacityOptions}
                         variant="outlined"
-                        label="Max Capacity"
+                        label=""
                         value={searchMaxCapacity}
                         onChange={(e) => setSearchMaxCapacity(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={6}>
+                    <InputLabel htmlFor="search-function">Ocupada ou Desocupada</InputLabel>
                         <TextField
                         fullWidth
                         variant="outlined"
-                        label="Is Occupied"
+                        label=""
                         value={searchIsOccupied}
                         onChange={(e) => setSearchIsOccupied(e.target.value)}
                         />
                     </Grid>
-                    <Grid item xs={6}>
-                        <Button
+                    <Grid item xs={6} mt="20px">
+                        <Button sx={{
+                            color: colors.blueAccent[900],
+                            background: colors.greenAccent[400],
+                            height: '50px',
+                            fontWeight: 'bold'
+                        }}
                         fullWidth
                         variant="contained"
-                        color="primary"
                         onClick={handleSearch}
                         >
-                        Search
+                            Pesquisar
                         </Button>
                     </Grid>
                     </Grid>
                 </Box>
                 <Box mt={2}>
-                    <Typography variant="h6">Search Results:</Typography>
-                    <ul>
+                    {/* <ul>
                     {filteredRooms.map((room) => (
                         <li key={room.id}>
                         {room.name} - {room.projector} - {room.isOccupied}
                         </li>
                     ))}
-                    </ul>
+                    </ul> */}
+                    <SearchResult data={filteredRooms}/>
                 </Box>
             </Box>
         )
