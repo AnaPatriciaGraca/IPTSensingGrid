@@ -7,7 +7,7 @@ import { useState } from 'react';
 const SearchResult = ({data}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [isDialogOpen, setIsDialogOpen] = useState('')
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [selectedRoom, setSelectedRoom] = useState('')
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
@@ -37,6 +37,11 @@ const SearchResult = ({data}) => {
             cursor: 'pointer', 
           },
     }));
+
+    //see if room is occupied or not
+    const mapIsOccupied = (value) => {
+        return value === 1 ? 'Não disponível' : 'Disponível';
+    };
 
     //event when I click a Room (row)
     const handleRowClick = (room) => {
@@ -78,7 +83,7 @@ const SearchResult = ({data}) => {
                         <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
                         <StyledTableCell align="center">{row.projector}</StyledTableCell>
                         <StyledTableCell align="center">{row.maxCapacity}</StyledTableCell>
-                        <StyledTableCell align="center">{row.isOccupied}</StyledTableCell>
+                        <StyledTableCell align="center">{mapIsOccupied(row.isOccupied)}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                     </TableBody>

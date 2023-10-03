@@ -4,6 +4,7 @@ import { tokens } from '../theme';
 import { useTheme } from '@mui/material';
 import { fetchRoomsData } from '../data/getData'; // Import the function
 import SearchResult from './SearchResult';
+import { type } from '@testing-library/user-event/dist/type';
 
 const Rooms = () => {
     const theme = useTheme();
@@ -36,32 +37,47 @@ const Rooms = () => {
     if (isLoading) {
         return <Typography>Loading...</Typography>;
     }
+    //is room occiped or not
+    const mapIsOccupied = (value) => {
+        return value === 1 ? 'Não disponível' : 'Disponível';
+    };
 
     const roomNameOptions = Array.from(new Set(rooms.filter((room) => room.name && room.name.length > 0).map((room) => room.name)))
     const roomFunctionOptions = Array.from(new Set(rooms.filter((room) => room.function && room.function.length > 0).map((room) => room.function)))
     const roomProjectorOptions = [0, 1, 2]
 
-
     //handle search - ignores the fields that aren't filled
     const handleSearch = () => {
         const filtered = rooms.filter((room) => {
-            
-            return (
-                (!searchName || String(room.name).toLowerCase().includes(searchName.toLowerCase())) &&
-                (!searchFunction || String(room.function).toLowerCase().includes(searchFunction.toLowerCase())) &&
-                (!searchProjector || room.projector.toString().includes(searchProjector)) &&
-                (!searchMaxCapacity || room.maxCapacity.toString().includes(searchMaxCapacity)) &&
-                (!searchIsOccupied || room.isOccupied.toString().includes(searchIsOccupied))
-            );
+            const isNameMatch = !searchName || String(room.name).toLowerCase().includes(searchName.toLowerCase());
+            const isFunctionMatch = !searchFunction || String(room.function).toLowerCase().includes(searchFunction.toLowerCase());
+            //equal or higher relative to the value searched
+            const isProjectorMatch =
+                searchProjector === '' || searchProjector === undefined
+                    ? true // If searchProjector is empty or undefined, don't filter based on projector
+                    : room.projector >= parseInt(searchProjector); // Parse searchProjector to integer and filter
+            //equal or higher relative to the value searched
+            const isMaxCapacityMatch =
+                searchMaxCapacity === '' || searchMaxCapacity === undefined
+                    ? true // If searchMaxCapacity is empty or undefined, don't filter based on maxCapacity
+                    : room.maxCapacity >= parseInt(searchMaxCapacity); // Parse searchMaxCapacity to integer and filter
+            //deal with no value search
+            const isOccupancyMatch =
+                searchIsOccupied === '' || searchIsOccupied === undefined ? true : room.isOccupied === parseInt(searchIsOccupied); // Parse searchIsOccupied to integer
+            return isNameMatch && isFunctionMatch && isProjectorMatch && isMaxCapacityMatch && isOccupancyMatch;
         });
+    
         setFilteredRooms(filtered);
     };
+    
+    
     
 
     return (
         <Box p={3}>
                 <Box mb={2}>
                     <Grid container spacing={2}>
+                        {/* Field for name of room */}
                     <Grid item xs={6}>
                     <InputLabel htmlFor="search-name">Nome da Sala</InputLabel>
                         <Select
@@ -83,9 +99,9 @@ const Rooms = () => {
                             ))}
                         </Select>
                     </Grid>
-                 
+                    {/* Field for function fo the room */}
                     <Grid item xs={6}>
-                    <InputLabel htmlFor="search-function">Função da Sala</InputLabel>
+                        <InputLabel htmlFor="search-function">Função da Sala</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
@@ -105,8 +121,9 @@ const Rooms = () => {
                             ))}
                         </Select>
                     </Grid>
+                    {/* Filter for quantity of projectors */}
                     <Grid item xs={6}>
-                    <InputLabel htmlFor="search-projectors">Quantidade de Projetores</InputLabel>
+                        <InputLabel htmlFor="search-projectors">Quantidade de Projetores</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
@@ -126,8 +143,9 @@ const Rooms = () => {
                             ))}
                         </Select>
                     </Grid>
+                    {/* Filter for max Capacity of room */}
                     <Grid item xs={6}>
-                    <InputLabel htmlFor="search-function">Capacidade da Sala</InputLabel>
+                        <InputLabel htmlFor="search-function">Capacidade da Sala</InputLabel>
                         <TextField
                         fullWidth
                         // options={roomMaxCapacityOptions}
@@ -137,16 +155,22 @@ const Rooms = () => {
                         onChange={(e) => setSearchMaxCapacity(e.target.value)}
                         />
                     </Grid>
+                    {/* Field for occupied room */}
                     <Grid item xs={6}>
-                    <InputLabel htmlFor="search-function">Ocupada ou Desocupada</InputLabel>
-                        <TextField
+                        <InputLabel htmlFor="search-function">Disponibilidade</InputLabel>
+                        <Select
                         fullWidth
                         variant="outlined"
                         label=""
                         value={searchIsOccupied}
                         onChange={(e) => setSearchIsOccupied(e.target.value)}
-                        />
+                        >
+                        <MenuItem value="">All</MenuItem>
+                        <MenuItem value={1}>{mapIsOccupied(1)}</MenuItem>
+                        <MenuItem value={0}>{mapIsOccupied(0)}</MenuItem>
+                        </Select>
                     </Grid>
+                    {/* Search button */}
                     <Grid item xs={6} mt="20px">
                         <Button sx={{
                             color: colors.blueAccent[900],
@@ -164,13 +188,7 @@ const Rooms = () => {
                     </Grid>
                 </Box>
                 <Box mt={2}>
-                    {/* <ul>
-                    {filteredRooms.map((room) => (
-                        <li key={room.id}>
-                        {room.name} - {room.projector} - {room.isOccupied}
-                        </li>
-                    ))}
-                    </ul> */}
+                    {/* Results from search */}
                     <SearchResult data={filteredRooms}/>
                 </Box>
             </Box>
