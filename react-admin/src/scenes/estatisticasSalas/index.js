@@ -1,10 +1,13 @@
 import { Box, Button, useTheme, Typography } from '@mui/material'
+import { useEffect, useState } from 'react';
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
-import TreeChart from '../../components/TreeChart'
+import FreeRoomData from '../../data/FreeRoomData'
 import TotalFreeRooms from '../../components/TotalFreeRooms'
 import { events } from '../../data/testData'
+import { fetchRoomsData } from '../../data/getData';
+import ConfirmationDialog from '../../components/ConfirmationDialog';
 
 //icons
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
@@ -18,10 +21,98 @@ const EstatisticasSalas = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
+    const [rooms, setRooms] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
+    const [occupiedRooms, setOccupiedRooms] = useState('')
+    const [occupiedRoomsPer, setOccupiedRoomsPer] = useState(0)
+    const [occupiedLab, setOccupiedLab] = useState('')
+    const [occupiedLabPer, setOccupiedLabPer] = useState(0)
+    const [occupiedClass, setOccupiedClass] = useState('')
+    const [occupiedClassPer, setOccupiedClassPer] = useState(0)
+    const [occupiedOther, setOccupiedOther] = useState('')
+    const [occupiedOtherPer, setOccupiedOtherPer] = useState(0)
 
+    //navigation to the other page
     const handleButtonClick = () => {
         navigate('/reservasSalas');
-      }
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const data = await fetchRoomsData(); // Call the function from getData.js
+            setRooms(data);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+        }
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        calcTotalRoomsOccupied();
+    }, [rooms]);
+
+    const handleCloseDialog = () => {
+        setIsConfirmationOpen(false);
+            
+    }; 
+
+    //total of occupied rooms
+    const calcTotalRoomsOccupied = () => {
+        let countTotalOccupied = 0
+        let countTotalSalaAula = 0
+        let countTotalLabs = 0
+        let countTotalOther = 0 
+        let countSalaAula = 0
+        let countLabs = 0
+        let countOther = 0 
+        for (const room of rooms) {
+            if (String(room.function).toLocaleLowerCase().includes('sala de aula')) {
+                countTotalSalaAula++
+                if(room.isOccupied){
+                    countSalaAula++
+                }
+                room.function = 'sala de aula'
+            } else if (String(room.function).toLocaleLowerCase().includes('laboratório')) {
+                countTotalLabs++
+                if(room.isOccupied){
+                    countLabs++
+                }
+                room.function = "laboratório"
+            } else {
+                countTotalOther++
+                if(room.isOccupied){
+                   countOther++ 
+                }
+                room.function = 'outro'
+            }
+            
+        }
+        countTotalOccupied = countSalaAula + countLabs + countOther
+        setOccupiedRooms(countTotalOccupied)
+        setOccupiedRoomsPer(countTotalOccupied/rooms.length)
+        setOccupiedClass(countSalaAula)
+        setOccupiedClassPer(countSalaAula/rooms.length)
+        setOccupiedLab(countLabs)
+        setOccupiedLabPer(countLabs/rooms.length)
+        setOccupiedOther(countOther)
+        setOccupiedOtherPer(countOther/rooms.length)
+    }
+    
+      //pop-up enquanto os dados carregam
+      if (isLoading) {
+        return <ConfirmationDialog
+                isOpen={isConfirmationOpen}
+                onClose={handleCloseDialog}
+                phrase="Aguarde enquanto os dados são carregados"
+                />;
+    }
+    
 
     return (
         <Box m='20px'>
@@ -47,38 +138,38 @@ const EstatisticasSalas = () => {
                 {/* ROW 1 */}
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Ocupação: 83' 
+                        title={`Ocupação: ${occupiedRooms}`}
                         subtitle='Total das Salas'
-                        progress='0.75'
-                        increase='75%'
+                        progress={occupiedRoomsPer}
+                        increase={Math.floor(occupiedRoomsPer * 100)+'%'}
                         icon={<SchoolOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Ocupação: 20' 
+                        title={`Ocupação: ${occupiedLab}`}
                         subtitle='Total das Salas Técnicas'
-                        progress='0.30'
-                        increase='30%'
+                        progress={occupiedLabPer}
+                        increase={Math.floor(occupiedLabPer * 100)+'%'}
                         icon={<ScienceOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Ocupação: 32' 
+                        title={`Ocupação: ${occupiedClass}`}
                         subtitle='Total das Salas Teóricas'
-                        progress='0.35'
-                        increase='35%'
+                        progress={occupiedClassPer}
+                        increase={Math.floor(occupiedClassPer * 100)+'%'}
                         icon={<ContactsOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
 
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Ocupação: 8' 
+                        title={`Ocupação: ${occupiedOther}`} 
                         subtitle='Total das Outras Salas'
-                        progress='0.05'
-                        increase='5%'
+                        progress={occupiedOtherPer}
+                        increase={Math.floor(occupiedOtherPer * 100)+'%'}
                         icon={<DesignServicesOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
@@ -123,7 +214,7 @@ const EstatisticasSalas = () => {
                         </Box>
                     </Box>
                     <Box height='250px' mt='-20px'>
-                        <TreeChart/>
+                        <FreeRoomData data={rooms}/>
                     </Box>
                 </Box>
 
@@ -174,10 +265,6 @@ const EstatisticasSalas = () => {
                         </Box>
                     ))}
                     </Box>
-
-
-
-
 
             </Box>
         </Box>

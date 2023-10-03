@@ -1,17 +1,16 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/treemap
 import { ResponsiveTreeMap } from '@nivo/treemap'
-import { freeRooms as data } from '../data/testData'
 import { tokens } from '../theme'
 import { useTheme } from '@mui/material'
 
-const TreeChart = () => {
+const TreeChart = ({data}) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const colorsChart = {
-        "teóricas": colors.greenAccent[300],
-        "técnicas": colors.greenAccent[600],
-        "outras": colors.greenAccent[800]
+        "sala de aula": colors.greenAccent[300],
+        "laboratório": colors.greenAccent[600],
+        "outro": colors.greenAccent[800]
       };
 
     //changing the colors for the squares in the chart

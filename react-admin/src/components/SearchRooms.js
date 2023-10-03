@@ -1,46 +1,57 @@
-import { Box, Typography, MenuItem, Select, TextField, Button, Grid, InputLabel } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { tokens } from '../theme';
-import { useTheme } from '@mui/material';
-import { fetchRoomsData } from '../data/getData'; // Import the function
-import SearchResult from './SearchResult';
-import { type } from '@testing-library/user-event/dist/type';
+import { Box, Typography, MenuItem, Select, TextField, Button, Grid, InputLabel } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { tokens } from '../theme'
+import { useTheme } from '@mui/material'
+import { fetchRoomsData } from '../data/getData' // Import the function
+import SearchResult from './SearchResult'
+import ConfirmationDialog from './ConfirmationDialog'
 
 const Rooms = () => {
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const colors = tokens(theme.palette.mode)
     const [rooms, setRooms] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [searchName, setSearchName] = useState('');
-    const [searchFunction, setSearchFunction] = useState('');
+    const [isLoading, setIsLoading] = useState(true)
+    const [searchName, setSearchName] = useState('')
+    const [searchFunction, setSearchFunction] = useState('')
     const [searchProjector, setSearchProjector] = useState('')
-    const [searchMaxCapacity, setSearchMaxCapacity] = useState('');
-    const [searchIsOccupied, setSearchIsOccupied] = useState('');
-    const [filteredRooms, setFilteredRooms] = useState([]);
+    const [searchMaxCapacity, setSearchMaxCapacity] = useState('')
+    const [searchIsOccupied, setSearchIsOccupied] = useState('')
+    const [filteredRooms, setFilteredRooms] = useState([])
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
     //Get the data from the API
     useEffect(() => {
         async function fetchData() {
         try {
-            const data = await fetchRoomsData(); // Call the function from getData.js
-            setRooms(data);
-            setIsLoading(false);
+            const data = await fetchRoomsData() // Call the function from getData.js
+            setRooms(data)
+            setIsLoading(false)
         } catch (error) {
-            console.error('Error fetching data:', error);
-            throw error;
+            console.error('Error fetching data:', error)
+            throw error
         }
         }
 
         fetchData();
     }, []);
 
+    const handleCloseDialog = () => {
+        setIsConfirmationOpen(false);
+            
+    }; 
+
+    //pop-up enquanto os dados carregam
     if (isLoading) {
-        return <Typography>Loading...</Typography>;
+        return <ConfirmationDialog
+                isOpen={isConfirmationOpen}
+                onClose={handleCloseDialog}
+                phrase="Aguarde enquanto os dados são carregados"
+                />;
     }
     //is room occiped or not
     const mapIsOccupied = (value) => {
-        return value === 1 ? 'Não disponível' : 'Disponível';
-    };
+        return value === 1 ? 'Não disponível' : 'Disponível'
+    }
 
     const roomNameOptions = Array.from(new Set(rooms.filter((room) => room.name && room.name.length > 0).map((room) => room.name)))
     const roomFunctionOptions = Array.from(new Set(rooms.filter((room) => room.function && room.function.length > 0).map((room) => room.function)))
@@ -49,8 +60,8 @@ const Rooms = () => {
     //handle search - ignores the fields that aren't filled
     const handleSearch = () => {
         const filtered = rooms.filter((room) => {
-            const isNameMatch = !searchName || String(room.name).toLowerCase().includes(searchName.toLowerCase());
-            const isFunctionMatch = !searchFunction || String(room.function).toLowerCase().includes(searchFunction.toLowerCase());
+            const isNameMatch = !searchName || String(room.name).toLowerCase().includes(searchName.toLowerCase())
+            const isFunctionMatch = !searchFunction || String(room.function).toLowerCase().includes(searchFunction.toLowerCase())
             //equal or higher relative to the value searched
             const isProjectorMatch =
                 searchProjector === '' || searchProjector === undefined
@@ -63,11 +74,11 @@ const Rooms = () => {
                     : room.maxCapacity >= parseInt(searchMaxCapacity); // Parse searchMaxCapacity to integer and filter
             //deal with no value search
             const isOccupancyMatch =
-                searchIsOccupied === '' || searchIsOccupied === undefined ? true : room.isOccupied === parseInt(searchIsOccupied); // Parse searchIsOccupied to integer
-            return isNameMatch && isFunctionMatch && isProjectorMatch && isMaxCapacityMatch && isOccupancyMatch;
+                searchIsOccupied === '' || searchIsOccupied === undefined ? true : room.isOccupied === parseInt(searchIsOccupied) // Parse searchIsOccupied to integer
+            return isNameMatch && isFunctionMatch && isProjectorMatch && isMaxCapacityMatch && isOccupancyMatch
         });
     
-        setFilteredRooms(filtered);
+        setFilteredRooms(filtered)
     };
     
     

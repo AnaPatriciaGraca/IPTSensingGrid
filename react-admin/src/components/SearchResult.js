@@ -3,6 +3,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { tokens } from '../theme';
 import { useTheme } from '@mui/material';
 import { useState } from 'react';
+import ConfirmationDialog from './ConfirmationDialog';
 
 const SearchResult = ({data}) => {
     const theme = useTheme();
@@ -56,7 +57,7 @@ const SearchResult = ({data}) => {
     
     //close pop ups
     const handleCloseDialog = () => {
-        setSelectedRoom(null);
+        setSelectedRoom('');
         setIsDialogOpen(false);
         setIsConfirmationOpen(false);
             
@@ -133,34 +134,11 @@ const SearchResult = ({data}) => {
             </Dialog>
 
             {/* Pop up to confirm the reserve */}
-            <Dialog open={isConfirmationOpen} onClose={handleCloseDialog}>
-                <DialogTitle color={colors.greenAccent[400]} fontWeight='bold' fontSize={16}>Confirmação</DialogTitle>
-                <DialogContent>
-                    {selectedRoom && (
-                    <Typography>
-                        Sala {selectedRoom.name} foi reservada
-                    </Typography>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        onClick={handleCloseDialog}
-                        color="primary"
-                        sx={{
-                            background: colors.greenAccent[400],
-                            fontWeight: 'bold',
-                            fontSize: 12,
-                            '&:hover': {
-                            background: colors.greenAccent[600], 
-                            },
-                        }}
-                    >
-                        OK
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-
+            <ConfirmationDialog
+                isOpen={isConfirmationOpen}
+                onClose={handleCloseDialog}
+                phrase={`A sala ${selectedRoom.name} foi reservada`} 
+            />
 
         </Box>
         
