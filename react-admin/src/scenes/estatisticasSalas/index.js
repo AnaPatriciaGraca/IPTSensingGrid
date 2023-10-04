@@ -4,7 +4,8 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import FreeRoomData from '../../data/FreeRoomData'
-import TotalFreeRooms from '../../components/TotalFreeRooms'
+import UsedRoomData from '../../data/UsedRoomData';
+import TotalOccupiedRooms from '../../components/TotalFreeRooms'
 import { events } from '../../data/testData'
 import { fetchRoomsData } from '../../data/getData';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
@@ -22,6 +23,7 @@ const EstatisticasSalas = () => {
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
     const [rooms, setRooms] = useState([])
+    const [usedRooms, setUsedRooms] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const [occupiedRooms, setOccupiedRooms] = useState('')
@@ -232,7 +234,9 @@ const EstatisticasSalas = () => {
                         </Box>
                         
                     </Box>
-                    <TotalFreeRooms isDashboard={true}/>
+                    <UsedRoomData rooms={rooms}/>
+                    {/* <TotalOccupiedRooms isDashboard={true}/> */}
+
                 </Box>
 
                 <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]} overflow='auto' >

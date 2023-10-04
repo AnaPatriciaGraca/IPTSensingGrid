@@ -1,11 +1,13 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { usedRooms as data } from "../data/testData";
+import { usedRooms as data2 } from "../data/testData";
 
-const TotalFreeRooms = ({ isDashboard }) => {
+const TotalOccupiedRooms = ({ isDashboard, data }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // console.log("data: ", data) 
 
   return (
     <ResponsiveBar
@@ -43,7 +45,7 @@ const TotalFreeRooms = ({ isDashboard }) => {
         },
         },
     }}
-      keys={["teóricas", "técnicas", "outros", 'práticas']}
+      keys={["outro", "laboratório", "sala de aula"]}
       indexBy="bloco"
       margin={{ top: 5, right: 130, bottom: 150, left: 60 }}
       padding={0.3}
@@ -111,4 +113,4 @@ const TotalFreeRooms = ({ isDashboard }) => {
   );
 };
 
-export default TotalFreeRooms;
+export default TotalOccupiedRooms;
