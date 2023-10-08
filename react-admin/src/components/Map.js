@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus';
 // import { buildings } from '../../data/testData';
 
-function Map({ location }) {
+function Map({ location, locationTitle }) {
 
     const [position, setPosition] = useState(location);
     const customIcon = new L.Icon({
@@ -15,6 +16,8 @@ function Map({ location }) {
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
       });
+
+     
 //   console.log(buildings)
 
   return (
@@ -30,6 +33,10 @@ function Map({ location }) {
 
                 {/* Getting location of the user */}
                 {/* <MapEvents setPosition={setPosition} /> */}
+
+                {/* Conditionally render OverlayTomarCampus */}
+                {locationTitle === 'Tomar' && <OverlayTomarCampus />}
+                
             </MapContainer>
         </Box>
   );

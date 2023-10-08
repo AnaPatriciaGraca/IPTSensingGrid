@@ -55,7 +55,7 @@ const UsedRoomData = ({ rooms }) => {
       }
     };
 
-    // Call the function to process data when the 'rooms' prop changes
+    
     processData();
   }, [rooms]);
 

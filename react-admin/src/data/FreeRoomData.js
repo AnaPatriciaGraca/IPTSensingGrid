@@ -53,6 +53,8 @@ const FreeRoomChart = ({ data }) => {
     processData();
   }, [data]);
 
+  // console.log(1)
+
   return <TreeChart data={freeRooms} />;
 };
 

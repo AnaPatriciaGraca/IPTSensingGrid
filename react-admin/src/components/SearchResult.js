@@ -66,6 +66,7 @@ const SearchResult = ({data}) => {
     return (
         <Box mt='40px'>
             <Typography mb='10px' variant="h6">Resultados da Pesquisa:</Typography>
+            {/* COnstruction of the table to show the results */}
             <TableContainer>
                 <Table sx={{ minWidth: 700}} aria-label="customized table">
                     <TableHead >
@@ -114,7 +115,7 @@ const SearchResult = ({data}) => {
                             },
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </Button>
                     <Button
                         onClick={handleReserve}
@@ -128,7 +129,7 @@ const SearchResult = ({data}) => {
                             },
                         }}
                     >
-                        Reserve
+                        Reservar
                     </Button>
                 </DialogActions>
             </Dialog>

@@ -10,8 +10,8 @@ function MapaAbrantes() {
     const location = [39.460625, -8.198494]
     return (
         <Box m='20px'>
-            <Header title="Abrantes" subtitle="Mapa do polo de Abrantes"/>
-            <Map location={location}/>
+            <Header title="Abrantes" subtitle="Em desenvolvimento"/>
+            <Map location={location} locationTitle="Abrantes"/>
         </Box>
     )
 }

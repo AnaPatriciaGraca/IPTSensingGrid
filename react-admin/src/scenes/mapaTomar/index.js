@@ -11,7 +11,7 @@ function MapaTomar() {
     return (
         <Box m='20px'>
             <Header title="Tomar" subtitle="Mapa do polo de Tomar"/>
-            <Map location={location}/>
+            <Map location={location} locationTitle="Tomar"/>
         </Box>
     )
 }

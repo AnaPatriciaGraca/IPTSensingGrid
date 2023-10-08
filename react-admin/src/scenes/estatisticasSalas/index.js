@@ -235,7 +235,6 @@ const EstatisticasSalas = () => {
                         
                     </Box>
                     <UsedRoomData rooms={rooms}/>
-                    {/* <TotalOccupiedRooms isDashboard={true}/> */}
 
                 </Box>
 
