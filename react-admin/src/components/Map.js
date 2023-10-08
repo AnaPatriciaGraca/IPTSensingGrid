@@ -1,24 +1,49 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus';
-// import { buildings } from '../../data/testData';
+import React, { useState, useEffect } from 'react'
+import { Box } from '@mui/material'
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus'
+import { useLocation } from 'react-router-dom'
+import LocationRoom from './LocationRoom'
 
 function Map({ location, locationTitle }) {
+    const { state } = useLocation();
+    //used when I click on the show on map in the page to reserve the room
+    const room = state ? state.selectedRoom : null;
+    //position of the map when rendered
+    const [position, setPosition] = useState(location)
 
-    const [position, setPosition] = useState(location);
+    //get center of polygon drawn on map
+    useEffect(() => {
+      let centerX = location[0];
+      let centerY = location[1];
+      if (room && room.location && room.location.coordinates) {
+        const coordinates = room.location.coordinates[0]; //outer ring coordinates
+        let totalLat = 0;
+        let totalLng = 0;
+    
+        for (const coordinate of coordinates) {
+          totalLat += coordinate[1]; // Latitude
+          totalLng += coordinate[0]; // Longitude
+        }
+    
+        //average latitude and longitude
+        const numPoints = coordinates.length;
+        centerX = totalLng / numPoints;
+        centerY = totalLat / numPoints;
+      }
+      setPosition([centerX, centerY]); 
+      
+    }, [room, location]);
+
     const customIcon = new L.Icon({
         iconUrl: markerIcon,
         iconSize: [25, 41],
-        iconAnchor: [12, 41],
+        iconAnchor: [12, 45],
         popupAnchor: [1, -34],
-      });
-
-     
-//   console.log(buildings)
+      })
 
   return (
         <Box style={{ height: '600px', width: '1000px', margin: '0 auto' }}>
@@ -29,13 +54,16 @@ function Map({ location, locationTitle }) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
-                <Marker position={position} icon={customIcon} />
+
+                {/* Conditionally render OverlayTomarCampus */}
+                {locationTitle === 'Tomar' && <OverlayTomarCampus />}
+                {/* room square */}
+                {room != null && <LocationRoom  room={room}/>} 
 
                 {/* Getting location of the user */}
                 {/* <MapEvents setPosition={setPosition} /> */}
 
-                {/* Conditionally render OverlayTomarCampus */}
-                {locationTitle === 'Tomar' && <OverlayTomarCampus />}
+                
                 
             </MapContainer>
         </Box>

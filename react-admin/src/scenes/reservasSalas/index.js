@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import Header from '../../components/Header'
 import React from 'react';
-import SearchRooms from '../../components/SearchRooms'
+import SearchRooms from './SearchRooms'
 
 // const phoneRegExp = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 

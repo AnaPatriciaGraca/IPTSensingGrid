@@ -1,10 +1,10 @@
 import { Box, Typography, MenuItem, Select, TextField, Button, Grid, InputLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { tokens } from '../theme'
+import { tokens } from '../../theme'
 import { useTheme } from '@mui/material'
-import { fetchRoomsData } from '../data/getData' // Import the function
+import { fetchRoomsData } from '../../data/getData' // Import the function
 import SearchResult from './SearchResult'
-import ConfirmationDialog from './ConfirmationDialog'
+import ConfirmationDialog from '../../components/ConfirmationDialog'
 
 const Rooms = () => {
     const theme = useTheme();

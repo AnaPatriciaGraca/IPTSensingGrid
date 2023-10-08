@@ -1,17 +1,23 @@
 import { Box, Typography, Table, TableHead, TableBody, styled, TableRow, TableContainer, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material'
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { tokens } from '../theme';
-import { useTheme } from '@mui/material';
-import { useState } from 'react';
-import ConfirmationDialog from './ConfirmationDialog';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell'
+import { tokens } from '../../theme'
+import { useTheme } from '@mui/material'
+import { useState } from 'react'
+import ConfirmationDialog from '../../components/ConfirmationDialog'
+import Map from '../../components/Map'
+import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const SearchResult = ({data}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const locationTomar = [39.599700, -8.39070]
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [selectedRoom, setSelectedRoom] = useState('')
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+    const navigate = useNavigate();
 
+    //styles for the results of the search (table)
     const StyledTableCell = styled(TableCell)(() => ({
         [`&.${tableCellClasses.head}`]: {
           backgroundColor: colors.blueAccent[400],
@@ -24,16 +30,15 @@ const SearchResult = ({data}) => {
         },
     }));
       
+    //styles for the results of the search (rows of the table)
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
           backgroundColor: theme.palette.action.hover,
         },
-        // hide last border
         '&:last-child td, &:last-child th': {
           border: 0,
         },
         '&:hover': {
-            // Add your hover styles here
             backgroundColor: colors.primary[300], 
             cursor: 'pointer', 
           },
@@ -63,6 +68,12 @@ const SearchResult = ({data}) => {
             
     }; 
 
+    //handle view fo room on map
+    const handleViewMapClick = () => {
+        setIsDialogOpen(false);
+        navigate('/mapaTomar', { state: { selectedRoom } });
+    }
+
     return (
         <Box mt='40px'>
             <Typography mb='10px' variant="h6">Resultados da Pesquisa:</Typography>
@@ -79,6 +90,7 @@ const SearchResult = ({data}) => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
+                    {/* Map the results */}
                     {data.map((row) => (
                         <StyledTableRow key={row.id} onClick={() => handleRowClick(row)}>
                         <StyledTableCell align="left">{row.function}</StyledTableCell>
@@ -116,6 +128,20 @@ const SearchResult = ({data}) => {
                         }}
                     >
                         Cancelar
+                    </Button>
+                    <Button
+                        onClick={handleViewMapClick}
+                        color="primary"
+                        sx={{
+                            background: colors.greenAccent[400],
+                            fontWeight: 'bold',
+                            fontSize: 12,
+                            '&:hover': {
+                            background: colors.greenAccent[600], 
+                            },
+                        }}
+                    >
+                        Ver no Mapa
                     </Button>
                     <Button
                         onClick={handleReserve}
