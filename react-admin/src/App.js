@@ -6,7 +6,7 @@ import Topbar from '../src/scenes/global/Topbar'
 import Sidebar from '../src/scenes/global/Sidebar'
 //Pages
 import Team from '../src/scenes/team'
-import Invoices from '../src/scenes/invoices'
+import DeviceList from './scenes/devices'
 import Contacts from '../src/scenes/contacts'
 import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
@@ -19,7 +19,6 @@ import RoomStats from './scenes/roomStats'
 import RoomReserv from './scenes/roomReserv'
 import WorkerStats from './scenes/workerStats'
 import WorkerSearch from './scenes/workerSearch'
-import Geography from '../src/scenes/geography'
 import Temperature from '../src/scenes/temperature'
 import CurrentClasses from './scenes/currentClasses'
 import Noise from '../src/scenes/noise'
@@ -58,14 +57,14 @@ function App() {
               <Route path="/estatisticasFuncionarios" element={<WorkerStats />} />
               <Route path='/pesquisaFuncionarios' element={<WorkerSearch />} />
               {/* Equipamentos */}
+              <Route path="/listagemEquipamentos" element={<DeviceList />} />
               {/* Outros */}
               <Route path="/team" element={<Team />} />
-              <Route path="/invoices" element={<Invoices />} />
+              
               <Route path="/form" element={<Form />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
         </div>

@@ -4,18 +4,26 @@ import { Box, IconButton, Typography, useTheme } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 // import 'react-pro-sidebar/dist/css/styles.css'
 import { tokens } from '../../theme'
+//icons
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import DomainOutlinedIcon from '@mui/icons-material/DomainOutlined'
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
+import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined'
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined'
 import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
+import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined'
+import ScreenSearchDesktopOutlinedIcon from '@mui/icons-material/ScreenSearchDesktopOutlined'
+import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -159,14 +167,14 @@ const SideBar = () => {
               <Item
                 title="Tomar"
                 to="/mapaTomar"
-                icon={<PeopleOutlinedIcon />}
+                icon={<DomainOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Abrantes"
                 to="/mapaAbrantes"
-                icon={<PeopleOutlinedIcon />}
+                icon={<DomainOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -200,14 +208,14 @@ const SideBar = () => {
               <Item
                 title="Horários"
                 to="/schedulesServices"
-                icon={<SchoolOutlinedIcon />}
+                icon={<CalendarMonthOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Detalhes"
                 to="/detalhesServicos"
-                icon={<SchoolOutlinedIcon />}
+                icon={<HandymanOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -217,14 +225,14 @@ const SideBar = () => {
               <Item
                 title="Estatísticas"
                 to="/estatisticasSalas"
-                icon={<MapOutlinedIcon />}
+                icon={<SchoolOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Reservas"
                 to="/reservasSalas"
-                icon={<MapOutlinedIcon />}
+                icon={<PendingActionsOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -234,21 +242,21 @@ const SideBar = () => {
               <Item
                 title="Estatísticas"
                 to="/estatisticasFuncionarios"
-                icon={<MapOutlinedIcon />}
+                icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Pesquisa"
                 to="/pesquisaFuncionarios"
-                icon={<MapOutlinedIcon />}
+                icon={<PersonSearchOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Horários & Férias"
                 to="/horariosFerias"
-                icon={<MapOutlinedIcon />}
+                icon={<CalendarMonthOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -258,21 +266,21 @@ const SideBar = () => {
               <Item
                 title="Estatísticas"
                 to="/estatisticasEquipamentos"
-                icon={<MapOutlinedIcon />}
+                icon={<DesktopWindowsOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Listagem / Alterações"
                 to="/listagemEquipamentos"
-                icon={<MapOutlinedIcon />}
+                icon={<ScreenSearchDesktopOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Reparações & Problemas"
-                to="/ReparacoesEquipamentos"
-                icon={<MapOutlinedIcon />}
+                to="/reparacoesEquipamentos"
+                icon={<BuildOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -293,14 +301,6 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
-                title="Invoices Balances"
-                to="/invoices"
-                icon={<ReceiptOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
               <Item
                 title="Profile Form"
                 to="/form"

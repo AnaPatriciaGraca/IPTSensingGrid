@@ -4,7 +4,6 @@ import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
 import { topFuncHorario as funcionarios } from '../../data/testData'
-import { useNavigate } from 'react-router-dom'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -16,11 +15,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 const WorkerStats = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const navigate = useNavigate()
-
-    const handleButtonClick = () => {
-        navigate('/pesquisaFuncionarios');
-      }
 
     return (
         <Box m='20px'>

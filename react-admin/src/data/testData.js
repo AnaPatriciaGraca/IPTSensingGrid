@@ -637,28 +637,71 @@ export const dadosFuncionarios = [
   },
 ];
 
+export const devicesList = [
+  {
+    id: 1,
+    name: "Projetor",
+    location: "Tomar",
+    serialNumber: "ABX12345",
+    state: "OK",
+    date: "03/12/2022",
+  },
+  {
+    id: 2,
+    name: "Projetor",
+    location: "Tomar",
+    serialNumber: "XYZ78901",
+    state: "OK",
+    date: "06/15/2021",
+  },
+  {
+    id: 3,
+    name: "Monitor",
+    location: "Tomar",
+    serialNumber: "QWERTY12",
+    state: "OK",
+    date: "05/02/2022",
+  },
+  {
+    id: 4,
+    name: "Projetor",
+    location: "Tomar",
+    serialNumber: "9876PQRS",
+    state: "OK",
+    date: "03/21/2022",
+  },
+  {
+    id: 5,
+    name: "Computador",
+    location: "Tomar",
+    serialNumber: "MNBVCX45",
+    state: "OK",
+    date: "01/12/2021",
+  },
+  {
+    id: 6,
+    name: "Teclado",
+    location: "Tomar",
+    serialNumber: "ZYX98765",
+    state: "OK",
+    date: "11/02/2022",
+  },
+  {
+    id: 7,
+    name: "Monitor",
+    location: "Tomar",
+    serialNumber: "PLK9876T",
+    state: "OK",
+    date: "02/11/2022",
+  },
+  {
+    id: 8,
+    name: "Sensor Estacionameto",
+    location: "Tomar",
+    serialNumber: "1234LKJH",
+    state: "OK",
+    date: "05/02/2021",
+  },
+];
 
-// Create an async function to make the fetch request
-async function fetchData() {
-  try {
-    const response = await fetch('https://smartcampus.ci2.ipt.pt/buildings?function_ne=Salas de Aula', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      },
-    })
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error; // Rethrow the error for handling in the calling code
-  }
-}
-
-// Call the async function to fetch data and store it in a variable
-export const buildings = fetchData();
 

@@ -5,7 +5,6 @@ import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import FreeRoomData from '../../data/FreeRoomData'
 import UsedRoomData from '../../data/UsedRoomData';
-import TotalOccupiedRooms from '../../components/TotalFreeRooms'
 import { events } from '../../data/testData'
 import { fetchRoomsData } from '../../data/getData';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
@@ -23,7 +22,6 @@ const RoomStats = () => {
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
     const [rooms, setRooms] = useState([])
-    const [usedRooms, setUsedRooms] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const [occupiedRooms, setOccupiedRooms] = useState('')
