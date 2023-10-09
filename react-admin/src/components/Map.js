@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
+import { Box, IconButton, Tooltip, Typography } from '@mui/material'
+import { useTheme } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
-import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus'
+import { fetchRoomsData, fetchBuildsData } from '../data/getData' 
 import { useLocation } from 'react-router-dom'
 import LocationRoom from './LocationRoom'
+import { tokens } from '../theme'
+import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined'
+import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
 
 function Map({ location, locationTitle }) {
-    const { state } = useLocation();
+    const theme = useTheme()
+    const colors = tokens(theme.palette.mode)
+    const { state } = useLocation()
+    const [rooms, setRooms] = useState([])
+    const [builds, setBuilds] = useState([])
+    const [showRooms, setShowRooms] = useState(false)
+    const [showBuilds, setShowBuilds] = useState(false)
     //used when I click on the show on map in the page to reserve the room
     const room = state ? state.selectedRoom : null;
     //position of the map when rendered
     const [position, setPosition] = useState(location)
+
+    useEffect(() => {
+      async function fetchData() {
+      try {
+          const dataRooms = await fetchRoomsData()
+          const dataBuilds = await fetchBuildsData()
+          setRooms(dataRooms)
+          setBuilds(dataBuilds)
+          //setIsLoading(false)
+      } catch (error) {
+          console.error('Error fetching data:', error)
+          throw error
+      }
+      }
+        fetchData();
+    }, []);
 
     //get center of polygon drawn on map
     useEffect(() => {
@@ -45,30 +72,71 @@ function Map({ location, locationTitle }) {
         popupAnchor: [1, -34],
       })
 
+    //handle click of the button for rooms and buildings
+    const handleRoomClick = () => {
+      setShowBuilds(false)
+      setShowRooms((prevShowRooms) => !prevShowRooms)
+    }
+    const handleBuildClick = () => {
+      setShowRooms(false)
+      setShowBuilds((prevShowBuilds) => !prevShowBuilds)
+    }
+
   return (
-        <Box style={{ height: '600px', width: '1000px', margin: '0 auto' }}>
-            <MapContainer className='map' center={position} zoom={18} maxZoom={20} style={{ height: '100%', width: '100%' }}>
-                <TileLayer
-                maxZoom={20}
-                maxNativeZoom={19}
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                />
+    <Box display="flex">
+      <Box style={{ height: '600px', width: '1000px' }}>
+        <MapContainer className='map' center={position} zoom={18} maxZoom={20} style={{ height: '100%', width: '100%' }}>
+          <TileLayer
+            maxZoom={20}
+            maxNativeZoom={19}
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
 
-                {/* Conditionally render OverlayTomarCampus */}
-                {locationTitle === 'Tomar' && <OverlayTomarCampus />}
-                {/* room square */}
-                {room != null && <LocationRoom  room={room}/>} 
+          {/* Conditionally render OverlayTomarCampus */}
+          {locationTitle === 'Tomar' && <OverlayTomarCampus />}
+          {/* room square */}
+          {room != null && <LocationRoom  room={room}/>} 
+          {/* all rooms */}
+          {showRooms && rooms.map((selectedRoom) => (
+            <LocationRoom key={selectedRoom.id} room={selectedRoom} />
+          ))}
+          {showBuilds && builds.map((selectedBuild) => (
+            <LocationRoom key={selectedBuild.id} room={selectedBuild} />
+          ))}
 
-                {/* Getting location of the user */}
-                {/* <MapEvents setPosition={setPosition} /> */}
+          {/* Getting location of the user */}
+          {/* <MapEvents setPosition={setPosition} /> */}
+        </MapContainer>
+      </Box>
 
-                
-                
-            </MapContainer>
+
+      <Box ml="10px" p={1}>
+        <Typography mb="10px" variant='h5'>
+          Salas e Edifícios
+        </Typography>
+        <Box display="flex" justifyContent="center">
+          <Box m="2px">
+            <Tooltip title="Salas">
+              <IconButton aria-label='Salas' color="primary" sx={{backgroundColor: colors.primary[300], '&:hover':{backgroundColor: colors.primary[200]}}} onClick={handleRoomClick}>
+                <MeetingRoomOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Box m="2px">
+            <Tooltip title="Edifícios">
+              <IconButton aria-label='Edifícios' color="primary" sx={{backgroundColor: colors.primary[300], '&:hover':{backgroundColor: colors.primary[200]}}} onClick={handleBuildClick}>
+                <ApartmentOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
+      </Box>
+    </Box>
   );
 }
+
+
 
 // Get user location
 function MapEvents({ setPosition }) {
