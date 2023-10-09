@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import { schedulesServices as service } from '../../data/testData'
 import ProgressCircle from '../../components/ProgressCircle'
 
-const DetalhesServicos = () => {
+const ServiceDetails = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -87,4 +87,4 @@ const DetalhesServicos = () => {
   )
 }
 
-export default DetalhesServicos
+export default ServiceDetails

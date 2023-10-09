@@ -3,10 +3,10 @@ import { DataGrid } from '@mui/x-data-grid'
 import { tokens } from '../../theme'
 import { dadosFuncionarios } from '../../data/testData'
 import Header from '../../components/Header'
-import ProfessorCard from '../../components/ProfessorCard'
+import ProfessorCard from './ProfessorCard'
 import { useState } from 'react'
 
-const PesquisaFuncionarios = () => {
+const WorkerSearch = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [selectedProfessor, setSelectedProfessor] = useState(null)
@@ -48,7 +48,6 @@ const PesquisaFuncionarios = () => {
 
       //lidar com a linha que é clicada (abrir cartão do professor)
       const handleEvent = (params, event) => {
-        console.log(`Professor "${params.row.nome}" clicked`);
         setSelectedProfessor(params.row)
         setIsProfessorCardOpen(true); 
       };
@@ -90,12 +89,13 @@ const PesquisaFuncionarios = () => {
             },
 
         }}>
-            {/* Tabela com os dados */}
-            <DataGrid rows={dadosFuncionarios} 
-                    columns={columns} 
-                    localeText={localizedTextsMap}
-                    onRowClick={handleEvent}
-                    />
+            
+        {/* Tabela com os dados */}
+        <DataGrid rows={dadosFuncionarios} 
+                columns={columns} 
+                localeText={localizedTextsMap}
+                onRowClick={handleEvent}
+                />
        
         </Box>
         {isProfessorCardOpen && selectedProfessor && (
@@ -109,4 +109,4 @@ const PesquisaFuncionarios = () => {
   )
 }
 
-export default PesquisaFuncionarios
+export default WorkerSearch

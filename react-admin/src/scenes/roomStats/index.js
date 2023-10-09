@@ -18,7 +18,7 @@ import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
 import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
 import { useNavigate } from 'react-router-dom'
 
-const EstatisticasSalas = () => {
+const RoomStats = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
@@ -274,4 +274,4 @@ const EstatisticasSalas = () => {
     )
 }
 
-export default EstatisticasSalas
+export default RoomStats

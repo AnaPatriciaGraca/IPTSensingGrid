@@ -559,7 +559,7 @@ export const dadosFuncionarios = [
     id: 6,
     nome: "António Manuel Rodrigues Manso",
     email: "manso@ipt.pt",
-    gabinete: "",
+    gabinete: "B115",
     cidade: "Tomar",
     curso: ["Licenciatura em Engenharia Informática", "TeSP - Tecnologia e Programação em Sistemas de Informação"],
     disciplina: ["Computação Distribuída", "Introdução à Programação e à Resolução de Problemas", "Programação Orientada a Objectos"],

@@ -4,7 +4,7 @@ import { Box } from '@mui/material'
 import Header from '../../components/Header'
 import Map from '../../components/Map'
 
-function MapaTomar() {
+function MapTomar() {
     // const theme = useTheme()
     // const colors = tokens(theme.palette.mode)
     const location = [39.599700, -8.39070]
@@ -16,4 +16,4 @@ function MapaTomar() {
     )
 }
 
-export default MapaTomar
+export default MapTomar

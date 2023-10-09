@@ -13,7 +13,7 @@ import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
-const EstatisticasFuncionarios = () => {
+const WorkerStats = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
@@ -134,4 +134,4 @@ const EstatisticasFuncionarios = () => {
     )
 }
 
-export default EstatisticasFuncionarios
+export default WorkerStats

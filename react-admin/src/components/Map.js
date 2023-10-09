@@ -3,10 +3,11 @@ import { Box } from '@mui/material'
 import { useTheme } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
-import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus'
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaflet'
+import OverlayTomarCampus from '../scenes/mapTomar/OverlayTomarCampus'
 import { fetchRoomsData, fetchBuildsData } from '../data/getData' 
-import ControlButtons from '../scenes/mapaTomar/ControlButtons'
+import ControlButtons from '../scenes/mapTomar/ControlButtons'
+import ConfirmationDialog from './ConfirmationDialog'
 import { useLocation } from 'react-router-dom'
 import LocationRoom from './LocationRoom'
 import { tokens } from '../theme'
@@ -20,11 +21,15 @@ function Map({ location, locationTitle }) {
     const [builds, setBuilds] = useState([])
     const [showRooms, setShowRooms] = useState(false)
     const [showBuilds, setShowBuilds] = useState(false)
+    const [showMarker, setShowMarker] = useState(false)
+    const [showMyLocation, setShowMyLocation] = useState(false)
     //used when I click on the show on map in the page to reserve the room
     const room = state ? state.selectedRoom : null;
+    const office = state ? state.professorPlace : null; 
     //position of the map when rendered
     const [position, setPosition] = useState(location)
 
+    //get data of the rooms and buildings
     useEffect(() => {
       async function fetchData() {
       try {
@@ -40,6 +45,20 @@ function Map({ location, locationTitle }) {
       }
         fetchData();
     }, []);
+
+    //find room of the professor
+    useEffect(() => {
+      // Find the room with the matching name on my data
+      const matchingRoom = rooms.find((room) => room.name === office);
+      if (matchingRoom) {
+        setPosition(matchingRoom.location.coordinates[0][0]);
+        setShowMarker(true)
+      }else{
+        <ConfirmationDialog phrase="Sala não encontrada"/>
+        alert=("Sala nao encontrada")
+      }
+      
+    }, [office, rooms]);
 
     //get center of polygon drawn on map
     useEffect(() => {
@@ -80,6 +99,9 @@ function Map({ location, locationTitle }) {
       setShowRooms(false)
       setShowBuilds((prevShowBuilds) => !prevShowBuilds)
     }
+    const handleMyLocation = () => {
+      setShowMyLocation((prevShowMyLocation) => !prevShowMyLocation)
+    }
 
   return (
     <Box display="flex">
@@ -100,32 +122,39 @@ function Map({ location, locationTitle }) {
           {showRooms && rooms.map((selectedRoom) => (
             <LocationRoom key={selectedRoom.id} room={selectedRoom} />
           ))}
+          {/* all buildings */}
           {showBuilds && builds.map((selectedBuild) => (
             <LocationRoom key={selectedBuild.id} room={selectedBuild} />
           ))}
-
+          {/* Show the marker if showMarker is true */}
+          {showMarker && (
+            <Marker position={position} icon={customIcon}>
+              <Popup>Gabinete do Professor</Popup>
+            </Marker>
+          )}
           {/* Getting location of the user */}
-          {/* <MapEvents setPosition={setPosition} /> */}
+          {showMyLocation && <MapEvents setPosition={setPosition} /> }
         </MapContainer>
       </Box>
 
 
-      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} colors={colors} />
+      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} colors={colors} />
 
     </Box>
   );
 }
 
-
-
 // Get user location
 function MapEvents({ setPosition }) {
+  console.log("entered")
   const map = useMapEvents({
     click() {
       map.locate();
     },
     locationfound(e) {
+      console.log('Location found: ', e.latlng)
       setPosition(e.latlng);
+      console.log("Updated position")
       map.flyTo(e.latlng, map.getZoom(20));
     },
   });

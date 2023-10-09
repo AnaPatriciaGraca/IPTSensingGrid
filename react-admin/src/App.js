@@ -12,13 +12,13 @@ import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
 import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
-import MapaTomar from './scenes/mapaTomar'
-import MapaAbrantes from './scenes/mapaAbrantes'
-import DetalhesServicos from './scenes/detalhesServicos'
-import EstatisticasSalas from './scenes/estatisticasSalas'
-import ReservasSalas from './scenes/reservasSalas'
-import EstatisticasFuncionarios from './scenes/estatistiscasFuncionarios'
-import PesquisaFuncionarios from './scenes/pesquisaFuncionarios'
+import MapTomar from './scenes/mapTomar'
+import MapAbrantes from './scenes/mapAbrantes'
+import ServiceDetails from './scenes/serviceDetails'
+import RoomStats from './scenes/roomStats'
+import RoomReserv from './scenes/roomReserv'
+import WorkerStats from './scenes/workerStats'
+import WorkerSearch from './scenes/workerSearch'
 import Geography from '../src/scenes/geography'
 import Temperature from '../src/scenes/temperature'
 import CurrentClasses from './scenes/currentClasses'
@@ -43,20 +43,20 @@ function App() {
 
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}
-              <Route path="/mapaTomar" element={<MapaTomar />} />
-              <Route path="/mapaAbrantes" element={<MapaAbrantes />} />
+              <Route path="/mapaTomar" element={<MapTomar />} />
+              <Route path="/mapaAbrantes" element={<MapAbrantes />} />
               {/* Sensores */}
               <Route path="/temperature" element={<Temperature />} />
               <Route path="/noise" element={<Noise />} />
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
-              <Route path="/detalhesServicos" element={<DetalhesServicos />} />
+              <Route path="/detalhesServicos" element={<ServiceDetails />} />
               {/* Salas */}
-              <Route path="/estatisticasSalas" element={<EstatisticasSalas />} />
-              <Route path="/reservasSalas" element={<ReservasSalas />} />
+              <Route path="/estatisticasSalas" element={<RoomStats />} />
+              <Route path="/reservasSalas" element={<RoomReserv />} />
               {/* Funcionários */}
-              <Route path="/estatisticasFuncionarios" element={<EstatisticasFuncionarios />} />
-              <Route path='/pesquisaFuncionarios' element={<PesquisaFuncionarios />} />
+              <Route path="/estatisticasFuncionarios" element={<WorkerStats />} />
+              <Route path='/pesquisaFuncionarios' element={<WorkerSearch />} />
               {/* Equipamentos */}
               {/* Outros */}
               <Route path="/team" element={<Team />} />

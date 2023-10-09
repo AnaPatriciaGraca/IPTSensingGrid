@@ -1,14 +1,15 @@
 import * as React from 'react';
 import Modal from 'react-modal';
-import { Box, Typography, useTheme, Button, Card, CardActions, CardContent, CardMedia } from '@mui/material';
-import { tokens } from '../theme';
+import { Box, Typography, useTheme, Button, Card, CardContent } from '@mui/material';
+import { tokens } from '../../theme';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProfessorCard = ({ professor, isOpen, onClose }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
-  console.log(professor)
 
   const modalStyles = {
     content: {
@@ -26,6 +27,10 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
     },
   };
 
+  const handleClickToMap = () => {
+    navigate("/mapaTomar", { state: { professorPlace: professor.gabinete } });
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -34,7 +39,7 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
       className="modal"
       style={modalStyles}
     >
-      <Card sx={{backgroundColor: colors.blueAccent[900]}}>
+      <Card sx={{backgroundColor: colors.blueAccent[900], }}>
         {/* <CardMedia
           sx={{ height: 140 }}
           image="/static/images/cards/contemplative-reptile.jpg"
@@ -98,7 +103,8 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
       </Card>
 
       <Box display="flex" justifyContent="flex-end" mt='20px'>
-        <Button onClick={onClose} sx={{bgcolor: colors.greenAccent[400]}}>Close</Button>
+        <Button onClick={handleClickToMap} sx={{bgcolor: colors.greenAccent[500], '&:hover': { bgcolor: colors.greenAccent[300]}, mr: "10px" }}>Ver no Mapa</Button>
+        <Button onClick={onClose} sx={{bgcolor: colors.greenAccent[500], '&:hover': { bgcolor: colors.greenAccent[300] }}}>Close</Button>
       </Box>
     </Modal>
   );

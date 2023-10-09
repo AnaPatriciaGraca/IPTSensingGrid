@@ -1,14 +1,11 @@
 import { Box } from '@mui/material'
 import Header from '../../components/Header'
-import YourComponent from '../../scripts/testGetData'
 
 const index = () => {
   return (
     <Box m='20px'>
-        <Header title='HORÁRIOS' subtitle='Horários do ano letivo' />
+        <Header title='HORÁRIOS' subtitle='Horários do ano letivo - P´agina em Desenvolvimento' />
         <Box height='75vh'>
-            {/* <GetScheduleData /> */}
-            <YourComponent />
         </Box>
     </Box>
   )
