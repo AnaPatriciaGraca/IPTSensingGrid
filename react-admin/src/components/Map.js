@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Box, IconButton, Tooltip, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useTheme } from '@mui/material'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import OverlayTomarCampus from '../scenes/mapaTomar/OverlayTomarCampus'
 import { fetchRoomsData, fetchBuildsData } from '../data/getData' 
+import ControlButtons from '../scenes/mapaTomar/ControlButtons'
 import { useLocation } from 'react-router-dom'
 import LocationRoom from './LocationRoom'
 import { tokens } from '../theme'
-import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined'
-import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 
 function Map({ location, locationTitle }) {
@@ -111,27 +110,8 @@ function Map({ location, locationTitle }) {
       </Box>
 
 
-      <Box ml="10px" p={1}>
-        <Typography mb="10px" variant='h5'>
-          Salas e Edifícios
-        </Typography>
-        <Box display="flex" justifyContent="center">
-          <Box m="2px">
-            <Tooltip title="Salas">
-              <IconButton aria-label='Salas' color="primary" sx={{backgroundColor: colors.primary[300], '&:hover':{backgroundColor: colors.primary[200]}}} onClick={handleRoomClick}>
-                <MeetingRoomOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-          <Box m="2px">
-            <Tooltip title="Edifícios">
-              <IconButton aria-label='Edifícios' color="primary" sx={{backgroundColor: colors.primary[300], '&:hover':{backgroundColor: colors.primary[200]}}} onClick={handleBuildClick}>
-                <ApartmentOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Box>
-      </Box>
+      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} colors={colors} />
+
     </Box>
   );
 }

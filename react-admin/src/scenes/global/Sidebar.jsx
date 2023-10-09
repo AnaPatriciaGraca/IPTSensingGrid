@@ -14,8 +14,9 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
-import MicOutlinedIcon from '@mui/icons-material/MicOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -189,7 +190,7 @@ const SideBar = () => {
               <Item
                 title="Estacionamento"
                 to="/parking"
-                icon={<MicOutlinedIcon />}
+                icon={<LocalParkingOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
