@@ -3,7 +3,7 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import { events } from '../../data/testData'
 import StatBox from '../../components/StatBox'
-import TemperatureChart from '../../components/TemperatureChart'
+import TemperatureData from '../../data/TemperatureData'
 import CurrentClasses from '../../components/CurrentClasses'
 import NoiseChart from '../../components/NoiseChart'
 //icons
@@ -102,7 +102,7 @@ const DashboardTest = () => {
             </Box>
           </Box>
           <Box height='250px' mt='-20px'>
-            <TemperatureChart isDashboard={true} />
+            <TemperatureData isDashboard={true} />
           </Box>
         </Box>
 
