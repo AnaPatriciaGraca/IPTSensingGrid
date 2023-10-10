@@ -8,17 +8,16 @@ import CurrentClasses from '../../components/CurrentClasses'
 import NoiseChart from '../../components/NoiseChart'
 //icons
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import EmailIcon from '@mui/icons-material/Email'
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import TrafficIcon from '@mui/icons-material/Traffic'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
-import MicOutlinedIcon from '@mui/icons-material/MicOutlined';
+import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 
 
-const DashboardTest = () => {
+const DashboardTest = ( {calcAvgTemperature} ) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
 
   return (
     <Box m='20px'>
@@ -45,7 +44,7 @@ const DashboardTest = () => {
         {/* ROW 1 */}
         <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
           <StatBox 
-            title='37 ºC' 
+            title={parseInt(calcAvgTemperature) + ' ºC'}
             subtitle='Temperatura'
             progress='0.75'
             increase='75%'
@@ -92,7 +91,7 @@ const DashboardTest = () => {
                 Temperatura
               </Typography>
               <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                 Atual: 26º C
+                 Atual: {parseInt(calcAvgTemperature)+ " ºC"}
               </Typography>
             </Box>
             <Box>

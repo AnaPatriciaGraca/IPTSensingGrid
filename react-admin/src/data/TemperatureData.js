@@ -1,26 +1,8 @@
 import TemperatureChart from "../components/TemperatureChart";
-import { useEffect, useState } from 'react';
-import { fetchTemperatureData } from '../data/getData';
+import {  useState } from 'react';
 
-const TemperatureData = ({ isDashboard }) => {
-    const [data, setData] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    //data from API
-    useEffect(() => {
-      async function fetchData() {
-      try {
-          const sensors = await fetchTemperatureData(); 
-          setData(sensors);
-          setIsLoading(false);
-      } catch (error) {
-          console.error('Error fetching data:', error);
-          throw error;
-      }
-      }
-      fetchData();
-    }, []);
-
+const TemperatureData = ({ isDashboard, tempData }) => {
+    const data = tempData
 
     //transform the data so it can show on the gragh
     const transformData = (data) => {

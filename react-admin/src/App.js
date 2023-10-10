@@ -23,9 +23,39 @@ import Temperature from '../src/scenes/temperature'
 import CurrentClasses from './scenes/currentClasses'
 import Noise from '../src/scenes/noise'
 import SchedulesServices from '../src/scenes/schedulesServices'
+import { useState, useEffect } from 'react'
+//data
+import { fetchTemperatureData } from './data/getData'
 
 function App() {
   const [theme, colorMode] = useMode()
+  const [tempData, setTempData] = useState([])
+
+    //data from API
+    useEffect(() => {
+      async function fetchData() {
+      try {
+          const data = await fetchTemperatureData(); 
+          setTempData(data)
+      } catch (error) {
+          console.error('Error fetching data:', error);
+          throw error;
+      }
+      }
+      fetchData();
+    }, []);
+
+    const calcAvgTemperature = () => {
+      if (!tempData || tempData.length === 0) {
+        return 0
+      }
+      // sum of all temperatures
+      const sum = tempData.reduce((total, sensor) => total + sensor.temperature, 0);
+      // average temperature
+      const average = sum / tempData.length;
+      return average;
+    }
+
 
 
   return (
@@ -38,14 +68,14 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              <Route path="/" element={<DashboardTest />} />
+              <Route path="/" element={<DashboardTest calcAvgTemperature={calcAvgTemperature()} />} />
 
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}
               <Route path="/mapaTomar" element={<MapTomar />} />
               <Route path="/mapaAbrantes" element={<MapAbrantes />} />
               {/* Sensores */}
-              <Route path="/temperature" element={<Temperature />} />
+              <Route path="/temperature" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />
               <Route path="/noise" element={<Noise />} />
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
