@@ -1,4 +1,3 @@
-import { Box, useTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
 import TreeChart from '../components/TreeChart';
 

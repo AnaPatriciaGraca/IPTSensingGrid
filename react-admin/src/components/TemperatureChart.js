@@ -1,9 +1,9 @@
-import {temperature as data} from "../data/testData"
+//import {temperature as data} from "../data/testData"
 import { ResponsiveLine } from '@nivo/line'
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 
-const TemperatureChart = ({isDashboard = false }) => {
+const TemperatureChart = ({isDashboard = false, data }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
   return (
@@ -45,12 +45,12 @@ const TemperatureChart = ({isDashboard = false }) => {
                 }
               },
         }}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 180, bottom: 50, left: 60 }}
         xScale={{ type: 'point'}}
         yScale={{
             type: 'linear',
-            min: -10,
-            max: 50,
+            min: 10,
+            max: 70,
             stacked: false,
             reverse: false
         }}
