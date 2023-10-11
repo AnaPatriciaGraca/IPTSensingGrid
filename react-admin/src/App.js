@@ -68,7 +68,7 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              <Route path="/" element={<DashboardTest calcAvgTemperature={calcAvgTemperature()} />} />
+              <Route path="/" element={<DashboardTest tempData={tempData}  calcAvgTemperature={calcAvgTemperature()} />} />
 
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}

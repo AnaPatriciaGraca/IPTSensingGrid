@@ -45,7 +45,7 @@ const TemperatureChart = ({isDashboard = false, data }) => {
                 }
               },
         }}
-        margin={{ top: 50, right: 180, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 110, bottom: 60, left: 60 }}
         xScale={{ type: 'point'}}
         yScale={{
             type: 'linear',
@@ -77,7 +77,7 @@ const TemperatureChart = ({isDashboard = false, data }) => {
             legendPosition: 'middle'
         }}
         enableGridX={false}
-        colors={{ scheme: 'blue_green' }}
+        colors={{ scheme: 'yellow_green' }}
         pointSize={5}
         pointColor={{ from: 'color', modifiers: [] }}
         pointBorderWidth={1}

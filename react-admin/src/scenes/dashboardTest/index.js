@@ -14,7 +14,7 @@ import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 
 
-const DashboardTest = ( {calcAvgTemperature} ) => {
+const DashboardTest = ( {calcAvgTemperature, tempData} ) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -94,14 +94,9 @@ const DashboardTest = ( {calcAvgTemperature} ) => {
                  Atual: {parseInt(calcAvgTemperature)+ " ºC"}
               </Typography>
             </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon sx={{fontSize:'26px', color: colors.greenAccent[500]}}/>
-              </IconButton>
-            </Box>
           </Box>
           <Box height='250px' mt='-20px'>
-            <TemperatureData isDashboard={true} />
+            <TemperatureData isDashboard={true} tempData={tempData} />
           </Box>
         </Box>
 
