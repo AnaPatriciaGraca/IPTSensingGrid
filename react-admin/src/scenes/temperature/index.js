@@ -1,4 +1,4 @@
-import { Box, useTheme, Typography, IconButton } from '@mui/material'
+import { Box, useTheme, Typography } from '@mui/material'
 import Header from '../../components/Header'
 import TemperatureData from '../../data/TemperatureData'
 import BatteryLevel from './BatteryLevel'

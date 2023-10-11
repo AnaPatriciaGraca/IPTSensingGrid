@@ -8,9 +8,10 @@ import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined'
 
 
-const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, colors }) => {
+const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, colors, handleTemperature }) => {
   return (
     <Box ml="10px" p={1}>
+      {/*Botoes pra salas e edificios*/}
       <Typography mb="10px" variant='h5'>
         Salas e Edifícios
       </Typography>
@@ -52,7 +53,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
           </Tooltip>
         </Box>
       </Box>
-
+      {/*Botoes sensores*/}
       <Typography mb="10px" mt="10px" variant='h5'>
         Sensores
       </Typography>
@@ -63,7 +64,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
               aria-label='Temperatura'
               color="primary"
               sx={{ backgroundColor: colors.primary[300], '&:hover': { backgroundColor: colors.primary[200] } }}
-              
+              onClick={handleTemperature}
             >
               <DeviceThermostatIcon />
             </IconButton>

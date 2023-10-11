@@ -72,7 +72,7 @@ function App() {
 
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}
-              <Route path="/mapaTomar" element={<MapTomar />} />
+              <Route path="/mapaTomar" element={<MapTomar tempData={tempData} />} />
               <Route path="/mapaAbrantes" element={<MapAbrantes />} />
               {/* Sensores */}
               <Route path="/temperature" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />

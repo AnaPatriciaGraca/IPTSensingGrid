@@ -7,13 +7,14 @@ import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaf
 import OverlayTomarCampus from '../scenes/mapTomar/OverlayTomarCampus'
 import { fetchRoomsData, fetchBuildsData } from '../data/getData' 
 import ControlButtons from '../scenes/mapTomar/ControlButtons'
+import SensorMarkers from './SensorMarkers'
 import ConfirmationDialog from './ConfirmationDialog'
 import { useLocation } from 'react-router-dom'
 import LocationRoom from './LocationRoom'
 import { tokens } from '../theme'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 
-function Map({ location, locationTitle }) {
+function Map({ location, locationTitle, tempData }) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const { state } = useLocation()
@@ -23,6 +24,7 @@ function Map({ location, locationTitle }) {
     const [showBuilds, setShowBuilds] = useState(false)
     const [showMarker, setShowMarker] = useState(false)
     const [showMyLocation, setShowMyLocation] = useState(false)
+    const [showTempSensors, setShowTempSensors] = useState(false)
     //used when I click on the show on map in the page to reserve the room
     const room = state ? state.selectedRoom : null;
     const office = state ? state.professorPlace : null; 
@@ -102,6 +104,9 @@ function Map({ location, locationTitle }) {
     const handleMyLocation = () => {
       setShowMyLocation((prevShowMyLocation) => !prevShowMyLocation)
     }
+    const handleTemperature = () => {
+      setShowTempSensors((prevShowTempSensors) => !prevShowTempSensors)
+    }
 
   return (
     <Box display="flex">
@@ -134,11 +139,15 @@ function Map({ location, locationTitle }) {
           )}
           {/* Getting location of the user */}
           {showMyLocation && <MapEvents setPosition={setPosition} /> }
+          {/* Show temperature sensors */}
+          {showTempSensors && tempData.map((sensor) => ( <SensorMarkers sensor={sensor } customIcon={customIcon} /> ))}
+
+
         </MapContainer>
       </Box>
 
 
-      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} colors={colors} />
+      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} handleTemperature={handleTemperature} colors={colors} />
 
     </Box>
   );
