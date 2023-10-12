@@ -11,13 +11,13 @@ const SensorMarkers = ({sensor, customIcon}) => {
   return (
     <Marker
         key={sensor.id}
-        position={[sensor.location.coordinates[1], sensor.location.coordinates[0]]} // Lat, Lng
+        position={[sensor.location.coordinates[1], sensor.location.coordinates[0]]}
         icon={customIcon}
     >
       {/*Ver porque o estilo nao esta a funcionar*/}
         <Popup style={{background: colors.greenAccent[400], fontWeight: 'bold', fontSize: 12,}}>
             <div>
-              <h3>{sensor.type}</h3>
+              <h3>Sensor: {sensor.id}</h3>
               <p>Descrição: {sensor.description}</p>
               <p>Temperatura: {sensor.temperature} °C</p>
             </div>

@@ -1,14 +1,22 @@
-import { Box, useTheme, Typography } from '@mui/material'
+import { Box, useTheme, Typography, Button } from '@mui/material'
 import Header from '../../components/Header'
 import TemperatureData from '../../data/TemperatureData'
 import BatteryLevel from './BatteryLevel'
 import { tokens } from '../../theme'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import StatBox from '../../components/StatBox'
+import { useNavigate } from 'react-router-dom'
 
 const Temperature = ( {tempData, calcAvgTemperature} ) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+  const navigate = useNavigate()
+
+  //navigation to the other page
+  const handleButtonClick = () => {
+    const showTempSensors = true
+    navigate('/mapaTomar', { state: { showTempSensors } } );
+}
 
   return (
     <Box m='20px'>
@@ -86,14 +94,27 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
           </Box>
         </Box>
 
-        <Box gridColumn='span 8' gridRow='span 2' backgroundColor={colors.primary[400]}>
-            <Typography variant='h5' fontWeight='600' sx={{p: '30px 30px 0 30px'}}>
-              Ruído
+        <Box gridColumn='span 4' gridRow='span 1' backgroundColor={colors.primary[400]}>
+            <Typography variant='h5' fontWeight='600' sx={{p: '30px 30px 0 30px'}} mb="10px">
+              Ver no Mapa
             </Typography>
-          <Box height='250px' mt='-20px'>
-            
-          </Box>
+            <Box display="flex" justifyContent="center" flexGrow={1}>
+              <Button
+                  variant='contained'
+                  onClick={handleButtonClick}
+                  sx={{
+                  backgroundColor: colors.blueAccent[500],
+                  width: '40%', 
+                  height: '50px', 
+                  fontSize: '0.8rem', 
+                  }}
+              >
+                  Mapa
+              </Button>
+            </Box>
         </Box>
+
+        
 
 
         </Box>

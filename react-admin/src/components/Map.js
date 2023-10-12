@@ -24,10 +24,12 @@ function Map({ location, locationTitle, tempData }) {
     const [showBuilds, setShowBuilds] = useState(false)
     const [showMarker, setShowMarker] = useState(false)
     const [showMyLocation, setShowMyLocation] = useState(false)
-    const [showTempSensors, setShowTempSensors] = useState(false)
+    const showTemperatureSensors = state ? state.showTempSensors : null;
+    const [showTempSensors, setShowTempSensors] = useState(showTemperatureSensors)
     //used when I click on the show on map in the page to reserve the room
     const room = state ? state.selectedRoom : null;
-    const office = state ? state.professorPlace : null; 
+    const office = state ? state.professorPlace : null;
+    
     //position of the map when rendered
     const [position, setPosition] = useState(location)
 
