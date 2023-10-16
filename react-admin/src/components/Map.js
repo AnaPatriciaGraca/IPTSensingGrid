@@ -156,7 +156,8 @@ function Map({ location, locationTitle, tempData, noiseData }) {
       </Box>
 
 
-      {locationTitle === 'Tomar' && <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} handleTemperature={handleTemperature} handleNoise={handleNoise} colors={colors} />}
+      {locationTitle === 'Tomar' && 
+        <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} handleTemperature={handleTemperature} handleNoise={handleNoise} colors={colors} />}
 
     </Box>
   );
