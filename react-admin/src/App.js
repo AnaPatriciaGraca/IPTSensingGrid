@@ -25,13 +25,14 @@ import Noise from '../src/scenes/noise'
 import SchedulesServices from '../src/scenes/schedulesServices'
 import { useState, useEffect } from 'react'
 //data
-import { fetchTemperatureData } from './data/getData'
+import { fetchTemperatureData, fetchNoiseData } from './data/getData'
 
 function App() {
   const [theme, colorMode] = useMode()
   const [tempData, setTempData] = useState([])
+  const [noiseData, setNoiseData] = useState([])
 
-    //data from API
+    //data of tempreature from API
     useEffect(() => {
       async function fetchData() {
       try {
@@ -45,6 +46,21 @@ function App() {
       fetchData();
     }, []);
 
+    //data of noise from API
+    useEffect(() => {
+      async function fetchData() {
+      try {
+          const data = await fetchNoiseData(); 
+          setNoiseData(data)
+      } catch (error) {
+          console.error('Error fetching data:', error);
+          throw error;
+      }
+      }
+      fetchData();
+    }, []);
+
+    //calc avg of temprature for all sensors
     const calcAvgTemperature = () => {
       if (!tempData || tempData.length === 0) {
         return 0
@@ -53,6 +69,18 @@ function App() {
       const sum = tempData.reduce((total, sensor) => total + sensor.temperature, 0);
       // average temperature
       const average = sum / tempData.length;
+      return average;
+    }
+
+    //calc avg of temprature for all sensors
+    const calcAvgNoise = () => {
+      if (!noiseData || noiseData.length === 0) {
+        return 0
+      }
+      // sum of all temperatures
+      const sum = noiseData.reduce((total, sensor) => total + sensor.decibel, 0);
+      // average temperature
+      const average = sum / noiseData.length;
       return average;
     }
 
@@ -75,8 +103,8 @@ function App() {
               <Route path="/mapaTomar" element={<MapTomar tempData={tempData} />} />
               <Route path="/mapaAbrantes" element={<MapAbrantes />} />
               {/* Sensores */}
-              <Route path="/temperature" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />
-              <Route path="/noise" element={<Noise />} />
+              <Route path="/temperatura" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />
+              <Route path="/som" element={<Noise noiseData={noiseData} calcAvgNoise={calcAvgNoise()} />} />
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
               <Route path="/detalhesServicos" element={<ServiceDetails />} />

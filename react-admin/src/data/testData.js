@@ -106,51 +106,6 @@ export const classes = [
   }
 ]
 
-export const noise = [
-{
-  "statement": "Bloco A",
-  "participation": 16.6,
-  "09:00": 14,
-  "12:00": 28,
-  "15:00": 1,
-  "18:00": 17
-},
-{
-  "statement": "Bloco B",
-  "participation": 16.6,
-  "09:00": 28,
-  "12:00": 20,
-  "15:00": 23,
-  "18:00": 13
-},
-{
-  "statement": "Bloco I",
-  "participation": 16.6,
-  "09:00": 14,
-  "12:00": 28,
-  "15:00": 0,
-  "18:00": 31
-},
-{
-  "statement": "Bloco J",
-  "participation": 16.6,
-  "09:00": 16,
-  "12:00": 12,
-  "15:00": 19,
-  "18:00": 31
-},
-{
-  "statement": "Bloco O",
-  "participation": 16.6,
-  "09:00": 31,
-  "12:00": 3,
-  "15:00": 5,
-  "18:00": 7
-}
-]
-
-
-
 export const usedRooms = [
   {
     bloco: "A",

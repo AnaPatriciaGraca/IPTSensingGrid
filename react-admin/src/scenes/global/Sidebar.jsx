@@ -183,14 +183,14 @@ const SideBar = () => {
             <SubMenu variant="h6" label="Sensores" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Temperatura"
-                to="/temperature"
+                to="/temperatura"
                 icon={<DeviceThermostatIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Ruído"
-                to="/noise"
+                to="/som"
                 icon={<MicOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}

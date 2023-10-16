@@ -12,11 +12,11 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
   const colors = tokens(theme.palette.mode)
   const navigate = useNavigate()
 
-  //navigation to the other page
+  //navigation to the map
   const handleButtonClick = () => {
     const showTempSensors = true
     navigate('/mapaTomar', { state: { showTempSensors } } );
-}
+  }
 
   return (
     <Box m='20px'>
@@ -63,20 +63,20 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
 
           {/*ROW 2*/}
           <Box gridColumn='span 8' gridRow='span 2' backgroundColor={colors.primary[400]}>
-          <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
-            <Box>
-              <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                Temperatura
-              </Typography>
-              <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                 Atual: {parseInt(calcAvgTemperature)+ " ºC"}
-              </Typography>
+            <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
+              <Box>
+                <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
+                  Temperatura
+                </Typography>
+                <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
+                  Atual: {parseInt(calcAvgTemperature)+ " ºC"}
+                </Typography>
+              </Box>
+            </Box>
+            <Box height='250px' mt='-20px'>
+              <TemperatureData isDashboard={false} tempData={tempData} />
             </Box>
           </Box>
-          <Box height='250px' mt='-20px'>
-            <TemperatureData isDashboard={false} tempData={tempData} />
-          </Box>
-        </Box>
 
         <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]}>
           <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>

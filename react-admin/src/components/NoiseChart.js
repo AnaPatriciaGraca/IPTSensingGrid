@@ -1,9 +1,9 @@
 import { ResponsiveMarimekko } from '@nivo/marimekko'
-import { noise as data } from '../data/testData'
+//import { noise as data } from '../data/testData'
 import { tokens } from '../theme'
 import { useTheme } from '@mui/material'
 
-const NoiseChart = () => {
+const NoiseChart = ({ isDasboard, data }) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -41,9 +41,9 @@ const NoiseChart = () => {
         }
       },
     }}
-    id="statement"
+    id="id"
     // groupMode="grouped"
-    value="participation"
+    value="decibel"
     dimensions={[
         {
             id: '09:00',
@@ -63,8 +63,8 @@ const NoiseChart = () => {
         }
     ]}
     layout="horizontal"
-    outerPadding={1}
-    innerPadding={9}
+    outerPadding={5}
+    innerPadding={12}
     axisTop={null}
     axisRight={null}
     axisBottom={{
