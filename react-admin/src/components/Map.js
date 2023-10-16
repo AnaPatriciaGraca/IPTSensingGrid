@@ -14,7 +14,7 @@ import LocationRoom from './LocationRoom'
 import { tokens } from '../theme'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 
-function Map({ location, locationTitle, tempData }) {
+function Map({ location, locationTitle, tempData, noiseData }) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const { state } = useLocation()
@@ -26,6 +26,8 @@ function Map({ location, locationTitle, tempData }) {
     const [showMyLocation, setShowMyLocation] = useState(false)
     const showTemperatureSensors = state ? state.showTempSensors : null;
     const [showTempSensors, setShowTempSensors] = useState(showTemperatureSensors)
+    const showSoundSensors = state ? state.showNoiseSensors : null;
+    const [showNoiseSensors, setShowNoiseSensors] = useState(showSoundSensors)
     //used when I click on the show on map in the page to reserve the room
     const room = state ? state.selectedRoom : null;
     const office = state ? state.professorPlace : null;
@@ -94,7 +96,7 @@ function Map({ location, locationTitle, tempData }) {
         popupAnchor: [1, -34],
       })
 
-    //handle click of the button for rooms and buildings
+    //handle click of the button for rooms, buildings and sensors
     const handleRoomClick = () => {
       setShowBuilds(false)
       setShowRooms((prevShowRooms) => !prevShowRooms)
@@ -108,6 +110,9 @@ function Map({ location, locationTitle, tempData }) {
     }
     const handleTemperature = () => {
       setShowTempSensors((prevShowTempSensors) => !prevShowTempSensors)
+    }
+    const handleNoise = () => {
+      setShowNoiseSensors((prevShowNoiseSensors) => !prevShowNoiseSensors)
     }
 
   return (
@@ -143,13 +148,15 @@ function Map({ location, locationTitle, tempData }) {
           {showMyLocation && <MapEvents setPosition={setPosition} /> }
           {/* Show temperature sensors */}
           {showTempSensors && tempData.map((sensor) => ( <SensorMarkers sensor={sensor } customIcon={customIcon} /> ))}
+          {/* Show noise sensors */}
+          {showNoiseSensors && noiseData.map((sensor) => ( <SensorMarkers sensor={sensor } customIcon={customIcon} /> ))}
 
 
         </MapContainer>
       </Box>
 
 
-      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} handleTemperature={handleTemperature} colors={colors} />
+      <ControlButtons handleRoomClick={handleRoomClick} handleBuildClick={handleBuildClick} handleMyLocation={handleMyLocation} handleTemperature={handleTemperature} handleNoise={handleNoise} colors={colors} />
 
     </Box>
   );

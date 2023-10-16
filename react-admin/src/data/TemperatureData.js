@@ -25,7 +25,7 @@ const TemperatureData = ({ isDashboard, tempData }) => {
 
   return (
     
-        <TemperatureChart data={TransformedData} isDashboard={isDashboard}/>
+        <TemperatureChart isDashboard={isDashboard} data={TransformedData}/>
   )
 }
 

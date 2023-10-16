@@ -96,11 +96,11 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              <Route path="/" element={<DashboardTest tempData={tempData}  calcAvgTemperature={calcAvgTemperature()} />} />
+              <Route path="/" element={<DashboardTest tempData={tempData} calcAvgTemperature={calcAvgTemperature()} noiseData={noiseData} />} />
 
               <Route path="/currentClasses" element={<CurrentClasses />} />
               {/* Mapa */}
-              <Route path="/mapaTomar" element={<MapTomar tempData={tempData} />} />
+              <Route path="/mapaTomar" element={<MapTomar tempData={tempData} noiseData={noiseData} />} />
               <Route path="/mapaAbrantes" element={<MapAbrantes />} />
               {/* Sensores */}
               <Route path="/temperatura" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />

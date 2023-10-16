@@ -1,9 +1,9 @@
 import { ResponsiveMarimekko } from '@nivo/marimekko'
-//import { noise as data } from '../data/testData'
 import { tokens } from '../theme'
 import { useTheme } from '@mui/material'
 
-const NoiseChart = ({ isDasboard, data }) => {
+const NoiseChart = ({ data }) => {
+
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 

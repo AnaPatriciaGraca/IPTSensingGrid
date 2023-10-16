@@ -5,7 +5,7 @@ import { events } from '../../data/testData'
 import StatBox from '../../components/StatBox'
 import TemperatureData from '../../data/TemperatureData'
 import CurrentClasses from '../../components/CurrentClasses'
-import NoiseChart from '../../components/NoiseChart'
+import NoiseData from '../../data/NoiseData'
 //icons
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
@@ -14,7 +14,7 @@ import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 
 
-const DashboardTest = ( {calcAvgTemperature, tempData} ) => {
+const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -146,7 +146,7 @@ const DashboardTest = ( {calcAvgTemperature, tempData} ) => {
               Ruído
             </Typography>
           <Box height='250px' mt='-20px'>
-            <NoiseChart />
+            <NoiseData noiseData={noiseData} />
           </Box>
         </Box>
 

@@ -1,6 +1,7 @@
 import NoiseChart from "../components/NoiseChart";
 
 const NoiseData = ({ noiseData, isDashboard }) => {
+
   const hours = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
 
   const transformedData = noiseData.map((sensor) => {
@@ -14,10 +15,11 @@ const NoiseData = ({ noiseData, isDashboard }) => {
     });
 
     return dataEntry
-  });
+  })
+  console.log("transformedData: ", transformedData)
 
   return (
-    <NoiseChart isDashboard={isDashboard} data={transformedData} />
+    <NoiseChart data={transformedData} />
   )
 }
 

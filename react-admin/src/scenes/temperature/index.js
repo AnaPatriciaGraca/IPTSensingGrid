@@ -1,7 +1,7 @@
 import { Box, useTheme, Typography, Button } from '@mui/material'
 import Header from '../../components/Header'
 import TemperatureData from '../../data/TemperatureData'
-import BatteryLevel from './BatteryLevel'
+import BatteryLevel from '../../components/BatteryLevel'
 import { tokens } from '../../theme'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import StatBox from '../../components/StatBox'
@@ -78,41 +78,42 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
             </Box>
           </Box>
 
-        <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]}>
-          <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
-            <Box>
-              <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                Níveis de bateria dos sensores
-              </Typography>
-              <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                Bateria
-              </Typography>
+          <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]}>
+            <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
+              <Box>
+                <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
+                  Níveis de bateria dos sensores
+                </Typography>
+                <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
+                  Bateria
+                </Typography>
+              </Box>
+            </Box>
+            <Box height='250px' mt='-20px'>
+              <BatteryLevel data={tempData} />
             </Box>
           </Box>
-          <Box height='250px' mt='-20px'>
-            <BatteryLevel data={tempData} />
-          </Box>
-        </Box>
 
-        <Box gridColumn='span 4' gridRow='span 1' backgroundColor={colors.primary[400]}>
-            <Typography variant='h5' fontWeight='600' sx={{p: '30px 30px 0 30px'}} mb="10px">
-              Ver no Mapa
-            </Typography>
-            <Box display="flex" justifyContent="center" flexGrow={1}>
-              <Button
-                  variant='contained'
-                  onClick={handleButtonClick}
-                  sx={{
-                  backgroundColor: colors.blueAccent[500],
-                  width: '40%', 
-                  height: '50px', 
-                  fontSize: '0.8rem', 
-                  }}
-              >
-                  Mapa
-              </Button>
-            </Box>
-        </Box>
+          {/* ROW 3  */}
+          <Box gridColumn='span 4' gridRow='span 1' backgroundColor={colors.primary[400]}>
+              <Typography variant='h5' fontWeight='600' sx={{p: '30px 30px 0 30px'}} mb="10px">
+                Ver no Mapa
+              </Typography>
+              <Box display="flex" justifyContent="center" flexGrow={1}>
+                <Button
+                    variant='contained'
+                    onClick={handleButtonClick}
+                    sx={{
+                    backgroundColor: colors.blueAccent[500],
+                    width: '40%', 
+                    height: '50px', 
+                    fontSize: '0.8rem', 
+                    }}
+                >
+                    Mapa
+                </Button>
+              </Box>
+          </Box>
 
         
 

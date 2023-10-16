@@ -8,7 +8,7 @@ import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
 import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined'
 
 
-const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, colors, handleTemperature }) => {
+const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, colors, handleTemperature, handleNoise }) => {
   return (
     <Box ml="10px" p={1}>
       {/*Botoes pra salas e edificios*/}
@@ -76,7 +76,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
               aria-label='Ruído'
               color="primary"
               sx={{ backgroundColor: colors.primary[300], '&:hover': { backgroundColor: colors.primary[200] } }}
-              
+              onClick={handleNoise}
             >
               <MicOutlinedIcon />
             </IconButton>

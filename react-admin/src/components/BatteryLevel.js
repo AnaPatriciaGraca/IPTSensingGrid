@@ -1,6 +1,6 @@
 import { ResponsivePie } from '@nivo/pie'
 import { useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+import { tokens } from "../theme";
 
 const BatteryLevel = ( { data }) => {
     const theme = useTheme();
