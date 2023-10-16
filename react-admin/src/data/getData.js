@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export async function fetchRoomsData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/rooms', {
@@ -76,6 +78,24 @@ export async function fetchNoiseData() {
 
     const data = await response.json();
     return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+}
+
+//post data in json server (isOccuipid to 1)
+export async function handleReserveRoom(room) {
+  try {
+    const response = await fetch(`https://smartcampus.ci2.ipt.pt/rooms?id=${room.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type':'application/json'
+      },
+    })
+
+    const data = await response.json();
+    console.log(data)
   } catch (error) {
     console.error('Error fetching data:', error);
     throw error;
