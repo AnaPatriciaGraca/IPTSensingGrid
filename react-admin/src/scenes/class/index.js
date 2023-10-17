@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import { fetchClassesData } from '../../data/getData'
 
 const Class = () => {
+    const theme = useTheme()
+    const colors = tokens(theme.palette.mode)
     const [classesData, setClassesData] = useState([])
 
     //data of classes from API

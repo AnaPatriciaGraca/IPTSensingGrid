@@ -4,16 +4,16 @@ import { tokens } from '../../theme'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import ConfirmationDialog from '../../components/ConfirmationDialog'
+import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { handleReserveRoom } from '../../data/getData';
 
-const SearchResult = ({ data }) => {
+const SearchCourseResult = ({ data }) => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const [isDialogOpen, setIsDialogOpen] = useState(false)
-    const [selectedRoom, setSelectedRoom] = useState('')
-    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const navigate = useNavigate()
+    const [selectedCourse, setSelectedCourse] = useState('')
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
 
     //styles for the results of the search (table)
     const StyledTableCell = styled(TableCell)(() => ({
@@ -42,42 +42,22 @@ const SearchResult = ({ data }) => {
           },
     }))
 
-    //see if room is occupied or not
-    const mapIsOccupied = (value) => {
-        return value === 1 ? 'Não disponível' : 'Disponível'
-    }
-
-    //event when I click a Room (row)
-    const handleRowClick = (room) => {
-        setSelectedRoom(room)
+    //event when I click a row
+    const handleRowClick = (row) => {
+        setSelectedCourse(row)
         setIsDialogOpen(true)
     }
 
-    //modify this function to actually do the reserve of the room
-    const handleReserve = async () => {
-        
-        try {
-            console.log("tentando reservar a sala")
-            //await handleReserveRoom(selectedRoom)
-            console.log("funcao async terminou")
-            setIsConfirmationOpen(true)
-          } catch (error) {
-            // Handle any errors
-          }
-      }
-    
     //close pop ups
     const handleCloseDialog = () => {
-        setSelectedRoom('')
+        setSelectedCourse('')
         setIsDialogOpen(false)
-        setIsConfirmationOpen(false)
-            
     } 
 
-    //handle view fo room on map
-    const handleViewMapClick = () => {
+    //navigate to details page
+    const handleDetails = () => {
         setIsDialogOpen(false)
-        navigate('/mapaTomar', { state: { selectedRoom } })
+        navigate('/detalhesCurso', { state: { selectedCourse } })
     }
 
     return (
@@ -88,40 +68,32 @@ const SearchResult = ({ data }) => {
                 <Table sx={{ minWidth: 700}} aria-label="customized table">
                     <TableHead >
                     <TableRow>
-                        <StyledTableCell align="left">Tipo</StyledTableCell>
-                        <StyledTableCell>Sala</StyledTableCell>
-                        <StyledTableCell align="center">Projetores</StyledTableCell>
-                        <StyledTableCell align="center">Capacidade</StyledTableCell>
-                        <StyledTableCell align="center">Disponibilidade</StyledTableCell>
+                        <StyledTableCell align="left">Nivel</StyledTableCell>
+                        <StyledTableCell align="center">Nome</StyledTableCell>
+                        <StyledTableCell align='center'>Descrição</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
                     {/* Map the results */}
-                    {data.filter((row) => row.id !== undefined && row.id !== null && row.id.toString().trim() !== '').map((row) => (
+                    {data.map((row) => (
                         <StyledTableRow key={row.id} onClick={() => handleRowClick(row)}>
-                            <StyledTableCell align="left">{row['function.']}</StyledTableCell>
-                            <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                            <StyledTableCell align="center">{row.projector}</StyledTableCell>
-                            <StyledTableCell align="center">{row.maxCapacity}</StyledTableCell>
-                            <StyledTableCell align="center">{mapIsOccupied(row.isOccupied)}</StyledTableCell>
+                            <StyledTableCell align="left">{row.level}</StyledTableCell>
+                            <StyledTableCell align="center" scope="row">{row.name}</StyledTableCell>
+                            <StyledTableCell component="th" scope="row">{row.field}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            
+
+
             {/* Pop up to reserv the room*/}
             <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-                <DialogTitle color={colors.greenAccent[400]} fontWeight='bold' fontSize={16}>
-                    {selectedRoom.isReservable === 1 ? 'Confirmar Reserva' : 'Atenção!'}</DialogTitle>
+                <DialogTitle color={colors.greenAccent[400]} fontWeight='bold' fontSize={16}>{selectedCourse.name}</DialogTitle>
                 <DialogContent>
-                    {selectedRoom && (
                     <Typography>
-                        {selectedRoom.isReservable === 1
-                            ? `Tem a certeza de que quer reservar a sala ${selectedRoom.name}?`
-                            : 'Esta sala não tem a capacidade de ser reservada'}
+                        {`Tem a certeza de que quer ver os detalhes do curso ${selectedCourse.name}?`}
                     </Typography>
-                    )}
                 </DialogContent>
                 <DialogActions>
                     <Button
@@ -139,9 +111,10 @@ const SearchResult = ({ data }) => {
                         Cancelar
                     </Button>
                     <Button
-                        onClick={handleViewMapClick}
+                        onClick={handleDetails}
                         color="primary"
                         sx={{
+                            display: 'block',
                             background: colors.greenAccent[400],
                             fontWeight: 'bold',
                             fontSize: 12,
@@ -150,36 +123,12 @@ const SearchResult = ({ data }) => {
                             },
                         }}
                     >
-                        Ver no Mapa
-                    </Button>
-                    <Button
-                        onClick={handleReserve}
-                        color="primary"
-                        sx={{
-                            display: selectedRoom.isReservable === 1 ? 'block' : 'none',
-                            background: colors.greenAccent[400],
-                            fontWeight: 'bold',
-                            fontSize: 12,
-                            '&:hover': {
-                            background: colors.greenAccent[600], 
-                            },
-                        }}
-                    >
-                        Reservar
+                        Ver Detalhes
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Pop up to confirm the reserve */}
-            <ConfirmationDialog
-                isOpen={isConfirmationOpen}
-                onClose={handleCloseDialog}
-                phrase={`A sala ${selectedRoom.name} foi reservada`} 
-            />
-
         </Box>
-        
     )
 }
 
-export default SearchResult
+export default SearchCourseResult

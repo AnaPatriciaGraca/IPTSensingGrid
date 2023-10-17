@@ -1,10 +1,6 @@
 import { Box } from '@mui/material'
 import Header from '../../components/Header'
-import React from 'react';
 import SearchRooms from './SearchRooms'
-
-// const phoneRegExp = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
 
 const RoomReserv = () => {
 
@@ -20,15 +16,12 @@ const RoomReserv = () => {
 
     return (
         <Box m='20px'>
-        <Header title='Pesquisar Sala' subtitle='Pesquise uma sala para reservar'/>
+            <Header title='Pesquisar Sala' subtitle='Pesquise uma sala para reservar'/>
 
-        {/* Room Form */}
-   
-
-        <SearchRooms />
+            <SearchRooms />
         
         
-    </Box>
+        </Box>
     )
 }
 

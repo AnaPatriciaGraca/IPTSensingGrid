@@ -16,6 +16,7 @@ import MapTomar from './scenes/mapTomar'
 import MapAbrantes from './scenes/mapAbrantes'
 import ServiceDetails from './scenes/serviceDetails'
 import Course from './scenes/course'
+import CourseDetails from './scenes/course/CourseDetails'
 import Class from './scenes/class'
 import RoomStats from './scenes/roomStats'
 import RoomReserv from './scenes/roomReserv'
@@ -113,6 +114,7 @@ function App() {
               {/* Cursos */}
               <Route path="/cursos" element={<Course />} />
               <Route path="/cadeiras" element={<Class />} />
+              <Route path="/detalhesCurso" element={<CourseDetails />} />
               {/* Salas */}
               <Route path="/estatisticasSalas" element={<RoomStats />} />
               <Route path="/reservasSalas" element={<RoomReserv />} />
