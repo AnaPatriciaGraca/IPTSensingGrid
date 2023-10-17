@@ -1,27 +1,25 @@
 import { Box, useTheme } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { tokens } from '../../theme'
-import { dadosFuncionarios } from '../../data/testData'
 import Header from '../../components/Header'
 import ProfessorCard from './ProfessorCard'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { fetchPeopleData } from '../../data/getData'
 
 const WorkerSearch = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+    const [peopleData, setPeopleData] = useState([])
     const [selectedProfessor, setSelectedProfessor] = useState(null)
-    const [isProfessorCardOpen, setIsProfessorCardOpen] = useState(false);
+    const [isProfessorCardOpen, setIsProfessorCardOpen] = useState(false)
     const columns = [
-        // {field: 'id' , headerName: 'ID', flex: 0.5}, 
-        // {field: 'registrarId', headerName:'Registrar ID'},
-        {field: 'nome' , headerName: 'Nome', flex: 1, cellClassName: 'name-column--cell'}, 
-        // {field: 'age' , headerName: 'Idade', type: 'number', headerAlign: 'left',align: 'left'},
-        // {field: 'phone' , headerName: 'Telefone', flex: 1},
-        {field: 'email' , headerName: 'Email', flex: 1},
+        //{field: 'id' , headerName: 'ID', flex: 0.5}, 
+        {field: 'nome' , headerName: 'Nome', flex: 0.5, cellClassName: 'name-column--cell'}, 
+        {field: 'email' , headerName: 'Email', flex: 0.5},
         {field: 'gabinete' , headerName: 'Gabinete', flex: 0.5},
-        {field: 'cidade' , headerName: 'Cidade', flex: 0.5},
-        {field: 'curso' , headerName: 'Cursos', flex: 2},
-        // {field: 'disciplina' , headerName: 'Disciplinas', flex: 1},
+        {field: 'telefone' , headerName: 'Telefone', flex: 0.5},
+        {field: 'UD' , headerName: 'Unidade Depart.', flex: 0.5},
+        {field: 'CAT_PRO' , headerName: 'Categoria', flex: 0.5},
     ]
     const localizedTextsMap = {
         columnMenuManage: "Gerir colunas",
@@ -44,18 +42,32 @@ const WorkerSearch = () => {
         filterOperatorIsEmpty: 'vazio',
         filterOperatorIsNotEmpty: 'preenchido',
         filterOperatorIsAnyOf: 'ser algum de',
-      };
+      }
 
-      //lidar com a linha que é clicada (abrir cartão do professor)
+    //data from the API about people
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const data = await fetchPeopleData(); 
+            setPeopleData(data)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+        }
+        fetchData();
+    }, []);
+
+      //open professorCard when the row is clicked
       const handleEvent = (params, event) => {
         setSelectedProfessor(params.row)
-        setIsProfessorCardOpen(true); 
-      };
+        setIsProfessorCardOpen(true) 
+      }
 
-      //lidar com o fecho do cartão do professor
+      //close professor card
       const handleCloseCard = () => {
-        setIsProfessorCardOpen(false);
-        setSelectedProfessor(null);
+        setIsProfessorCardOpen(false)
+        setSelectedProfessor(null)
       }
 
   return (
@@ -91,7 +103,7 @@ const WorkerSearch = () => {
         }}>
             
         {/* Tabela com os dados */}
-        <DataGrid rows={dadosFuncionarios} 
+        <DataGrid rows={peopleData} 
                 columns={columns} 
                 localeText={localizedTextsMap}
                 onRowClick={handleEvent}

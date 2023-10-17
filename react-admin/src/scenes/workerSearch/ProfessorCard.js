@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Modal from 'react-modal';
-import { Box, Typography, useTheme, Button, Card, CardContent } from '@mui/material';
+import { Box, Typography, useTheme, Button, Card, CardContent, CardMedia } from '@mui/material';
 import { tokens } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,6 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
 
   const modalStyles = {
     content: {
-      // width: '40%',
       maxWidth: '600px',
       margin: '10% 35%',
       borderRadius: '8px',
@@ -40,16 +39,22 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
       style={modalStyles}
     >
       <Card sx={{backgroundColor: colors.blueAccent[900], }}>
-        {/* <CardMedia
-          sx={{ height: 140 }}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="green iguana"
-        /> */}
+        {/* Fotografia das pessoas */}
+      {professor.foto && 
+        <Box display="flex" justifyContent="center" alignItems="center" mt='20px'>
+          <CardMedia
+            sx={{ height: 100, width: 100 }}
+            image={professor.foto}
+            title={professor.nome}
+            style={{ cursor: "pointer", borderRadius: "50%" }}
+          /> 
+        </Box>
+        } 
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" align='center' mb='20px'>
             {professor.nome}
           </Typography>
-          {/* PROFESSOR EMAIL */}
+          {/* PERSON EMAIL */}
           <Box display="flex" alignItems="center">
             <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
               Email:
@@ -58,53 +63,102 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
               {professor.email}
             </Typography>
           </Box>
-          {/* PROFESSOR GABINTE */}
-          <Box display="flex" alignItems="center">
+          {/* PERSON GABINTE */}
+          {professor.gabinete && <Box display="flex" alignItems="center">
             <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
               Gabinete:
             </Typography>
             <Typography variant="body2" color="text.secondary" ml="5px">
               {professor.gabinete}
             </Typography>
-          </Box>
-          {/* PROFESSOR LOCALIZAÇÃO */}
-          <Box display="flex" alignItems="center">
+          </Box>}
+          {/* PERSON TELEFONE */}
+          {professor.telefone && <Box display="flex" alignItems="center">
             <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
-              Localização:
+              Telefone:
             </Typography>
             <Typography variant="body2" color="text.secondary" ml="5px">
-              {professor.cidade}
+              {professor.telefone}
+            </Typography>
+          </Box>}
+          {/* PERSON UN DEP */}
+          {professor.UD && <Box display="flex" alignItems="center">
+            <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
+              Unidade Departamental:
+            </Typography>
+            <Typography variant="body2" color="text.secondary" ml="5px">
+              {professor.UD}
+            </Typography>
+          </Box>}
+          {/* PERSON CAT Prof */}
+          {professor.CAT_PRO && <Box display="flex" alignItems="center">
+            <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
+              Categoria Profissional:
+            </Typography>
+            <Typography variant="body2" color="text.secondary" ml="5px">
+              {professor.CAT_PRO}
+            </Typography>
+          </Box>}
+          {/* PERSON Entrada */}
+          <Box display="flex" alignItems="center">
+            <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
+              Ano Entrada:
+            </Typography>
+            <Typography variant="body2" color="text.secondary" ml="5px">
+              {professor.ipt_desde_in}
             </Typography>
           </Box>
+          {/* PERSON Saida - show only if the person is no longer working here*/}
+          {(!professor.vinculo_ativo || professor.vinculo_ativo == 0) &&  (
+            <Box display="flex" alignItems="center">
+              <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
+                Ano Saída:
+              </Typography>
+              
+                <Typography variant="body2" color="text.secondary" ml="5px">
+                  {professor.ipt_desde_out}
+                </Typography>
+            </Box>
+            )}
+            {/* PERSON Cargos - show only if there us text on the Fields*/}
+            {professor.cargo1 && (
+              <Box>
+                <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
+                  Cargos:
+                </Typography>
+                <Typography variant="body2" color="text.secondary" ml="5px">
+                  - {professor.cargo1}
+                </Typography>
+              </Box>
+            )}
+            {professor.cargo2 && (
+              <Box>
+                <Typography variant="body2" color="text.secondary" ml="5px">
+                  - {professor.cargo2}
+                </Typography>
+              </Box>
+            )}
+            {professor.cargo3 && (
+              <Box>
+                <Typography variant="body2" color="text.secondary" ml="5px">
+                  - {professor.cargo3}
+                </Typography>
+              </Box>
+            )}
 
-          {/* PROFESSOR CURSOS */}
-          <Typography variant="body2" color={colors.greenAccent[300]} mt="10px" sx={{ fontWeight: 'bold' }}>
-              Cursos:
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {professor.curso.join(', ')}
-          </Typography>
-          {/* PROFESSOR DISCIPLINAS */}
-          <Typography variant="body2" color={colors.greenAccent[300]} mt="10px" sx={{ fontWeight: 'bold' }}>
-              Disciplinas:
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {professor.disciplina.join(', ')}
-          </Typography>
-          {/* PROFESSOR DETALHES */}
-          <Typography variant="body2" color={colors.greenAccent[300]} mt="10px" sx={{ fontWeight: 'bold' }}>
-              Detalhes:
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {professor.outros.join(', ')}
-          </Typography>
+          
+
+
+
+
+          
     
         </CardContent>
       </Card>
 
       <Box display="flex" justifyContent="flex-end" mt='20px'>
         <Button onClick={handleClickToMap} sx={{bgcolor: colors.greenAccent[500], '&:hover': { bgcolor: colors.greenAccent[300]}, mr: "10px" }}>Ver no Mapa</Button>
-        <Button onClick={onClose} sx={{bgcolor: colors.greenAccent[500], '&:hover': { bgcolor: colors.greenAccent[300] }}}>Close</Button>
+        <Button onClick={onClose} sx={{bgcolor: colors.greenAccent[500], '&:hover': { bgcolor: colors.greenAccent[300] }}}>Fechar</Button>
       </Box>
     </Modal>
   );
