@@ -14,7 +14,7 @@ const UsedRoomData = ({ rooms }) => {
       rooms.forEach((room) => {
         if (room.isOccupied === 1) {
           const blockName = room.name.charAt(0);
-          const category = getCategory(room.function);
+          const category = getCategory(room['function.']);
 
           if (!categories[blockName]) {
             categories[blockName] = {

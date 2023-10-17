@@ -15,6 +15,8 @@ import DashboardTest from '../src/scenes/dashboardTest'
 import MapTomar from './scenes/mapTomar'
 import MapAbrantes from './scenes/mapAbrantes'
 import ServiceDetails from './scenes/serviceDetails'
+import Course from './scenes/course'
+import Class from './scenes/class'
 import RoomStats from './scenes/roomStats'
 import RoomReserv from './scenes/roomReserv'
 import WorkerStats from './scenes/workerStats'
@@ -108,6 +110,9 @@ function App() {
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
               <Route path="/detalhesServicos" element={<ServiceDetails />} />
+              {/* Cursos */}
+              <Route path="/cursos" element={<Course />} />
+              <Route path="/cadeiras" element={<Class />} />
               {/* Salas */}
               <Route path="/estatisticasSalas" element={<RoomStats />} />
               <Route path="/reservasSalas" element={<RoomReserv />} />

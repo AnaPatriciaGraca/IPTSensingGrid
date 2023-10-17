@@ -72,24 +72,24 @@ const RoomStats = () => {
         let countLabs = 0
         let countOther = 0 
         for (const room of rooms) {
-            if (String(room.function).toLocaleLowerCase().includes('sala de aula')) {
+            if (String(room['function.']).toLocaleLowerCase().includes('sala de aula')) {
                 countTotalSalaAula++
                 if(room.isOccupied){
                     countSalaAula++
                 }
-                room.function = 'sala de aula'
-            } else if (String(room.function).toLocaleLowerCase().includes('laboratório')) {
+                room['function.'] = 'sala de aula'
+            } else if (String(room['function.']).toLocaleLowerCase().includes('laboratório')) {
                 countTotalLabs++
                 if(room.isOccupied){
                     countLabs++
                 }
-                room.function = "laboratório"
+                room['function.'] = "laboratório"
             } else {
                 countTotalOther++
                 if(room.isOccupied){
                    countOther++ 
                 }
-                room.function = 'outro'
+                room['function.'] = 'outro'
             }
             
         }

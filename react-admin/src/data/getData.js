@@ -105,18 +105,42 @@ export async function fetchPeopleData() {
   }
 }
 
-//post data in json server (isOccuipid to 1)
-export async function handleReserveRoom(room) {
+export async function fetchCoursesData() {
   try {
-    const response = await fetch(`https://smartcampus.ci2.ipt.pt/rooms?id=${room.id}`, {
-      method: 'PATCH',
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/courses', {
+      method: 'GET',
       headers: {
-        'Content-Type':'application/json'
+        'Accept': 'application/json',
       },
-    })
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
 
     const data = await response.json();
-    console.log(data)
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+}
+
+export async function fetchClassesData() {
+  try {
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/classes', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error fetching data:', error);
     throw error;

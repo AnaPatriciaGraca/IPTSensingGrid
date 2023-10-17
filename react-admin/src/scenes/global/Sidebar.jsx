@@ -10,11 +10,11 @@ import DomainOutlinedIcon from '@mui/icons-material/DomainOutlined'
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
 import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined'
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined'
 import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
-import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined'
 import ScreenSearchDesktopOutlinedIcon from '@mui/icons-material/ScreenSearchDesktopOutlined'
@@ -221,6 +221,23 @@ const SideBar = () => {
               />
             </SubMenu>
 
+            <SubMenu variant="h6" label="Cursos" sx={{ m: "15px 0 5px 20px" }}>
+              <Item
+                title="Cursos"
+                to="/cursos"
+                icon={<SchoolOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Cadeiras"
+                to="/cadeiras"
+                icon={<ClassOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </SubMenu>
+
             <SubMenu variant="h6" label="Salas" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Estatísticas"
@@ -253,13 +270,13 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* <Item
                 title="Horários & Férias"
                 to="/horariosFerias"
                 icon={<CalendarMonthOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </SubMenu>
 
             <SubMenu variant="h6" label="Equipamentos" sx={{ m: "15px 0 5px 20px" }}>
