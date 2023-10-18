@@ -12,7 +12,7 @@ const CourseDetails = ({ selectedCourse }) => {
 
   return (
     <Box m='20px'>
-        <Header title={data.name} subtitle='Detalhes do Curso'/>
+        <Header title={data.name} subtitle=''/>
 
         {/* Details */}
         <Typography variant="h3" mb="10px" ml="20px" color={colors.greenAccent[500]} sx={{ fontWeight: 'bold' }}>

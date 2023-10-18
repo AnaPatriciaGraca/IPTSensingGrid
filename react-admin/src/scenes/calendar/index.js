@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import FullCallendar from '@fullcalendar/react'
 import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -87,8 +86,8 @@ const Calendar = () => {
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvents(events)}
                     initialEvents={[
-                        {id: '1234', title:'All-day event', date: '2023-08-14'},
-                        {id:4321, title: 'Timed event', date: '2023-08-27'}
+                        {id: '1234', title:'All-day event', date: '2023-10-14'},
+                        {id:4321, title: 'Timed event', date: '2023-10-27'}
                     ]}
                 />
             </Box>

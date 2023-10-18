@@ -5,12 +5,9 @@ import { Routes, Route } from 'react-router-dom'
 import Topbar from '../src/scenes/global/Topbar'
 import Sidebar from '../src/scenes/global/Sidebar'
 //Pages
-import Team from '../src/scenes/team'
 import DeviceList from './scenes/devices'
-import Contacts from '../src/scenes/contacts'
 import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
-import FAQ from '../src/scenes/faq'
 import DashboardTest from '../src/scenes/dashboardTest'
 import MapTomar from './scenes/mapTomar'
 import MapAbrantes from './scenes/mapAbrantes'
@@ -124,12 +121,8 @@ function App() {
               {/* Equipamentos */}
               <Route path="/listagemEquipamentos" element={<DeviceList />} />
               {/* Outros */}
-              <Route path="/team" element={<Team />} />
-              
               <Route path="/form" element={<Form />} />
-              <Route path="/contacts" element={<Contacts />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="/faq" element={<FAQ />} />
             </Routes>
           </main>
         </div>

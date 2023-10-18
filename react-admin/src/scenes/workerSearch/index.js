@@ -1,10 +1,17 @@
-import { Box, useTheme } from '@mui/material'
+import { Box, useTheme, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import ProfessorCard from './ProfessorCard'
 import { useState, useEffect } from 'react'
 import { fetchPeopleData } from '../../data/getData'
+//icons
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined'
+import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined'
+import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined'
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
+import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 
 const WorkerSearch = () => {
     const theme = useTheme()
@@ -14,12 +21,42 @@ const WorkerSearch = () => {
     const [isProfessorCardOpen, setIsProfessorCardOpen] = useState(false)
     const columns = [
         //{field: 'id' , headerName: 'ID', flex: 0.5}, 
-        {field: 'nome' , headerName: 'Nome', flex: 0.5, cellClassName: 'name-column--cell'}, 
+        {field: 'nome' , headerName: 'Nome', flex: 1, cellClassName: 'name-column--cell'}, 
         {field: 'email' , headerName: 'Email', flex: 0.5},
         {field: 'gabinete' , headerName: 'Gabinete', flex: 0.5},
         {field: 'telefone' , headerName: 'Telefone', flex: 0.5},
         {field: 'UD' , headerName: 'Unidade Depart.', flex: 0.5},
-        {field: 'CAT_PRO' , headerName: 'Categoria', flex: 0.5},
+        {field: 'CAT_PRO' , headerName: 'Categoria', flex: 1, renderCell: ({row}) => {
+            const CAT_PRO = row.CAT_PRO || ''; // Use an empty string if CAT_PRO is null
+            if (!CAT_PRO) {
+                return null; // Don't render anything if CAT_PRO is null or empty
+            }
+            return(
+                <Box
+                    width='80%'
+                    margin='0 auto'
+                    p='5px'
+                    display='flex'
+                    justifyContent='center'
+                    backgroundColor={CAT_PRO.includes('Professor') ? colors.greenAccent[600] : colors.greenAccent[700]}
+                    borderRadius='4px'
+                >
+                    {CAT_PRO.includes('Professor') && <SchoolOutlinedIcon />}
+                    {CAT_PRO.includes('Formador') && <SchoolOutlinedIcon />}
+                    {CAT_PRO.includes('Chefe') && <AdminPanelSettingsOutlinedIcon />}
+                    {CAT_PRO.includes('Convidado') && <PersonOutlineOutlinedIcon />}
+                    {CAT_PRO.includes('Funcionário') && <PersonOutlineOutlinedIcon />}
+                    {CAT_PRO.includes('Técnico') && <BuildCircleOutlinedIcon />}
+                    {CAT_PRO.includes('Investigador') && <ManageSearchOutlinedIcon />}
+                    {CAT_PRO.includes('Bolseiro') && <PersonOutlineOutlinedIcon />}
+                    {CAT_PRO.includes('Operacional') && <EngineeringOutlinedIcon />}
+                    <Typography color={colors.grey[100]} sx={{ml: '5px'}}>
+                        {CAT_PRO}
+                    </Typography>
+                </Box>
+            )
+        }},
+        
     ]
     const localizedTextsMap = {
         columnMenuManage: "Gerir colunas",

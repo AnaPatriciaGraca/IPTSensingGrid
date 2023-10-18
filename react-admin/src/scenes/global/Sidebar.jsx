@@ -14,13 +14,11 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined'
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import DesktopWindowsOutlinedIcon from '@mui/icons-material/DesktopWindowsOutlined'
 import ScreenSearchDesktopOutlinedIcon from '@mui/icons-material/ScreenSearchDesktopOutlined'
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import MicOutlinedIcon from '@mui/icons-material/MicOutlined'
@@ -305,20 +303,6 @@ const SideBar = () => {
 
             <SubMenu variant="h6" label="Outros" sx={{ m: "15px 0 5px 20px" }}>
               <Item
-                title="Manage Team"
-                to="/team"
-                icon={<PeopleOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="Contacts Information"
-                to="/contacts"
-                icon={<ContactsOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
                 title="Profile Form"
                 to="/form"
                 icon={<PersonOutlinedIcon />}
@@ -329,13 +313,6 @@ const SideBar = () => {
                 title="Calendar"
                 to="/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-              <Item
-                title="FAQ Page"
-                to="/faq"
-                icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
