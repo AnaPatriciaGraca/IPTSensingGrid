@@ -118,18 +118,7 @@ const RoomStats = () => {
         <Box m='20px'>
             <Box display='flex' justifyContent="space-between" alignItems="center">
                 <Header title="Estatísticas das Salas" subtitle="Dados gerais das salas"/>
-                <Box>
-                <Button sx={{
-                    backgroundColor: colors.blueAccent[700],
-                    color: colors.grey[100],
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    padding: '10px 20px'
-                }}>
-                    <DownloadOutlinedIcon sx={{mr:'10px'}}/>
-                    Download Reports
-                </Button>
-                </Box>
+                
             </Box >
 
             {/* Grid and CHARTS */}

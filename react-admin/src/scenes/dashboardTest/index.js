@@ -23,18 +23,6 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
     <Box m='20px'>
       <Box display='flex' justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Dados Gerais Tomar"/>
-        <Box>
-          <Button sx={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            fontSize: '14px',
-            fontWeight: 'bold',
-            padding: '10px 20px'
-          }}>
-            <DownloadOutlinedIcon sx={{mr:'10px'}}/>
-            Download Reports
-          </Button>
-        </Box>
       </Box >
 
       
