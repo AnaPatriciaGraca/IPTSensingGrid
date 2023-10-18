@@ -121,7 +121,7 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
         {/* PIE CHART */}
         <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]}>
             <Typography variant='h5' fontWeight='600' sx={{p: '30px 30px 0 30px'}}>
-              Aulas a decorrer
+              Aulas hoje
             </Typography>
           <Box height='250px'>
             <CurrentClasses/>

@@ -16,7 +16,6 @@ const NoiseData = ({ noiseData, isDashboard }) => {
 
     return dataEntry
   })
-  console.log("transformedData: ", transformedData)
 
   return (
     <NoiseChart data={transformedData} />

@@ -78,79 +78,28 @@ export const classes = [
     "id": "Informática",
     "label": "Informática",
     "value": 5,
-    "color": "hsl(324, 70%, 50%)"
   },
   {
     "id": "Electrotécnica",
     "label": "Electrotécnica",
     "value": 3,
-    "color": "hsl(338, 70%, 50%)"
   },
   {
     "id": "Design",
     "label": "Design",
     "value": 2,
-    "color": "hsl(35, 70%, 50%)"
   },
   {
     "id": "Contabilidade",
     "label": "Contabilidade",
     "value": 2,
-    "color": "hsl(261, 70%, 50%)"
   },
   {
     "id": "Restauro",
     "label": "Restauro",
     "value": 1,
-    "color": "hsl(359, 70%, 50%)"
   }
 ]
-
-export const noise = [
-{
-  "id": "Bloco A",
-  "decibel": 16.6,
-  "09:00": 14,
-  "12:00": 28,
-  "15:00": 1,
-  "18:00": 17
-},
-{
-  "id": "Bloco B",
-  "decibel": 16.6,
-  "09:00": 28,
-  "12:00": 20,
-  "15:00": 23,
-  "18:00": 13
-},
-{
-  "id": "Bloco I",
-  "decibel": 16.6,
-  "09:00": 14,
-  "12:00": 28,
-  "15:00": 0,
-  "18:00": 31
-},
-{
-  "id": "Bloco J",
-  "decibel": 16.6,
-  "09:00": 16,
-  "12:00": 12,
-  "15:00": 19,
-  "18:00": 31
-},
-{
-  "id": "Bloco O",
-  "decibel": 16.6,
-  "09:00": 31,
-  "12:00": 3,
-  "15:00": 5,
-  "18:00": 7
-}
-]
-
-
-
 export const usedRooms = [
   {
     bloco: "A",
@@ -197,41 +146,8 @@ export const usedRooms = [
     },
     
   
-];
-
-export const exemploSalas = [
-  { 
-    nome: 'B265',
-    capacidade: "56",
-    projetores: "1",
-    polo: "Tomar",
-    bloco: "B",
-  },{ 
-    nome: 'B165',
-    capacidade: "28",
-    projetores: "1",
-    polo: "Tomar",
-    bloco: "B",
-  },{ 
-    nome: 'I235',
-    capacidade: "70",
-    projetores: "1",
-    polo: "Tomar",
-    bloco: "I",
-  },{ 
-    nome: '0105',
-    capacidade: "28",
-    projetores: "1",
-    polo: "Tomar",
-    bloco: "O",
-  },{ 
-    nome: '0106',
-    capacidade: "48",
-    projetores: "0",
-    polo: "Tomar",
-    bloco: "O",
-  },
 ]
+
 
 export const freeProfs = [
   {

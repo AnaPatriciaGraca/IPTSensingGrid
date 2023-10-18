@@ -1,4 +1,3 @@
-import axios from 'axios'
 
 export async function fetchRoomsData() {
   try {
@@ -129,6 +128,27 @@ export async function fetchCoursesData() {
 export async function fetchClassesData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/classes', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+}
+
+export async function fetchClassesDataByDay(day) {
+  try {
+    const response = await fetch(`https://smartcampus.ci2.ipt.pt/classes?day=${day}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

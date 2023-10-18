@@ -2,14 +2,54 @@ import { ResponsivePie } from "@nivo/pie"
 import { classes as data } from "../data/testData"
 import { tokens } from "../theme"
 import { useTheme } from "@mui/material"
+import { fetchClassesDataByDay } from "../data/getData"
+import { useState, useEffect } from 'react'
 
 const CurrentClasses = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+    const weekDay = new Date().getDay()+1
+    console.log("Day of Week: ", weekDay)
+    const classesObject = {}
+    const [classData, setClassData] = useState([]);
+
+    useEffect(() => {
+        fetchClassesDataByDay(weekDay)
+            .then((data) => {
+                const coursesObject = {};
+    
+                data.forEach((item) => {
+                    if (item.courses) {
+                        item.courses.forEach((course) => {
+                            const courseId = course.course;
+                            if (courseId) {
+                                if (!coursesObject[courseId]) {
+                                    coursesObject[courseId] = {
+                                        id: courseId,
+                                        label: courseId,
+                                        value: 1,
+                                    };
+                                } else {
+                                    coursesObject[courseId].value += 1;
+                                }
+                            }
+                        });
+                    }
+                });
+    
+                const courseData = Object.values(coursesObject);
+                setClassData(courseData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    }, [weekDay]);
+
+    console.log(classData)
 
   return (
     <ResponsivePie
-    data={data}
+    data={classData}
     theme={{
         tooltip: {
             container: {
@@ -20,11 +60,11 @@ const CurrentClasses = () => {
             }
           },
       }}
-    margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+    margin={{ top: 40, right: 40, bottom: 80, left: 40 }}
     startAngle={-81}
     innerRadius={0.2}
-    padAngle={6}
-    cornerRadius={30}
+    padAngle={2}
+    cornerRadius={80}
     activeOuterRadiusOffset={8}
     colors={{ scheme: 'purple_blue' }}
     borderWidth={4}
@@ -33,7 +73,7 @@ const CurrentClasses = () => {
         modifiers: [
             [
                 'darker',
-                0.3
+                0.1
             ]
         ]
     }}
@@ -61,7 +101,7 @@ const CurrentClasses = () => {
             type: 'patternDots',
             background: 'inherit',
             color: 'rgba(255, 255, 255, 0.3)',
-            size: 4,
+            size: 5,
             padding: 1,
             stagger: true
         },
@@ -71,7 +111,7 @@ const CurrentClasses = () => {
             background: 'inherit',
             color: 'rgba(255, 255, 255, 0.3)',
             rotation: -45,
-            lineWidth: 6,
+            lineWidth: 3,
             spacing: 10
         }
     ]}
