@@ -10,8 +10,6 @@ const CourseDetails = ({ selectedCourse }) => {
     const { state } = useLocation()
     const data = state ? state.selectedCourse : null
 
-
-
   return (
     <Box m='20px'>
         <Header title={data.name} subtitle='Detalhes do Curso'/>
@@ -36,6 +34,7 @@ const CourseDetails = ({ selectedCourse }) => {
                     image={person.photo}
                     title={person.nome}
                     style={{ cursor: "pointer", borderRadius: "50%" }}
+                    component="img"
                     /> 
                     <Box ml='30px' maxWidth='180px'>
                         <Typography variant='h6' sx={{ fontWeight: 'bold', color: colors.blueAccent[900] }}>

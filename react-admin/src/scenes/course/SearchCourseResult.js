@@ -3,10 +3,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import { tokens } from '../../theme'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
-import ConfirmationDialog from '../../components/ConfirmationDialog'
-import { Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { handleReserveRoom } from '../../data/getData';
 
 const SearchCourseResult = ({ data }) => {
     const theme = useTheme()
