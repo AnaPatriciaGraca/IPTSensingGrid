@@ -202,6 +202,11 @@ const RoomStats = () => {
                         </Typography>
                         </Box>
                     </Box>
+                    <Box ml="30px">
+                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+                            Estes dados não são reais e servem apenas para efeito representativo
+                        </Typography>
+                        </Box>
                     <Box height='250px' mt='-20px'>
                         <FreeRoomData data={rooms}/>
                     </Box>
@@ -211,7 +216,7 @@ const RoomStats = () => {
                 {/* Salas livres por bloco - Barchart */}
                 <Box gridColumn='span 8' gridRow='span 2' backgroundColor={colors.primary[400]}>
                     <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
-                        <Box mb='30px'>
+                        <Box mb="10px">
                         <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
                             Localização das Salas Ocupadas
                         </Typography>
@@ -219,7 +224,11 @@ const RoomStats = () => {
                             Salas Ocupadas por bloco
                         </Typography>
                         </Box>
-                        
+                    </Box>
+                    <Box ml="30px">
+                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+                            Estes dados não são reais e servem apenas para efeito representativo
+                        </Typography>
                     </Box>
                     <UsedRoomData rooms={rooms}/>
 
@@ -229,6 +238,11 @@ const RoomStats = () => {
                     <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
                         <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
                         Calendário
+                        </Typography>
+                    </Box>
+                    <Box ml="20px">
+                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+                            Estes dados não são reais e servem apenas para efeito representativo
                         </Typography>
                     </Box>
 

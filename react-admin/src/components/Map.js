@@ -147,9 +147,9 @@ function Map({ location, locationTitle, tempData, noiseData }) {
           {/* Getting location of the user */}
           {showMyLocation && <MapEvents setPosition={setPosition} /> }
           {/* Show temperature sensors */}
-          {showTempSensors && tempData.map((sensor) => ( <SensorMarkers sensor={sensor } customIcon={customIcon} /> ))}
+          {showTempSensors && tempData.map((sensor) => ( <SensorMarkers sensor={sensor} sensorInfo={`${sensor.temperature}ºC`} customIcon={customIcon} /> ))}
           {/* Show noise sensors */}
-          {showNoiseSensors && noiseData.map((sensor) => ( <SensorMarkers sensor={sensor } customIcon={customIcon} /> ))}
+          {showNoiseSensors && noiseData.map((sensor) => ( <SensorMarkers sensor={sensor} sensorInfo={`${sensor.decibel}db`} customIcon={customIcon} /> ))}
 
 
         </MapContainer>

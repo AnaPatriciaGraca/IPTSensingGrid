@@ -4,7 +4,7 @@ import { Marker, Popup } from 'react-leaflet'
 import { useTheme } from '@mui/material';
 import { tokens } from '../theme';
 
-const SensorMarkers = ({sensor, customIcon}) => {
+const SensorMarkers = ({ sensor, sensorInfo, customIcon}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -19,7 +19,7 @@ const SensorMarkers = ({sensor, customIcon}) => {
             <div>
               <h3>Sensor: {sensor.id}</h3>
               <p>Descrição: {sensor.description}</p>
-              <p>Temperatura: {sensor.temperature} °C</p>
+              <p>Dados: {sensorInfo}</p>
             </div>
         </Popup>
     </Marker>

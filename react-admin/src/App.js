@@ -6,6 +6,8 @@ import Topbar from '../src/scenes/global/Topbar'
 import Sidebar from '../src/scenes/global/Sidebar'
 //Pages
 import DeviceList from './scenes/devices'
+import DeviceStats from './scenes/deviceStats'
+import DeviceProblems from './scenes/deviceProblems'
 import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
 import DashboardTest from '../src/scenes/dashboardTest'
@@ -20,6 +22,7 @@ import RoomReserv from './scenes/roomReserv'
 import WorkerStats from './scenes/workerStats'
 import WorkerSearch from './scenes/workerSearch'
 import Temperature from '../src/scenes/temperature'
+import ParkingSpots from './scenes/parkingSpots'
 import CurrentClasses from './scenes/currentClasses'
 import Noise from '../src/scenes/noise'
 import SchedulesServices from '../src/scenes/schedulesServices'
@@ -105,6 +108,7 @@ function App() {
               {/* Sensores */}
               <Route path="/temperatura" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />
               <Route path="/som" element={<Noise noiseData={noiseData} calcAvgNoise={calcAvgNoise()} />} />
+              <Route path="/estacionamento" element={<ParkingSpots />} />
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
               <Route path="/detalhesServicos" element={<ServiceDetails />} />
@@ -120,6 +124,8 @@ function App() {
               <Route path='/pesquisaFuncionarios' element={<WorkerSearch />} />
               {/* Equipamentos */}
               <Route path="/listagemEquipamentos" element={<DeviceList />} />
+              <Route path="/estatisticasEquipamentos" element={<DeviceStats />} />
+              <Route path="/reparacoesEquipamentos" element={<DeviceProblems />} />
               {/* Outros */}
               <Route path="/form" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />

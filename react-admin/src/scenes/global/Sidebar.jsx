@@ -195,7 +195,7 @@ const SideBar = () => {
               />
               <Item
                 title="Estacionamento"
-                to="/parking"
+                to="/estacionamento"
                 icon={<LocalParkingOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
