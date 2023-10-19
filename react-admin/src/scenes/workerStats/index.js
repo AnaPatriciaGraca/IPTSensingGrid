@@ -1,20 +1,50 @@
-import { Box, Button, useTheme, Typography } from '@mui/material'
+import { Box, useTheme, Typography } from '@mui/material'
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
 import { topFuncHorario as funcionarios } from '../../data/testData'
+import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors } from '../../data/getData'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import { useState, useEffect } from 'react'
 
 const WorkerStats = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
+    const [activePeople, setActivePeople] = useState('')
+    const [inactivePeople, setInactivePeople] = useState('')
+    const [activeLast5Y, setActiveLast5Y] = useState('')
+    const [totalProf, setTotalProf] = useState('')
+
+    //get data from active people on IPT
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const dataActive = await fetchPeopleDataActive();
+            setActivePeople(dataActive);
+      
+            const dataInactive = await fetchPeopleDataInactive();
+            setInactivePeople(dataInactive);
+      
+            const data5Y = await fetchPeopleData5Years(); 
+            setActiveLast5Y(data5Y);
+
+            const dataProf = await fetchPeopleDataProfessors()
+            setTotalProf(dataProf)
+      
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+        fetchData();
+      }, []);
+      
+
 
     return (
         <Box m='20px'>
@@ -46,18 +76,18 @@ const WorkerStats = () => {
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
                         title='Total de funcionários' 
-                        subtitle='Em horário laboral'
-                        progress='0.75'
-                        increase='75%'
+                        subtitle='Em contrato'
+                        progress={(activePeople / (activePeople+inactivePeople))}
+                        increase={Math.floor((activePeople / (activePeople+inactivePeople))*100)+'%'}
                         icon={<WorkOutlineOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Total de funcionários' 
-                        subtitle='Fora do horário laboral'
-                        progress='0.25'
-                        increase='25%'
+                        title='Últimos Contratos' 
+                        subtitle='Últimos 5 anos'
+                        progress={(activeLast5Y/activePeople)}
+                        increase={Math.floor((activeLast5Y / activePeople)*100)+'%'}
                         icon={<HomeOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
@@ -74,10 +104,10 @@ const WorkerStats = () => {
 
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Outros funcionários' 
-                        subtitle='Em horário laboral'
-                        progress='0.20'
-                        increase='20%'
+                        title='Total Professores' 
+                        subtitle='Em contrato'
+                        progress={(totalProf/activePeople)}
+                        increase={Math.floor((totalProf / activePeople)*100)+'%'}
                         icon={<PermIdentityOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
