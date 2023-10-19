@@ -50,15 +50,18 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
           />
         </Box>
 
-        <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
-          <StatBox 
-            title='356' 
-            subtitle='Afluência'
-            progress='0.25'
-            increase='25%'
-            icon={<PersonAddIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
-          />
-        </Box>
+        
+          <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
+            <StatBox 
+              title='356' 
+              subtitle='Afluência'
+              progress='0.25'
+              increase='25%'
+              alert='Dados Representativos'
+              icon={<PersonAddIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
+            />
+          </Box>
+        
 
         <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
           <StatBox 
@@ -66,6 +69,7 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
             subtitle='Estacionamento'
             progress='0.36'
             increase='+36%'
+            alert='Dados Representativos'
             icon={<TrafficIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />
         </Box>
@@ -95,7 +99,11 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
               Calendário
             </Typography>
           </Box>
-
+          <Box ml="20px" mr="20px">
+            <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+              Estes dados não são reais e servem apenas para efeito representativo
+            </Typography>
+          </Box>
           {events.map((transaction, i) =>(
             <Box key={`${transaction.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
               <Box>

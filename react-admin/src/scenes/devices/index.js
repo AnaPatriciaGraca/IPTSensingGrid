@@ -25,6 +25,13 @@ const DeviceList = () => {
   return (
     <Box m='20px'>
         <Header title='Equipamentos' subtitle='Lista de Equipamentos' />
+        
+        <Box>
+            <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+              Estes dados não são reais e servem apenas para efeito representativo
+            </Typography>
+          </Box>
+
         <Box m='40px 0 0 0' height='75vh' sx={{
             '.MuiDataGrid-root': {
                 border: 'none',

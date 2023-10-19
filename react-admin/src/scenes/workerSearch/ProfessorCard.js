@@ -109,7 +109,7 @@ const ProfessorCard = ({ professor, isOpen, onClose }) => {
             </Typography>
           </Box>
           {/* PERSON Saida - show only if the person is no longer working here*/}
-          {(!professor.vinculo_ativo || professor.vinculo_ativo == 0) &&  (
+          {(!professor.vinculo_ativo || professor.vinculo_ativo === 0) &&  (
             <Box display="flex" alignItems="center">
               <Typography variant="body2" color={colors.greenAccent[300]} sx={{ fontWeight: 'bold' }}>
                 Ano Saída:

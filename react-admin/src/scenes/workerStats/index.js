@@ -49,7 +49,7 @@ const WorkerStats = () => {
     return (
         <Box m='20px'>
             <Box display='flex' justifyContent="space-between" alignItems="center">
-                <Header title="Estatísticas dos funcionários" subtitle="Dados gerais dde todos os funcionários"/>
+                <Header title="Estatísticas dos funcionários" subtitle="Dados gerais de todos os funcionários"/>
               
             </Box >
 
@@ -59,13 +59,18 @@ const WorkerStats = () => {
                 {/* COL 1 */}
                 <Box gridColumn='span 6' gridRow='span 5' backgroundColor={colors.primary[400]}>
                     <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
-                        <Box mb='30px'>
-                        <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                            Localização dos professores
-                        </Typography>
-                        <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                            Professores por bloco
-                        </Typography>
+                        <Box mb='20px'>
+                            <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
+                                Localização dos professores
+                            </Typography>
+                            <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
+                                Professores por bloco
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+                            Estes dados não são reais e servem apenas para efeito representativo
+                            </Typography>
                         </Box>
                         
                     </Box>
@@ -98,6 +103,7 @@ const WorkerStats = () => {
                         subtitle='Em horário laboral'
                         progress='0.55'
                         increase='55%'
+                        alert='Dados Representativos'
                         icon={<SchoolOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
@@ -122,6 +128,11 @@ const WorkerStats = () => {
                         <Box color={colors.grey[100]} fontWeight={600}>
                             Total Horas
                         </Box>
+                    </Box>
+                    <Box ml="20px" mr="20px">
+                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
+                        Estes dados não são reais e servem apenas para efeito representativo
+                        </Typography>
                     </Box>
                     {funcionarios.map((funcionario, i) =>(
                         <Box key={`${funcionario.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
