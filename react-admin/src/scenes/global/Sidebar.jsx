@@ -115,7 +115,7 @@ const SideBar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]} >
-                  IPT - SG
+                  IPT - SC
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -145,7 +145,7 @@ const SideBar = () => {
                 >
                   IPT
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[600]}>Sensing Grid</Typography>
+                <Typography variant="h5" color={colors.greenAccent[600]}>Smart Campus</Typography>
               </Box>
             </Box>
           )}
