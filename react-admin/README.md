@@ -7,4 +7,10 @@ This is part of the SmartCampus Ci2 Internal Research Project.
 ## Launching the Dashboard App
 
 This is a simple react application (SPA), thus can be launched normally with simple steps, such as `node install && npm start` or `react-scripts start` (check package.json)
- 
+
+### Using Docker
+
+Alternatively use docker for dev and prod (check `docker-compose.yml`)
+
+In prod run `sudo docker-compose up -d app`
+In dev run `sudo docker-compose up -d app-dev`
