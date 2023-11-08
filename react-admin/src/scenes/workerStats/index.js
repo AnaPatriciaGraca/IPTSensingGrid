@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
 import { topFuncHorario as funcionarios } from '../../data/testData'
-import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors } from '../../data/getData'
+import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchPeopleData } from '../../data/getData'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -20,7 +20,7 @@ const WorkerStats = () => {
     const [inactivePeople, setInactivePeople] = useState('')
     const [activeLast5Y, setActiveLast5Y] = useState('')
     const [totalProf, setTotalProf] = useState('')
-
+    
     //get data from active people on IPT
     useEffect(() => {
         async function fetchData() {
@@ -61,15 +61,10 @@ const WorkerStats = () => {
                     <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
                         <Box mb='20px'>
                             <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                                Total de funcionários por departamentp
+                                Total de funcionários por departamento
                             </Typography>
                             <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                                Departamento
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
-                            Estes dados não são reais e servem apenas para efeito representativo
+                                Unidades Departamentais
                             </Typography>
                         </Box>
                         
