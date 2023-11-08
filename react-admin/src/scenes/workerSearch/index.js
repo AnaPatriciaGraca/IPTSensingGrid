@@ -95,6 +95,7 @@ const WorkerSearch = () => {
         fetchData();
     }, []);
 
+
       //open professorCard when the row is clicked
       const handleEvent = (params, event) => {
         setSelectedProfessor(params.row)

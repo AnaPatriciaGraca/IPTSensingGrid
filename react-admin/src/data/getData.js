@@ -85,7 +85,7 @@ export async function fetchNoiseData() {
 
 export async function fetchPeopleData() {
   try {
-    const response = await fetch('https://smartcampus.ci2.ipt.pt/people', {
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

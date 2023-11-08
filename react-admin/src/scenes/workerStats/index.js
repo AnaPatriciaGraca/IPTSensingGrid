@@ -61,10 +61,10 @@ const WorkerStats = () => {
                     <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
                         <Box mb='20px'>
                             <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                                Localização dos professores
+                                Total de funcionários por departamentp
                             </Typography>
                             <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
-                                Professores por bloco
+                                Departamento
                             </Typography>
                         </Box>
                         <Box>
