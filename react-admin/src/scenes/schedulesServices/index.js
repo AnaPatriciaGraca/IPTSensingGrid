@@ -8,15 +8,33 @@ const SchedulesServices = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
-  //change this function to a real one
-  const calcHoursClose = () => {
-    const random = Math.random()
-    const min = 0.2
-    const max = 0.98
-    const calcRandom = random * (max - min) + min
+  //get current time of day to see service progree
+  const calcHoursClose = (service) => {
+    function addZero(i) {
+      if (i < 10) {i = "0" + i}
+      return i;
+    }
+    
+    const d = new Date();
+    const currentHours = d.getHours();
+    const currentMinutes = d.getMinutes();
 
-    return calcRandom
-  }
+    const serviceStart = service.open;
+    const serviceEnd = service.close;
+
+    // Convert time of service to minutes
+    const startMinutes = parseInt(serviceStart.split(':')[0]) * 60 + parseInt(serviceStart.split(':')[1]);
+    const endMinutes = parseInt(serviceEnd.split(':')[0]) * 60 + parseInt(serviceEnd.split(':')[1]);
+
+    // Convert current time to minutes
+    const currentMinutesOfDay = currentHours * 60 + currentMinutes;
+
+    // Calculate the fraction of time
+    const fraction = (currentMinutesOfDay - startMinutes) / (endMinutes - startMinutes);
+
+    return fraction;
+}
+
   
   return (
     <Box m='20px'>
@@ -46,7 +64,7 @@ const SchedulesServices = () => {
             </Typography>
         </Box>
         
-        {/* Maear serviços */}
+        {/* Mapear serviços */}
         {service.map((service, i) => (
           <Box
             key={`${service.id}-${i}`}
@@ -78,7 +96,7 @@ const SchedulesServices = () => {
             </Box>
             {/* Progress Circle para ter visualmente a informação de há quanto tempo está aberto e quanto tempo falta para fechar */}
             <Box p='5px 10px' borderRadius='4px' width='150px' align='center'>
-              <ProgressCircle progress={calcHoursClose()} size='40'/>
+              <ProgressCircle progress={calcHoursClose(service)} size='40'/>
             </Box>
           </Box>
         ))}
