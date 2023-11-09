@@ -3,10 +3,13 @@ import { tokens } from "../theme"
 import { ResponsiveFunnel } from '@nivo/funnel'
 import { fetchPeopleData } from "../data/getData"
 import { useState, useEffect } from 'react'
+import ConfirmationDialog from '../components/ConfirmationDialog'
 
 const TotalFreeProf = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [isLoading, setIsLoading] = useState(true)
+    const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const [peopleData, setPeopleData] = useState([])
 
     useEffect(() => {
@@ -14,6 +17,7 @@ const TotalFreeProf = () => {
         try {
             const data = await fetchPeopleData(); 
             setPeopleData(data)
+            setIsLoading(false) //é necessário esperar que os dados carreguem sem lançar erros para o ecrã
         } catch (error) {
             console.error('Error fetching data:', error)
             throw error;
@@ -21,6 +25,20 @@ const TotalFreeProf = () => {
         }
         fetchData();
     }, []);
+
+    const handleCloseDialog = () => {
+        setIsConfirmationOpen(false);
+            
+    }
+
+    //pop-up enquanto os dados carregam
+    if (isLoading) {
+        return <ConfirmationDialog
+                isOpen={isConfirmationOpen}
+                onClose={handleCloseDialog}
+                phrase="Aguarde enquanto os dados são carregados"
+                />;
+    }
 
     function transformData(data) {
         const counts = {};
@@ -45,6 +63,7 @@ const TotalFreeProf = () => {
 
     const transformedData = transformData(peopleData)
     //transformedData.sort((a, b) => a.value - b.value) //order data so the graph is prettier?
+    console.log(transformedData)
 
     return (
         <ResponsiveFunnel

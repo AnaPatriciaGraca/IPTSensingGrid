@@ -9,7 +9,7 @@ import ConfirmationDialog from '../../components/ConfirmationDialog'
 const Rooms = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode)
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [searchName, setSearchName] = useState('')
     const [searchFunction, setSearchFunction] = useState('')
