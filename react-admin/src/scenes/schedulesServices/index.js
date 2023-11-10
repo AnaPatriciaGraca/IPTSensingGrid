@@ -10,29 +10,25 @@ const SchedulesServices = () => {
 
   //get current time of day to see service progree
   const calcHoursClose = (service) => {
-    function addZero(i) {
-      if (i < 10) {i = "0" + i}
-      return i;
-    }
     
-    const d = new Date();
-    const currentHours = d.getHours();
-    const currentMinutes = d.getMinutes();
+    const d = new Date()
+    const currentHours = d.getHours()
+    const currentMinutes = d.getMinutes()
 
-    const serviceStart = service.open;
-    const serviceEnd = service.close;
+    const serviceStart = service.open
+    const serviceEnd = service.close
 
     // Convert time of service to minutes
-    const startMinutes = parseInt(serviceStart.split(':')[0]) * 60 + parseInt(serviceStart.split(':')[1]);
-    const endMinutes = parseInt(serviceEnd.split(':')[0]) * 60 + parseInt(serviceEnd.split(':')[1]);
+    const startMinutes = parseInt(serviceStart.split(':')[0]) * 60 + parseInt(serviceStart.split(':')[1])
+    const endMinutes = parseInt(serviceEnd.split(':')[0]) * 60 + parseInt(serviceEnd.split(':')[1])
 
     // Convert current time to minutes
-    const currentMinutesOfDay = currentHours * 60 + currentMinutes;
+    const currentMinutesOfDay = currentHours * 60 + currentMinutes
 
     // Calculate the fraction of time
-    const fraction = (currentMinutesOfDay - startMinutes) / (endMinutes - startMinutes);
+    const fraction = (currentMinutesOfDay - startMinutes) / (endMinutes - startMinutes)
 
-    return fraction;
+    return fraction
 }
 
   

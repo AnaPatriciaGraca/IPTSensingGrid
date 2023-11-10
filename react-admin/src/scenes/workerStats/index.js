@@ -3,7 +3,7 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
-import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchPeopleData, fetchClassesData } from '../../data/getData'
+import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchClassesData } from '../../data/getData'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
