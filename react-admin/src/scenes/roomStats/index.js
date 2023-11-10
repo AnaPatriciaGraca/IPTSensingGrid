@@ -4,17 +4,16 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import FreeRoomData from '../../data/FreeRoomData'
-import UsedRoomData from '../../data/UsedRoomData';
+import UsedRoomData from '../../data/UsedRoomData'
 import { events } from '../../data/testData'
 import { fetchRoomsData } from '../../data/getData';
-import ConfirmationDialog from '../../components/ConfirmationDialog';
+import ConfirmationDialog from '../../components/ConfirmationDialog'
 
 //icons
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
-import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
-import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
+import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined'
+import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined'
+import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined'
 import { useNavigate } from 'react-router-dom'
 
 const RoomStats = () => {

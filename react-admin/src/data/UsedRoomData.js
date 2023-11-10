@@ -59,7 +59,7 @@ const UsedRoomData = ({ rooms }) => {
     processData();
   }, [rooms]);
 
-  console.log('Used Room Data: ', data);
+  //console.log('Used Room Data: ', data);
 
   // You can use the 'data' state as needed in your application
 

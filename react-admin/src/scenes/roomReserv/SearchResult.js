@@ -2,10 +2,10 @@ import { Box, Typography, Table, TableHead, TableBody, styled, TableRow, TableCo
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import { tokens } from '../../theme'
 import { useTheme } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ConfirmationDialog from '../../components/ConfirmationDialog'
 import { useNavigate } from 'react-router-dom'
-import { handleReserveRoom } from '../../data/getData';
+import { handleReserveRoom, fetchClassesData } from '../../data/getData';
 
 const SearchResult = ({ data }) => {
     const theme = useTheme()
@@ -14,6 +14,21 @@ const SearchResult = ({ data }) => {
     const [selectedRoom, setSelectedRoom] = useState('')
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const navigate = useNavigate()
+    const [classes, setClasses] = useState([])
+
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const data = await fetchClassesData() 
+            setClasses(data)
+        } catch (error) {
+            console.error('Error fetching data:', error)
+            throw error
+        }
+        }
+
+        fetchData()
+    }, [])
 
     //styles for the results of the search (table)
     const StyledTableCell = styled(TableCell)(() => ({
@@ -45,6 +60,32 @@ const SearchResult = ({ data }) => {
     //see if room is occupied or not
     const mapIsOccupied = (value) => {
         return value === 1 ? 'Não disponível' : 'Disponível'
+    }
+
+    //get schedule of room
+    const getScheduleOfRoom = (roomName) => {
+        //filter classes
+        const roomClasses = classes.filter((cls) => cls.room === roomName)
+
+        //map class for the room
+        const roomSchedule = roomClasses.map((cls) => {
+            const dayOfWeek = getDayName(cls.day)
+            return {
+              day: dayOfWeek,
+              name: cls.name,
+              start_time: cls.start_time,
+              end_time: cls.end_time,
+            };
+          });
+        
+          return roomSchedule;
+
+    }
+
+    // Function to get day name
+    const getDayName = (dayIndex) => {
+        const daysOfWeek = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+        return daysOfWeek[dayIndex-2]
     }
 
     //event when I click a Room (row)
@@ -113,12 +154,27 @@ const SearchResult = ({ data }) => {
             {/* Pop up to reserv the room*/}
             <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
                 <DialogTitle color={colors.greenAccent[400]} fontWeight='bold' fontSize={16}>
-                    {selectedRoom.isReservable === 1 ? 'Confirmar Reserva' : 'Atenção!'}</DialogTitle>
+                    {selectedRoom.isReservable === 1 ? `Sala ${selectedRoom.name}` : 'Atenção!'}</DialogTitle>
+                    <DialogContent>
+                    {selectedRoom && (
+                        <div>
+                        <Typography variant="h6">Horário:</Typography>
+                        <ul>
+                            {getScheduleOfRoom(selectedRoom.name).map((schedule, index) => (
+                            <li key={index}>
+                                {schedule.day}: das {schedule.start_time} às {schedule.end_time}
+                            </li>
+                            ))}
+                        </ul>
+                        </div>
+                    )}
+                    </DialogContent>
+
                 <DialogContent>
                     {selectedRoom && (
                     <Typography>
                         {selectedRoom.isReservable === 1
-                            ? `Tem a certeza de que quer reservar a sala ${selectedRoom.name}?`
+                            ? ``
                             : 'Esta sala não tem a capacidade de ser reservada'}
                     </Typography>
                     )}
