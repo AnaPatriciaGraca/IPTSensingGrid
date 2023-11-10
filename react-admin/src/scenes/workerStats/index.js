@@ -81,10 +81,59 @@ const WorkerStats = () => {
         return result
       }
       
-      const professorTeachingHours = calculateTotalHours(classes); 
-      console.log(professorTeachingHours);
+      const professorTeachingHours = calculateTotalHours(classes)
       
+
+    //calculate how many professors are teaching at current time
+    const professorTeaching = (data) => {
+        const d = new Date();
+        const currentDay = d.getDay()
+        const currentTime = d.getHours() * 60 + d.getMinutes() // Convert hours to minutes
       
+        const teachingNow = data.filter((entry) => {
+          return (
+            entry.day === currentDay &&
+            currentTime >= convertTimeToMinutes(entry.start_time) &&
+            currentTime <= convertTimeToMinutes(entry.end_time)
+          )
+        })
+      
+        // Get unique professors
+        const uniqueProfessors = Array.from(
+          new Set(teachingNow.flatMap((entry) => entry.professors))
+        )
+      
+        return uniqueProfessors.length
+      }
+      
+    // Convert time to minutes
+    const convertTimeToMinutes = (time) => {
+        if (!time) {
+            return null
+        }
+    const [hours, minutes] = time.split(':').map(Number)
+    return hours * 60 + minutes
+    }
+      
+      const professorsTeachingNow = professorTeaching(classes)
+      
+    //amount of professors
+    const getTotalProfessors = (data) => {
+        const allProfessors = new Set()
+      
+        // Iterate through each entry in the data
+        data.forEach((entry) => {
+          // Iterate through each professor in the entry
+          entry.professors.forEach((professor) => {
+            allProfessors.add(professor)
+          })
+        })
+      
+        return allProfessors.size
+    }
+      
+    const totalProfessors = getTotalProfessors(classes)
+    console.log(professorsTeachingNow, "/", totalProfessors)
 
     return (
         <Box m='20px'>
@@ -136,9 +185,8 @@ const WorkerStats = () => {
                     <StatBox 
                         title='Professores' 
                         subtitle='Em horário laboral'
-                        progress='0.55'
-                        increase='55%'
-                        alert='Dados Representativos'
+                        progress={professorsTeachingNow/totalProfessors}
+                        increase={Math.floor((professorsTeachingNow / totalProfessors)*100)+'%'}
                         icon={<SchoolOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
