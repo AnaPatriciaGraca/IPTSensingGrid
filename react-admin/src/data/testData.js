@@ -148,40 +148,6 @@ export const usedRooms = [
   
 ]
 
-
-export const freeProfs = [
-  {
-    "id": "bloco_i",
-    "value": 8,
-    "label": "Bloco I"
-  },
-  {
-    "id": "bloco_wtf",
-    "value": 4,
-    "label": "Bloco WTF"
-  },
-  {
-    "id": "bloco_j",
-    "value": 7,
-    "label": "Bloco J"
-  },
-  {
-    "id": "blobo_B",
-    "value": 5,
-    "label": "Bloco B"
-  },
-  {
-    "id": "bloco_o",
-    "value": 4,
-    "label": "Bloco O"
-  },
-  {
-    "id": "bloco_g",
-    "value": 2,
-    "label": "Bloco G"
-  }
-]
-
 export const schedulesServices = [
   { id: '000023',
     title: "Serviços Académicos",
@@ -272,34 +238,6 @@ export const schedulesServices = [
     close: "-",
   },
   
-];
-
-export const topFuncHorario = [
-  { id: '000023',
-    title: "José Casimiro Pereira",
-    user: "casimiro@ipt.pt",
-    schedule: '10:30'
-  },
-  { id: '000024',
-    title: "Carlos Queiroz",
-    user: "qrz@ipt.pt",
-    schedule: '10:00'
-  },
-  { id: '000025',
-    title: "Paulo Santos",
-    user: "psantos@ipt.pt",
-    schedule: '09:30'
-  },
-  { id: '000026',
-    title: "António Manso",
-    user: "amanso@ipt.pt",
-    schedule: '06:30'
-  },
-  { id: '000027',
-    title: "Luís Almeida",
-    user: "lalmeida@ipt.pt",
-    schedule: '06:30'
-  },
 ];
 
 

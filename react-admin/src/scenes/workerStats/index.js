@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
 import { topFuncHorario as funcionarios } from '../../data/testData'
-import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchPeopleData } from '../../data/getData'
+import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchPeopleData, fetchClassesData } from '../../data/getData'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -20,6 +20,7 @@ const WorkerStats = () => {
     const [inactivePeople, setInactivePeople] = useState('')
     const [activeLast5Y, setActiveLast5Y] = useState('')
     const [totalProf, setTotalProf] = useState('')
+    const [classes, setClasses] = useState([])
     
     //get data from active people on IPT
     useEffect(() => {
@@ -36,6 +37,9 @@ const WorkerStats = () => {
 
             const dataProf = await fetchPeopleDataProfessors()
             setTotalProf(dataProf)
+
+            const dataClasses = await fetchClassesData()
+            setClasses(dataClasses)
       
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -43,8 +47,43 @@ const WorkerStats = () => {
         }
         fetchData();
       }, []);
-      
 
+      const calculateTotalHours = (data) => {
+        const professorHours = {};
+      
+        data.forEach((entry) => {
+          const professors = entry.professors;
+      
+          professors.forEach((professor) => {
+            if (!professorHours[professor]) {
+              professorHours[professor] = 0;
+            }
+      
+            const startTime = new Date(`2023-01-01T${entry.start_time}`);
+            const endTime = new Date(`2023-01-01T${entry.end_time}`);
+      
+            const timeDiff = endTime - startTime;
+            const hours = timeDiff / (1000 * 60 * 60);
+      
+            professorHours[professor] += hours;
+          });
+        });
+      
+        const result = Object.entries(professorHours).map(([professor, totalHours]) => ({
+          id: professor,
+          title: professor,
+          schedule: totalHours, 
+        }));
+
+        result.sort((a, b) => b.schedule - a.schedule);
+      
+        return result;
+      }
+      
+      const professorTeachingHours = calculateTotalHours(classes); 
+      console.log(professorTeachingHours);
+      
+      
 
     return (
         <Box m='20px'>
@@ -117,26 +156,20 @@ const WorkerStats = () => {
                 {/* ROW 3 */}
                 <Box gridColumn='span 6' gridRow='span 3' backgroundColor={colors.primary[400]} overflow='auto' >
                     <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
-                        <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
-                        Top funcionários por Carga horária
+                        <Typography color={colors.blueAccent[600]}variant='h5' fontWeight={600}>
+                        Funcionários por Carga horária
                         </Typography>
                         <Box color={colors.grey[100]} fontWeight={600}>
                             Total Horas
                         </Box>
                     </Box>
                     <Box ml="20px" mr="20px">
-                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
-                        Estes dados não são reais e servem apenas para efeito representativo
-                        </Typography>
                     </Box>
-                    {funcionarios.map((funcionario, i) =>(
+                    {professorTeachingHours.map((funcionario, i) =>(
                         <Box key={`${funcionario.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                         <Box>
-                            <Typography color={colors.blueAccent[600]} variant='h5' fontWeight={600}>
+                            <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
                                 {funcionario.title}
-                            </Typography>
-                            <Typography color={colors.grey[100]} variant='h6' fontWeight={600}>
-                                {funcionario.user}
                             </Typography>
                         </Box>
                         <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px'>

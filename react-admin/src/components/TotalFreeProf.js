@@ -63,7 +63,6 @@ const TotalFreeProf = () => {
 
     const transformedData = transformData(peopleData)
     //transformedData.sort((a, b) => a.value - b.value) //order data so the graph is prettier?
-    console.log(transformedData)
 
     return (
         <ResponsiveFunnel
