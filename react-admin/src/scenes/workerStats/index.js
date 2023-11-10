@@ -87,7 +87,7 @@ const WorkerStats = () => {
     //calculate how many professors are teaching at current time
     const professorTeaching = (data) => {
         const d = new Date();
-        const currentDay = d.getDay()
+        const currentDay = d.getDay()+1
         const currentTime = d.getHours() * 60 + d.getMinutes() // Convert hours to minutes
       
         const teachingNow = data.filter((entry) => {
@@ -103,6 +103,7 @@ const WorkerStats = () => {
           new Set(teachingNow.flatMap((entry) => entry.professors))
         )
       
+        console.log("professors: ", teachingNow)
         return uniqueProfessors.length
       }
       
@@ -133,7 +134,7 @@ const WorkerStats = () => {
     }
       
     const totalProfessors = getTotalProfessors(classes)
-    console.log(professorsTeachingNow, "/", totalProfessors)
+    //console.log(professorsTeachingNow, "/", totalProfessors)
 
     return (
         <Box m='20px'>
