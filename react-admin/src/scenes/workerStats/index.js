@@ -3,7 +3,6 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
-import { topFuncHorario as funcionarios } from '../../data/testData'
 import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchPeopleData, fetchClassesData } from '../../data/getData'
 
 //icons
@@ -26,14 +25,14 @@ const WorkerStats = () => {
     useEffect(() => {
         async function fetchData() {
           try {
-            const dataActive = await fetchPeopleDataActive();
-            setActivePeople(dataActive);
+            const dataActive = await fetchPeopleDataActive()
+            setActivePeople(dataActive)
       
-            const dataInactive = await fetchPeopleDataInactive();
-            setInactivePeople(dataInactive);
+            const dataInactive = await fetchPeopleDataInactive()
+            setInactivePeople(dataInactive)
       
-            const data5Y = await fetchPeopleData5Years(); 
-            setActiveLast5Y(data5Y);
+            const data5Y = await fetchPeopleData5Years();
+            setActiveLast5Y(data5Y)
 
             const dataProf = await fetchPeopleDataProfessors()
             setTotalProf(dataProf)
@@ -42,42 +41,44 @@ const WorkerStats = () => {
             setClasses(dataClasses)
       
           } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error)
           }
         }
-        fetchData();
-      }, []);
+        fetchData()
+      }, [])
 
+      //calculate the amount of hours each professor works
+      //some professors have the total hours has NaN because the start time is 9:00 instead of 09:00
       const calculateTotalHours = (data) => {
-        const professorHours = {};
+        const professorHours = {}
       
         data.forEach((entry) => {
           const professors = entry.professors;
       
           professors.forEach((professor) => {
             if (!professorHours[professor]) {
-              professorHours[professor] = 0;
+              professorHours[professor] = 0
             }
       
-            const startTime = new Date(`2023-01-01T${entry.start_time}`);
-            const endTime = new Date(`2023-01-01T${entry.end_time}`);
+            const startTime = new Date(`2023-01-01T${entry.start_time}`)
+            const endTime = new Date(`2023-01-01T${entry.end_time}`)
       
-            const timeDiff = endTime - startTime;
-            const hours = timeDiff / (1000 * 60 * 60);
+            const timeDiff = endTime - startTime
+            const hours = timeDiff / (1000 * 60 * 60)
       
-            professorHours[professor] += hours;
-          });
-        });
+            professorHours[professor] += hours
+          })
+        })
       
         const result = Object.entries(professorHours).map(([professor, totalHours]) => ({
           id: professor,
           title: professor,
           schedule: totalHours, 
-        }));
+        }))
 
-        result.sort((a, b) => b.schedule - a.schedule);
+        result.sort((a, b) => b.schedule - a.schedule)
       
-        return result;
+        return result
       }
       
       const professorTeachingHours = calculateTotalHours(classes); 
@@ -157,7 +158,7 @@ const WorkerStats = () => {
                 <Box gridColumn='span 6' gridRow='span 3' backgroundColor={colors.primary[400]} overflow='auto' >
                     <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
                         <Typography color={colors.blueAccent[600]}variant='h5' fontWeight={600}>
-                        Funcionários por Carga horária
+                        Professores por Carga horária
                         </Typography>
                         <Box color={colors.grey[100]} fontWeight={600}>
                             Total Horas
@@ -165,15 +166,15 @@ const WorkerStats = () => {
                     </Box>
                     <Box ml="20px" mr="20px">
                     </Box>
-                    {professorTeachingHours.map((funcionario, i) =>(
-                        <Box key={`${funcionario.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                    {professorTeachingHours.map((professor, i) =>(
+                        <Box key={`${professor.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                         <Box>
                             <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
-                                {funcionario.title}
+                                {professor.title}
                             </Typography>
                         </Box>
                         <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px'>
-                            {`${funcionario.schedule} h`}
+                            {`${professor.schedule} h`}
                         </Box>
                         </Box>
                     ))}
