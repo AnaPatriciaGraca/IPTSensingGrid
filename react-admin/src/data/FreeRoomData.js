@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import TreeChart from '../components/TreeChart';
 
-const FreeRoomChart = ({ data }) => {
+const FreeRoomChart = ({ data, classes }) => {
   const [freeRooms, setFreeRooms] = useState({
     name: 'Salas',
     children: [],
@@ -9,13 +9,49 @@ const FreeRoomChart = ({ data }) => {
   const categories = {};
   let categoryName = '';
 
+
+//verify if the room is in use
+const isRoomInUse = (roomName) => {
+  const currentDate = new Date()
+  const currentDay = currentDate.getDay() === 0 ? 7 : currentDate.getDay()
+
+  const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`
+
+
+  for (const classInfo of  classes) {
+    if (classInfo.room === roomName && classInfo.day === currentDay) {
+      const startTime = classInfo.start_time 
+      const endTime = classInfo.end_time 
+
+
+      if (isTimeBetween(currentTime, startTime, endTime)) {
+        return true  // Room is in use
+      }
+    }
+  }
+
+  return false  // Room is not in use
+} 
+
+const isTimeBetween = (currentTime, startTime, endTime) => {
+  return currentTime >= startTime && currentTime <= endTime 
+} 
+
+
+
   useEffect(() => {
+    let roomInUse=""
+
     const processData = () => {
       data.forEach((room) => {
-        if (room.isOccupied === 0) {
-          categoryName = room.function;
-          const blockName = `Bloco ${room.name.charAt(0)}`;
+      roomInUse = isRoomInUse(room.name) 
 
+        if (!roomInUse) {
+          categoryName = room.function
+          //debug beacause some room names are arrays
+          const firstLetter = typeof room.name === 'string' ? room.name.charAt(0) : ''
+          const blockName = `Bloco ${firstLetter}`
+          
           if (!categories[categoryName]) {
             categories[categoryName] = {
               name: categoryName,

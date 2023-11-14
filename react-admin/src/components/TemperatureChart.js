@@ -50,7 +50,7 @@ const TemperatureChart = ({isDashboard = false, data }) => {
         yScale={{
             type: 'linear',
             min: 10,
-            max: 70,
+            max: 50,
             stacked: false,
             reverse: false
         }}
@@ -71,7 +71,6 @@ const TemperatureChart = ({isDashboard = false, data }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: isDashboard ? undefined : "count",
             legend: 'Temperatura',
             legendOffset: -40,
             legendPosition: 'middle'

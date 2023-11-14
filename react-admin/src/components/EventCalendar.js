@@ -7,7 +7,7 @@ const EventCalendar = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [classesI, setClassesI] = useState([])
-    console.log(1)
+    
     useEffect(() => {
         async function fetchData() {
         try {

@@ -1,4 +1,4 @@
-
+//rooms data
 export async function fetchRoomsData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/rooms', {
@@ -20,6 +20,7 @@ export async function fetchRoomsData() {
   }
 }
 
+//buildings data
 export async function fetchBuildsData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/buildings', {
@@ -41,6 +42,7 @@ export async function fetchBuildsData() {
   }
 }
 
+//temperature data
 export async function fetchTemperatureData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/temperatureSensors', {
@@ -62,6 +64,7 @@ export async function fetchTemperatureData() {
   }
 }
 
+//noise data
 export async function fetchNoiseData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/soundSensors', {
@@ -83,6 +86,7 @@ export async function fetchNoiseData() {
   }
 }
 
+//people data
 export async function fetchPeopleData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
@@ -104,6 +108,7 @@ export async function fetchPeopleData() {
   }
 }
 
+//active people data
 export async function fetchPeopleDataActive() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
@@ -126,6 +131,7 @@ export async function fetchPeopleDataActive() {
   }
 }
 
+//inactive people data
 export async function fetchPeopleDataInactive() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=0', {
@@ -148,6 +154,7 @@ export async function fetchPeopleDataInactive() {
   }
 }
 
+//people hired last 5 years data
 export async function fetchPeopleData5Years() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
@@ -172,6 +179,7 @@ export async function fetchPeopleData5Years() {
   }
 }
 
+//total professors
 export async function fetchPeopleDataProfessors() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
@@ -196,8 +204,7 @@ export async function fetchPeopleDataProfessors() {
   }
 }
 
-
-
+//courses data
 export async function fetchCoursesData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/courses', {
@@ -219,6 +226,7 @@ export async function fetchCoursesData() {
   }
 }
 
+//classes data
 export async function fetchClassesData() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/classes', {

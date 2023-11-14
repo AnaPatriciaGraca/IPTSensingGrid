@@ -1,5 +1,5 @@
 import { Box, Button, useTheme, Typography } from '@mui/material'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react' 
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
@@ -8,7 +8,7 @@ import UsedRoomData from '../../data/UsedRoomData'
 import EventCalendar from '../../components/EventCalendar'
 import { fetchRoomsData } from '../../data/getData'
 import ConfirmationDialog from '../../components/ConfirmationDialog'
-
+import { fetchClassesDataByDay } from '../../data/getData'
 //icons
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined'
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined'
@@ -21,6 +21,7 @@ const RoomStats = () => {
     const colors = tokens(theme.palette.mode)
     const navigate = useNavigate()
     const [rooms, setRooms] = useState([])
+    const [classes, setClasses] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
     const [occupiedRooms, setOccupiedRooms] = useState('')
@@ -34,32 +35,37 @@ const RoomStats = () => {
 
     //navigation to the other page
     const handleButtonClick = () => {
-        navigate('/reservasSalas');
+        navigate('/reservasSalas') 
     }
+
+    const d = new Date()
+    let day = d.getDay()
 
     useEffect(() => {
         async function fetchData() {
         try {
-            const data = await fetchRoomsData(); // Call the function from getData.js
-            setRooms(data);
-            setIsLoading(false);
+            const dataRooms = await fetchRoomsData()  // Call the function from getData.js
+            setRooms(dataRooms) 
+            setIsLoading(false) 
+            const classesData = await fetchClassesDataByDay(day)
+            setClasses(classesData)
         } catch (error) {
-            console.error('Error fetching data:', error);
-            throw error;
+            console.error('Error fetching data:', error) 
+            throw error 
         }
         }
 
-        fetchData();
-    }, []);
+        fetchData() 
+    }, []) 
 
     useEffect(() => {
-        calcTotalRoomsOccupied();
-    }, [rooms]);
+        calcTotalRoomsOccupied() 
+    }, [rooms]) 
 
     const handleCloseDialog = () => {
-        setIsConfirmationOpen(false);
+        setIsConfirmationOpen(false) 
             
-    }; 
+    }  
 
     //total of occupied rooms
     const calcTotalRoomsOccupied = () => {
@@ -109,7 +115,7 @@ const RoomStats = () => {
                 isOpen={isConfirmationOpen}
                 onClose={handleCloseDialog}
                 phrase="Aguarde enquanto os dados são carregados"
-                />;
+                /> 
     }
     
 
@@ -193,26 +199,18 @@ const RoomStats = () => {
                 <Box gridColumn='span 9' gridRow='span 2' backgroundColor={colors.primary[400]}>
                     <Box mt='25px' padding='0 30px' display='flex' justifyContent='space-between' alignItems='center'>
                         <Box>
-                        <Typography variant='h5' fontWeight='600' color={colors.grey[100]}>
-                        Salas Teóricas, Técnicas e Outras
-                        </Typography>
-                        <Typography variant='h3' fontWeight='bold' color={colors.greenAccent[500]}>
+                        <Typography variant='h3' fontWeight='bold' color={colors.grey[100]}>
                             Salas Livres
                         </Typography>
                         </Box>
                     </Box>
-                    <Box ml="30px">
-                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
-                            Estes dados não são reais e servem apenas para efeito representativo
-                        </Typography>
-                        </Box>
                     <Box height='250px' mt='-20px'>
-                        <FreeRoomData data={rooms}/>
+                        <FreeRoomData data={rooms} classes={classes}/>
                     </Box>
                 </Box>
 
                 {/* ROW 3 */}
-                {/* Salas livres por bloco - Barchart */}
+                {/* Salas ocupadas por bloco - Barchart */}
                 <Box gridColumn='span 8' gridRow='span 2' backgroundColor={colors.primary[400]}>
                     <Box mt='25px' padding='0 30px' display='flex' flexDirection='column'>
                         <Box mb="10px">
@@ -224,12 +222,7 @@ const RoomStats = () => {
                         </Typography>
                         </Box>
                     </Box>
-                    <Box ml="30px">
-                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
-                            Estes dados não são reais e servem apenas para efeito representativo
-                        </Typography>
-                    </Box>
-                    <UsedRoomData rooms={rooms}/>
+                    <UsedRoomData rooms={rooms} classes={classes}/>
 
                 </Box>
 
