@@ -35,26 +35,14 @@ function App() {
   const [tempData, setTempData] = useState([])
   const [noiseData, setNoiseData] = useState([])
 
-    //data of tempreature from API
+    //data of tempreature and noise from API
     useEffect(() => {
       async function fetchData() {
       try {
-          const data = await fetchTemperatureData(); 
-          setTempData(data)
-      } catch (error) {
-          console.error('Error fetching data:', error);
-          throw error;
-      }
-      }
-      fetchData();
-    }, []);
-
-    //data of noise from API
-    useEffect(() => {
-      async function fetchData() {
-      try {
-          const data = await fetchNoiseData(); 
-          setNoiseData(data)
+          const tempData = await fetchTemperatureData(); 
+          setTempData(tempData)
+          const noiseData = await fetchNoiseData(); 
+          setNoiseData(noiseData)
       } catch (error) {
           console.error('Error fetching data:', error);
           throw error;
