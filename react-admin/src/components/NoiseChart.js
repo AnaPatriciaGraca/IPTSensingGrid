@@ -1,4 +1,4 @@
-import { ResponsiveMarimekko } from '@nivo/marimekko'
+import { ResponsiveBar } from '@nivo/bar'
 import { tokens } from '../theme'
 import { useTheme } from '@mui/material'
 
@@ -8,7 +8,7 @@ const NoiseChart = ({ data }) => {
     const colors = tokens(theme.palette.mode)
 
   return (
-    <ResponsiveMarimekko
+    <ResponsiveBar
     data={data}
     theme={{
       axis: {
@@ -37,78 +37,119 @@ const NoiseChart = ({ data }) => {
           color: colors.primary[500],
         },
         text: {
-            fill: colors.primary[700]
+            fill: colors.primary[100]
         }
       },
     }}
-    id="id"
-    // groupMode="grouped"
-    value="decibel"
-    dimensions={[
+    keys={[
+        '09:00',
+        '10:00',
+        '11:00',
+        '12:00',
+        '13:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00',
+        '18:00',
+    ]}
+    indexBy="id"
+    margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+    padding={0.3}
+    groupMode="grouped"
+    layout="vertical"
+    valueScale={{ type: 'linear' }}
+    indexScale={{ type: 'band', round: true }}
+    colors={{ scheme: 'green_blue' }}
+    defs={[
         {
-            id: '09:00',
-            value: '09:00'
+            id: 'dots',
+            type: 'patternDots',
+            background: 'inherit',
+            color: '#38bcb2',
+            size: 4,
+            padding: 1,
+            stagger: true
         },
         {
-            id: '12:00',
-            value: '12:00'
-        },
-        {
-            id: '15:00',
-            value: '15:00'
-        },
-        {
-            id: '18:00',
-            value: '18:00'
+            id: 'lines',
+            type: 'patternLines',
+            background: 'inherit',
+            color: '#eed312',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10
         }
     ]}
-    layout="horizontal"
-    outerPadding={5}
-    innerPadding={12}
+    borderColor={{
+        from: 'color',
+        modifiers: [
+            [
+                'darker',
+                5.6
+            ]
+        ]
+    }}
     axisTop={null}
     axisRight={null}
     axisBottom={{
-        orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Nível de som',
-        legendOffset: 36,
+        legend: 'sensores',
         legendPosition: 'middle',
+        legendOffset: 32,
+        truncateTickAt: 0
     }}
-    axisLeft={null}
-    enableGridX={true}
-    enableGridY={false}
-    margin={{ top: 40, right: 80, bottom: 100, left: 80 }}
-    colors={{ scheme: 'blue_purple' }}
-    borderWidth={2}
-    borderColor={{ theme: 'background' }}
+    axisLeft={{
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: 'ruído dB',
+        legendPosition: 'middle',
+        legendOffset: -40,
+        truncateTickAt: 0
+    }}
+    labelSkipWidth={14}
+    labelSkipHeight={11}
+    labelTextColor={{
+        from: 'color',
+        modifiers: [
+            [
+                'darker',
+                '2.5'
+            ]
+        ]
+    }}
     legends={[
         {
-            anchor: 'bottom',
-            direction: 'row',
+            dataFrom: 'keys',
+            anchor: 'bottom-right',
+            direction: 'column',
             justify: false,
-            translateX: 0,
-            translateY: 80,
-            itemsSpacing: 0,
-            itemWidth: 140,
-            itemHeight: 18,
+            translateX: 120,
+            translateY: 0,
+            itemsSpacing: 1,
+            itemWidth: 100,
+            itemHeight: 15,
+            itemDirection: 'left-to-right',
+            itemOpacity: 0.95,
+            symbolSize: 20,
             itemTextColor: colors.grey[100],
-            itemDirection: 'right-to-left',
-            itemOpacity: 1,
-            symbolSize: 18,
-            symbolShape: 'square',
             effects: [
                 {
                     on: 'hover',
                     style: {
-                        itemTextColor: '#999'
+                        itemOpacity: 1
                     }
                 }
             ]
         }
     ]}
-/>  
+    role="application"
+    ariaLabel="Nivo bar chart demo"
+    barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
+/>
   
     )
 }

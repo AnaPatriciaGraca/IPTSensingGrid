@@ -17,7 +17,6 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
-  console.log(tempData)
 
   return (
     <Box m='20px'>

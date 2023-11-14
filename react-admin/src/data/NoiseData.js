@@ -17,6 +17,7 @@ const NoiseData = ({ noiseData, isDashboard }) => {
     return dataEntry
   })
 
+
   return (
     <NoiseChart data={transformedData} />
   )

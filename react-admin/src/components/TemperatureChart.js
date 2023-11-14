@@ -86,6 +86,7 @@ const TemperatureChart = ({isDashboard = false, data }) => {
         pointLabelYOffset={0}
         areaOpacity={0.7}
         useMesh={true}
+        groupMode="grouped"
         legends={[
             {
               anchor: "bottom-right",
