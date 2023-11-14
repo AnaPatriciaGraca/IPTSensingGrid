@@ -5,8 +5,8 @@ import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import FreeRoomData from '../../data/FreeRoomData'
 import UsedRoomData from '../../data/UsedRoomData'
-import { events } from '../../data/testData'
-import { fetchRoomsData } from '../../data/getData';
+import EventCalendar from '../../components/EventCalendar'
+import { fetchRoomsData } from '../../data/getData'
 import ConfirmationDialog from '../../components/ConfirmationDialog'
 
 //icons
@@ -233,41 +233,7 @@ const RoomStats = () => {
 
                 </Box>
 
-                <Box gridColumn='span 4' gridRow='span 2' backgroundColor={colors.primary[400]} overflow='auto' >
-                    <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
-                        <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
-                        Calendário
-                        </Typography>
-                    </Box>
-                    <Box ml="20px">
-                        <Typography color={colors.redAccent[400]} fontSize="x-small" fontWeight={600}>
-                            Estes dados não são reais e servem apenas para efeito representativo
-                        </Typography>
-                    </Box>
-
-                    
-                    {events.map((transaction, i) =>(
-                        <Box key={`${transaction.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
-                        <Box>
-                            <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
-                                {transaction.title}
-                            </Typography>
-                            <Typography color={colors.grey[100]} variant='h6' fontWeight={600}>
-                                {transaction.user}
-                            </Typography>
-                        </Box>
-                        <Box color={colors.grey[100]}>
-                            {transaction.room}
-                        </Box>
-                        <Box color={colors.grey[100]}>
-                            {transaction.date}
-                        </Box>
-                        <Box backgroundColor={colors.greenAccent[500]} p='5px 10px' borderRadius='4px'>
-                            {transaction.hour}
-                        </Box>
-                        </Box>
-                    ))}
-                    </Box>
+                <EventCalendar />
 
             </Box>
         </Box>
