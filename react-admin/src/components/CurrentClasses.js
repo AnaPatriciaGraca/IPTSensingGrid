@@ -9,8 +9,6 @@ const CurrentClasses = () => {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const weekDay = new Date().getDay()+1
-    console.log("Day of Week: ", weekDay)
-    const classesObject = {}
     const [classData, setClassData] = useState([]);
 
     useEffect(() => {
@@ -45,7 +43,6 @@ const CurrentClasses = () => {
             });
     }, [weekDay]);
 
-    console.log(classData)
 
   return (
     <ResponsivePie

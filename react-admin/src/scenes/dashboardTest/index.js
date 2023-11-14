@@ -1,4 +1,4 @@
-import { Box, Button, Typography, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import { events } from '../../data/testData'
@@ -7,7 +7,6 @@ import TemperatureData from '../../data/TemperatureData'
 import CurrentClasses from '../../components/CurrentClasses'
 import NoiseData from '../../data/NoiseData'
 //icons
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import TrafficIcon from '@mui/icons-material/Traffic'
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
@@ -18,6 +17,7 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
+  console.log(tempData)
 
   return (
     <Box m='20px'>
@@ -33,9 +33,11 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
         <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
           <StatBox 
             title={parseInt(calcAvgTemperature) + ' ºC'}
-            subtitle='Temperatura'
+            subtitle='Temperatura média'
+            toolTip='Sensores dentro dos valores "normais"'
             progress='0.75'
             increase='75%'
+            alert='Sensores do bloco I'
             icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />
         </Box>
@@ -43,9 +45,11 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
         <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
           <StatBox 
             title='80 dB' 
-            subtitle='Ruído'
+            subtitle='Ruído médio'
+            toolTip='Sensores dentro dos valores "normais"'
             progress='0.5'
             increase='50%'
+            alert='Sensores do bloco I'
             icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />
         </Box>
@@ -53,11 +57,12 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
         
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
-              title='356' 
+              title='78' 
               subtitle='Afluência'
+              toolTip='Número de pessoas no bloco I em relação a ontem'
               progress='0.25'
-              increase='25%'
-              alert='Dados Representativos'
+              increase='+25%'
+              alert='Quantidade de pessoas no bloco I hoje'
               icon={<PersonAddIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -65,11 +70,12 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
 
         <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
           <StatBox 
-            title='256' 
+            title='156' 
             subtitle='Estacionamento'
+            toolTip="Lugares de estacionamento ocupados em relação a ontem"
             progress='0.36'
             increase='+36%'
-            alert='Dados Representativos'
+            alert='Lugares ocupados'
             icon={<TrafficIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />
         </Box>
