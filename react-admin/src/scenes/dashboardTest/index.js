@@ -20,7 +20,7 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
   return (
     <Box m='20px'>
       <Box display='flex' justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Dados Gerais Tomar"/>
+        <Header title="Dados Gerais" subtitle="Dados do Campus de Tomar"/>
       </Box >
 
       {/* GRID AND CHARTS */}

@@ -155,7 +155,7 @@ export async function fetchPeopleDataInactive() {
 }
 
 //people hired last 5 years data
-export async function fetchPeopleData5Years() {
+export async function fetchPeopleData10Years() {
   try {
     const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1', {
       method: 'GET',
@@ -169,7 +169,7 @@ export async function fetchPeopleData5Years() {
     }
 
     const data = await response.json()
-    const activePeople = data.filter((person) => person.ipt_desde_in >= "2009")
+    const activePeople = data.filter((person) => person.ipt_desde_in >= "2013")
 
     return activePeople.length
 
@@ -197,6 +197,55 @@ export async function fetchPeopleDataProfessors() {
     const activePeople = data.filter((person) => person.CAT_PRO.includes("Professor"))
 
     return activePeople.length
+
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+//total professors with term
+export async function fetchPeopleDataProfessorsTerm() {
+  try {
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1&vinculo_tipo=termo', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+
+    const data = await response.json()
+    const activePeopleTerm = data.filter((person) => person.CAT_PRO.includes("Professor"))
+
+    return activePeopleTerm.length
+
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+//total workers that aren't professors with term
+export async function fetchPeopleDataWorkersTerm() {
+  try {
+    const response = await fetch('https://smartcampus.ci2.ipt.pt/people?vinculo_ativo=1&vinculo_tipo=termo', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+
+    const data = await response.json()
+    const activePeopleTerm = data.filter((person) => !person.CAT_PRO.includes("Professor"))
+
+    return activePeopleTerm.length
 
   } catch (error) {
     console.error('Error fetching data:', error)

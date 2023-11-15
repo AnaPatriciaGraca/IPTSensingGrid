@@ -193,13 +193,14 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+              {/* Desenvolver mais a frente
               <Item
                 title="Estacionamento"
                 to="/estacionamento"
                 icon={<LocalParkingOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </SubMenu>
             
             <SubMenu variant="h6" label="Serviços" sx={{ m: "15px 0 5px 20px" }}>
@@ -210,13 +211,14 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* Desenvolver mais à frente */}
+              {/* <Item
                 title="Detalhes"
                 to="/detalhesServicos"
                 icon={<HandymanOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </SubMenu>
 
             <SubMenu variant="h6" label="Cursos" sx={{ m: "15px 0 5px 20px" }}>
@@ -277,7 +279,8 @@ const SideBar = () => {
               /> */}
             </SubMenu>
 
-            <SubMenu variant="h6" label="Equipamentos" sx={{ m: "15px 0 5px 20px" }}>
+            {/* Desenvolver mais a frente */}
+            {/* <SubMenu variant="h6" label="Equipamentos" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Estatísticas"
                 to="/estatisticasEquipamentos"
@@ -299,9 +302,9 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </SubMenu>
+            </SubMenu> */}
 
-            <SubMenu variant="h6" label="Outros" sx={{ m: "15px 0 5px 20px" }}>
+            {/* <SubMenu variant="h6" label="Outros" sx={{ m: "15px 0 5px 20px" }}>
               <Item
                 title="Profile Form"
                 to="/form"
@@ -316,7 +319,7 @@ const SideBar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </SubMenu>
+            </SubMenu> */}
 
           </Box>
         </Menu>

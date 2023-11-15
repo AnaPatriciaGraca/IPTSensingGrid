@@ -122,7 +122,7 @@ const RoomStats = () => {
     return (
         <Box m='20px'>
             <Box display='flex' justifyContent="space-between" alignItems="center">
-                <Header title="Estatísticas das Salas" subtitle="Dados gerais das salas"/>
+                <Header title="Estatísticas das Salas" subtitle="Dados gerais das salas do campus de Tomar"/>
                 
             </Box >
 

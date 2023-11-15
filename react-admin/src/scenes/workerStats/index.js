@@ -3,7 +3,7 @@ import { tokens } from '../../theme'
 import Header from '../../components/Header'
 import StatBox from '../../components/StatBox'
 import TotalFreeProf from '../../components/TotalFreeProf'
-import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData5Years, fetchPeopleDataProfessors, fetchClassesData } from '../../data/getData'
+import { fetchPeopleDataActive, fetchPeopleDataInactive, fetchPeopleData10Years, fetchPeopleDataProfessors, fetchClassesData, fetchPeopleDataProfessorsTerm, fetchPeopleDataWorkersTerm } from '../../data/getData'
 
 //icons
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -17,8 +17,10 @@ const WorkerStats = () => {
     const colors = tokens(theme.palette.mode)
     const [activePeople, setActivePeople] = useState('')
     const [inactivePeople, setInactivePeople] = useState('')
-    const [activeLast5Y, setActiveLast5Y] = useState('')
+    const [activeLast10Y, setActiveLast10Y] = useState('')
     const [totalProf, setTotalProf] = useState('')
+    const [totalProfTerm, setTotalProfTerm] = useState('')
+    const [totalWorkerTerm, setTotalWorkerTerm] = useState('')
     const [classes, setClasses] = useState([])
     
     //get data from active people on IPT
@@ -31,11 +33,17 @@ const WorkerStats = () => {
             const dataInactive = await fetchPeopleDataInactive()
             setInactivePeople(dataInactive)
       
-            const data5Y = await fetchPeopleData5Years();
-            setActiveLast5Y(data5Y)
+            const data10Y = await fetchPeopleData10Years();
+            setActiveLast10Y(data10Y)
 
             const dataProf = await fetchPeopleDataProfessors()
             setTotalProf(dataProf)
+
+            const dataProfTermo = await fetchPeopleDataProfessorsTerm()
+            setTotalProfTerm(dataProfTermo)
+
+            const dataWorkerTerm = await fetchPeopleDataWorkersTerm()
+            setTotalWorkerTerm(dataWorkerTerm)
 
             const dataClasses = await fetchClassesData()
             setClasses(dataClasses)
@@ -103,7 +111,7 @@ const WorkerStats = () => {
           new Set(teachingNow.flatMap((entry) => entry.professors))
         )
       
-        console.log("professors: ", teachingNow)
+        // console.log("professors: ", teachingNow)
         return uniqueProfessors.length
       }
       
@@ -134,6 +142,7 @@ const WorkerStats = () => {
     }
       
     const totalProfessors = getTotalProfessors(classes)
+
     //console.log(professorsTeachingNow, "/", totalProfessors)
 
     return (
@@ -165,19 +174,21 @@ const WorkerStats = () => {
                 {/* ROW 1 */}
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Total de funcionários' 
-                        subtitle='Em contrato'
-                        progress={(activePeople / (activePeople+inactivePeople))}
-                        increase={Math.floor((activePeople / (activePeople+inactivePeople))*100)+'%'}
+                        title={(activePeople-totalProf)+' Colaboradores'} 
+                        toolTip='Colaboradores a termo que não são professores'
+                        subtitle='Colaboradores a termo'
+                        progress={((activePeople-totalProf) / activePeople)}
+                        increase={Math.floor((totalWorkerTerm/ activePeople)*100)+'%'}
                         icon={<WorkOutlineOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Últimos Contratos' 
-                        subtitle='Últimos 5 anos'
-                        progress={(activeLast5Y/activePeople)}
-                        increase={Math.floor((activeLast5Y / activePeople)*100)+'%'}
+                        title={activePeople + ' Ativos' }
+                        toolTip='Contratos elaborados nos últimos 10 anos que ainda se encontram ativos'
+                        subtitle='Últimos 10 anos'
+                        progress={(activeLast10Y/activePeople)}
+                        increase={Math.floor((activeLast10Y / activePeople)*100)+'%'}
                         icon={<HomeOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
@@ -185,6 +196,7 @@ const WorkerStats = () => {
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
                         title='Professores' 
+                        toolTip='Professores que se encontram a leccionar'
                         subtitle='Em horário laboral'
                         progress={professorsTeachingNow/totalProfessors}
                         increase={Math.floor((professorsTeachingNow / totalProfessors)*100)+'%'}
@@ -194,10 +206,11 @@ const WorkerStats = () => {
 
                 <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
                     <StatBox 
-                        title='Total Professores' 
-                        subtitle='Em contrato'
-                        progress={(totalProf/activePeople)}
-                        increase={Math.floor((totalProf / activePeople)*100)+'%'}
+                        title={totalProf + ' Professores '} 
+                        toolTip='Professores ativos a termo'
+                        subtitle='Professores com termo'
+                        progress={(totalProfTerm/totalProf)}
+                        increase={Math.floor((totalProfTerm / totalProf)*100)+'%'}
                         icon={<PermIdentityOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
                     />
                 </Box>
@@ -206,7 +219,7 @@ const WorkerStats = () => {
                 {/* ROW 3 */}
                 <Box gridColumn='span 6' gridRow='span 3' backgroundColor={colors.primary[400]} overflow='auto' >
                     <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
-                        <Typography color={colors.blueAccent[600]}variant='h5' fontWeight={600}>
+                        <Typography color={colors.greenAccent[600]}variant='h5' fontWeight={600}>
                         Professores por Carga horária
                         </Typography>
                         <Box color={colors.grey[100]} fontWeight={600}>
@@ -216,13 +229,16 @@ const WorkerStats = () => {
                     <Box ml="20px" mr="20px">
                     </Box>
                     {professorTeachingHours.map((professor, i) =>(
-                        <Box key={`${professor.id}-${i}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                        <Box key={`${professor.id}-${i}-${professor.title}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                         <Box>
                             <Typography color={colors.grey[100]} variant='h5' fontWeight={600}>
                                 {professor.title}
                             </Typography>
                         </Box>
-                        <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px'>
+                        <Box 
+                        backgroundColor={professor.schedule > 12 ? colors.redAccent[400] : colors.greenAccent[500]}
+                        p='5px 10px' 
+                        borderRadius='4px'>
                             {`${professor.schedule} h`}
                         </Box>
                         </Box>
