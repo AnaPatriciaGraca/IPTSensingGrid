@@ -18,7 +18,7 @@ const roomSchema = yup.object().shape({
     roomCapacity: yup.number(),
     roomDay: yup.date().required('Campo obrigatório'),
     //only possible from 09:00 until 21:00
-    roomHour: yup.string().matches(/^(09:00|1\d:00|20:00|21:00)$/, 'Formato de hora inválido. Use HH:mm das 09:00 às 21:00').required('Campo obrigatório'),
+    roomHour: yup.string().matches(/^(09|1\d|20):[0-5][0-9]$/, 'Formato de hora inválido. Use HH:mm das 09:00 às 21:00').required('Campo obrigatório'),
 })
 
     const ReservForm = () => {
@@ -45,20 +45,45 @@ const roomSchema = yup.object().shape({
 
     const formik = useFormik({
         initialValues: {
-            roomName: room ? room.name : '',
-            roomType: room ? room.type : '',
-            roomProjectors: room ? room.projector : '',
-            roomCapacity: room ? room.maxCapacity : '',
-            roomDay: getDefaultDate(),
-            roomHour: '',
+          roomName: room ? room.name : '',
+          roomType: room ? room.type : '',
+          roomProjectors: room ? room.projector : '',
+          roomCapacity: room ? room.maxCapacity : '',
+          roomDay: getDefaultDate(),
+          roomHour: '',
         },
         validationSchema: roomSchema,
         onSubmit: (values) => {
+          // custom validation logic
+          const selectedDay = new Date(values.roomDay).toLocaleDateString('pt-BR', { weekday: 'long' }).replace(/-feira$/, '')
+          const selectedTime = values.roomHour
+          const currentDate = new Date();
+          const selectedDateTime = new Date(values.roomDay + 'T' + values.roomHour);
+      
+          // Perform your validation against the schedule
 
-          console.log(values)
+          const isTimeInvalid = schedule.some(
+            (scheduleItem) =>
+              scheduleItem.start_time <= selectedTime && selectedTime <= scheduleItem.end_time && scheduleItem.day.toLowerCase() === selectedDay
+          );
 
+          console.log("is hour invalid: ", isTimeInvalid)
+          console.log("selected day", selectedDay)
+          console.log("selected time", selectedTime)
+      
+          if (isTimeInvalid) {
+            formik.setFieldError('roomHour', 'Sala não disponível no horário selecionado');
+          } else if (selectedDateTime <= currentDate) {
+            // Handle the error or set an error message
+            formik.setFieldError('roomDay', 'O dia e hora têm de ser no futuro');
+            formik.setFieldError('roomHour', 'O dia e hora têm de ser no futuro');
+            // You can also prevent form submission here if needed
+          }else {
+            console.log('Form submission successful:', values);
+            // Add your logic here for the successful form submission
+          }
         },
-    })
+      });
 
 
 
@@ -83,6 +108,7 @@ const roomSchema = yup.object().shape({
                         name='roomName' 
                         error={!!formik.touched.roomName && !!formik.errors.roomName} 
                         helperText={formik.touched.roomName && formik.errors.roomName} 
+                        disabled={true} 
                         sx={{gridColumn: 'span 2'}}
                     />
                     <TextField fullWidth variant='filled' 
@@ -94,6 +120,7 @@ const roomSchema = yup.object().shape({
                         name='roomType' 
                         error={!!formik.touched.roomType && !!formik.errors.roomType} 
                         helperText={formik.touched.roomType && formik.errors.roomType} 
+                        disabled={true} 
                         sx={{gridColumn: 'span 2'}}
                     />
                     <TextField fullWidth variant='filled' 
@@ -105,6 +132,7 @@ const roomSchema = yup.object().shape({
                         name='roomProjectors' 
                         error={!!formik.touched.roomProjectors && !!formik.errors.roomProjectors} 
                         helperText={formik.touched.roomProjectors && formik.errors.roomProjectors} 
+                        disabled={true} 
                         sx={{gridColumn: 'span 2'}}
                     />
                     <TextField fullWidth variant='filled' 
@@ -116,6 +144,7 @@ const roomSchema = yup.object().shape({
                         name='roomType' 
                         error={!!formik.touched.roomCapacity && !!formik.errors.roomCapacity} 
                         helperText={formik.touched.roomCapacity && formik.errors.roomCapacity} 
+                        disabled={true} 
                         sx={{gridColumn: 'span 2'}}
                     />
 
@@ -163,12 +192,9 @@ const roomSchema = yup.object().shape({
             </Box>
     
             {schedule.map((schedule, index) => (
-            <Box key={`${schedule.name}-${schedule.start_time}-${schedule.end_time}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+            <Box key={`${schedule.name}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                 <Typography variant='h6' fontWeight={600}> 
                     {schedule.day} - feira
-                </Typography>
-                <Typography color={colors.grey[100]} >
-                    {schedule.name}
                 </Typography>
 
 
