@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material'
 import { useState, useEffect } from 'react'
 import ConfirmationDialog from '../../components/ConfirmationDialog'
 import { useNavigate } from 'react-router-dom'
-import { handleReserveRoom, fetchClassesData } from '../../data/getData';
+import { fetchClassesData } from '../../data/getData'
 
 const SearchResult = ({ data }) => {
     const theme = useTheme()
@@ -96,15 +96,9 @@ const SearchResult = ({ data }) => {
 
     //modify this function to actually do the reserve of the room
     const handleReserve = async () => {
-        
-        try {
-            console.log("tentando reservar a sala")
-            //await handleReserveRoom(selectedRoom)
-            console.log("funcao async terminou")
-            setIsConfirmationOpen(true)
-          } catch (error) {
-            // Handle any errors
-          }
+        setIsDialogOpen(false)
+        const roomSchedule = getScheduleOfRoom(selectedRoom.name)
+        navigate('/formularioReserva', {state: { selectedRoom, roomSchedule }})
       }
     
     //close pop ups
@@ -131,9 +125,9 @@ const SearchResult = ({ data }) => {
                     <TableRow>
                         <StyledTableCell align="left">Tipo</StyledTableCell>
                         <StyledTableCell>Sala</StyledTableCell>
+                        <StyledTableCell align="center">Tipo</StyledTableCell>
                         <StyledTableCell align="center">Projetores</StyledTableCell>
                         <StyledTableCell align="center">Capacidade</StyledTableCell>
-                        <StyledTableCell align="center">Disponibilidade</StyledTableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -142,9 +136,9 @@ const SearchResult = ({ data }) => {
                         <StyledTableRow key={row.id} onClick={() => handleRowClick(row)}>
                             <StyledTableCell align="left">{row['function.']}</StyledTableCell>
                             <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+                            <StyledTableCell align='center'>{row.type}</StyledTableCell>
                             <StyledTableCell align="center">{row.projector}</StyledTableCell>
                             <StyledTableCell align="center">{row.maxCapacity}</StyledTableCell>
-                            <StyledTableCell align="center">{mapIsOccupied(row.isOccupied)}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                     </TableBody>
@@ -158,7 +152,7 @@ const SearchResult = ({ data }) => {
                     <DialogContent>
                     {selectedRoom && (
                         <div>
-                        <Typography variant="h6">Horário:</Typography>
+                        <Typography variant="h6">Horário de ocupação:</Typography>
                         <ul>
                             {getScheduleOfRoom(selectedRoom.name).map((schedule, index) => (
                             <li key={index}>

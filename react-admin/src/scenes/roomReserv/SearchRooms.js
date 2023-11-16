@@ -12,10 +12,9 @@ const Rooms = () => {
     const [rooms, setRooms] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [searchName, setSearchName] = useState('')
-    const [searchFunction, setSearchFunction] = useState('')
+    const [searchType, setSearchType] = useState('')
     const [searchProjector, setSearchProjector] = useState('')
     const [searchMaxCapacity, setSearchMaxCapacity] = useState('')
-    const [searchIsOccupied, setSearchIsOccupied] = useState('')
     const [filteredRooms, setFilteredRooms] = useState([])
     const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
@@ -48,20 +47,17 @@ const Rooms = () => {
                 phrase="Aguarde enquanto os dados são carregados"
                 />;
     }
-    //is room occiped or not
-    const mapIsOccupied = (value) => {
-        return value === 1 ? 'Não disponível' : 'Disponível'
-    }
+
 
     const roomNameOptions = Array.from(new Set(rooms.filter((room) => room.name && room.name.length > 0).map((room) => room.name)))
-    const roomFunctionOptions = Array.from(new Set(rooms.filter((room) => room['function.'] && room['function.'].length > 0).map((room) => room['function.'])));
+    const roomTypeOptions = Array.from(new Set(rooms.filter((room) => room.type && room.type.length > 0).map((room) => room.type)))
     const roomProjectorOptions = [0, 1]
 
     //handle search - ignores the fields that aren't filled
     const handleSearch = () => {
         const filtered = rooms.filter((room) => {
             const isNameMatch = !searchName || String(room.name).toLowerCase().includes(searchName.toLowerCase())
-            const isFunctionMatch = !searchFunction || String(room['function.']).toLowerCase().includes(searchFunction.toLowerCase())
+            const isTypeMatch = !searchType || String(room.type).toLowerCase().includes(searchType.toLowerCase())
             //equal or higher relative to the value searched
             const isProjectorMatch =
                 searchProjector === '' || searchProjector === undefined
@@ -72,14 +68,12 @@ const Rooms = () => {
                 searchMaxCapacity === '' || searchMaxCapacity === undefined
                     ? true // If searchMaxCapacity is empty or undefined, don't filter based on maxCapacity
                     : room.maxCapacity >= parseInt(searchMaxCapacity); 
-            //deal with no value search
-            const isOccupancyMatch =
-                searchIsOccupied === '' || searchIsOccupied === undefined ? true : room.isOccupied === parseInt(searchIsOccupied) //IsOccupied to integer
-            return isNameMatch && isFunctionMatch && isProjectorMatch && isMaxCapacityMatch && isOccupancyMatch
-        });
+       
+            return isNameMatch && isTypeMatch && isProjectorMatch && isMaxCapacityMatch 
+        })
     
         setFilteredRooms(filtered)
-    };
+    }
     
     
     
@@ -110,24 +104,25 @@ const Rooms = () => {
                             ))}
                         </Select>
                     </Grid>
-                    {/* Field for function fo the room */}
+
+                        {/* Field for type fo the room */}
                     <Grid item xs={6}>
-                        <InputLabel htmlFor="search-function">Função da Sala</InputLabel>
+                        <InputLabel htmlFor="search-type">Tipo de Sala</InputLabel>
                         <Select
                             fullWidth
                             variant="outlined"
-                            label="Function"
-                            value={searchFunction}
-                            onChange={(e) => setSearchFunction(e.target.value)}
+                            label="Type"
+                            value={searchType}
+                            onChange={(e) => setSearchType(e.target.value)}
                             inputProps={{
-                                name: 'function',
-                                id: 'function-select',
+                                name: 'type',
+                                id: 'type-select',
                             }}
                         >
                             <MenuItem value="">Todas</MenuItem> {/* Add an empty option */}
-                            {roomFunctionOptions.map((roomFunction) => (
-                                <MenuItem key={roomFunction} value={roomFunction}>
-                                    {roomFunction}
+                            {roomTypeOptions.map((roomType) => (
+                                <MenuItem key={roomType} value={roomType}>
+                                    {roomType}
                             </MenuItem>
                             ))}
                         </Select>
@@ -166,21 +161,7 @@ const Rooms = () => {
                         onChange={(e) => setSearchMaxCapacity(e.target.value)}
                         />
                     </Grid>
-                    {/* Field for occupied room */}
-                    <Grid item xs={6}>
-                        <InputLabel htmlFor="search-function">Disponibilidade</InputLabel>
-                        <Select
-                        fullWidth
-                        variant="outlined"
-                        label=""
-                        value={searchIsOccupied}
-                        onChange={(e) => setSearchIsOccupied(e.target.value)}
-                        >
-                        <MenuItem value="">Todas</MenuItem>
-                        <MenuItem value={1}>{mapIsOccupied(1)}</MenuItem>
-                        <MenuItem value={0}>{mapIsOccupied(0)}</MenuItem>
-                        </Select>
-                    </Grid>
+                 
                     {/* Search button */}
                     <Grid item xs={6} mt="20px">
                         <Button sx={{

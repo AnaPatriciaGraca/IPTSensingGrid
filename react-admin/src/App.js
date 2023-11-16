@@ -8,7 +8,6 @@ import Sidebar from '../src/scenes/global/Sidebar'
 import DeviceList from './scenes/devices'
 import DeviceStats from './scenes/deviceStats'
 import DeviceProblems from './scenes/deviceProblems'
-import Form from '../src/scenes/form'
 import Calendar from '../src/scenes/calendar'
 import DashboardTest from '../src/scenes/dashboardTest'
 import MapTomar from './scenes/mapTomar'
@@ -19,6 +18,7 @@ import CourseDetails from './scenes/course/CourseDetails'
 import Class from './scenes/class'
 import RoomStats from './scenes/roomStats'
 import RoomReserv from './scenes/roomReserv'
+import ReservForm from './scenes/roomReserv/ReservForm'
 import WorkerStats from './scenes/workerStats'
 import WorkerSearch from './scenes/workerSearch'
 import Temperature from '../src/scenes/temperature'
@@ -96,10 +96,10 @@ function App() {
               {/* Sensores */}
               <Route path="/temperatura" element={<Temperature tempData={tempData} calcAvgTemperature={calcAvgTemperature()} />} />
               <Route path="/som" element={<Noise noiseData={noiseData} calcAvgNoise={calcAvgNoise()} />} />
-              <Route path="/estacionamento" element={<ParkingSpots />} />
+              {/* <Route path="/estacionamento" element={<ParkingSpots />} /> */}
               {/* Serviços */}
               <Route path="/schedulesServices" element={<SchedulesServices />} />
-              <Route path="/detalhesServicos" element={<ServiceDetails />} />
+              {/* <Route path="/detalhesServicos" element={<ServiceDetails />} /> */}
               {/* Cursos */}
               <Route path="/cursos" element={<Course />} />
               <Route path="/cadeiras" element={<Class />} />
@@ -107,16 +107,16 @@ function App() {
               {/* Salas */}
               <Route path="/estatisticasSalas" element={<RoomStats />} />
               <Route path="/reservasSalas" element={<RoomReserv />} />
+              <Route path="/formularioReserva" element={<ReservForm />}/>
               {/* Funcionários */}
               <Route path="/estatisticasFuncionarios" element={<WorkerStats />} />
               <Route path='/pesquisaFuncionarios' element={<WorkerSearch />} />
               {/* Equipamentos */}
-              <Route path="/listagemEquipamentos" element={<DeviceList />} />
-              <Route path="/estatisticasEquipamentos" element={<DeviceStats />} />
-              <Route path="/reparacoesEquipamentos" element={<DeviceProblems />} />
+              {/* <Route path="/listagemEquipamentos" element={<DeviceList />} /> */}
+              {/* <Route path="/estatisticasEquipamentos" element={<DeviceStats />} /> */}
+              {/* <Route path="/reparacoesEquipamentos" element={<DeviceProblems />} /> */}
               {/* Outros */}
-              <Route path="/form" element={<Form />} />
-              <Route path="/calendar" element={<Calendar />} />
+              {/* <Route path="/calendar" element={<Calendar />} /> */}
             </Routes>
           </main>
         </div>
