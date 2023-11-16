@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography, useTheme  } from "@mui/material"
+import { Box, Button, TextField, Typography, useTheme, Grid, InputLabel, Select, MenuItem  } from "@mui/material"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import * as yup from 'yup'
@@ -6,8 +6,9 @@ import { useFormik } from 'formik'
 import useMediaQuery from "@mui/material/useMediaQuery"
 import Header from "../../components/Header"
 import { useLocation } from 'react-router-dom'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { tokens } from '../../theme'
+import { fetchPeopleData } from "../../data/getData"
 
 
 // Validation logger for each field
@@ -28,7 +29,25 @@ const roomSchema = yup.object().shape({
         const isNonMobile = useMediaQuery('(min-width:600px)')
         const room = state ? state.selectedRoom : null
         const schedule = state ? state.roomSchedule : null
-        const [selectedDate, setSelectedDate] = useState('')
+        const [activePeople, setActivePeople] = useState([])
+        const [searchPerson, setSearchPerson] = useState('')
+
+
+        useEffect(() => {
+            async function fetchData() {
+              try {
+                const dataActive = await fetchPeopleData()
+                setActivePeople(dataActive)
+          
+              } catch (error) {
+                console.error('Error fetching data:', error)
+              }
+            }
+            fetchData()
+          }, [])
+
+
+        const persons = activePeople.map(person => person.nome)
 
         //Function to get today's date (today or next Monday if today is Sunday)
         const getDefaultDate = () => {
@@ -51,6 +70,7 @@ const roomSchema = yup.object().shape({
           roomCapacity: room ? room.maxCapacity : '',
           roomDay: getDefaultDate(),
           roomHour: '',
+          roomResponsable: '',
         },
         validationSchema: roomSchema,
         onSubmit: (values) => {
@@ -66,10 +86,6 @@ const roomSchema = yup.object().shape({
             (scheduleItem) =>
               scheduleItem.start_time <= selectedTime && selectedTime <= scheduleItem.end_time && scheduleItem.day.toLowerCase() === selectedDay
           );
-
-          console.log("is hour invalid: ", isTimeInvalid)
-          console.log("selected day", selectedDay)
-          console.log("selected time", selectedTime)
       
           if (isTimeInvalid) {
             formik.setFieldError('roomHour', 'Sala não disponível no horário selecionado');
@@ -174,6 +190,30 @@ const roomSchema = yup.object().shape({
                         helperText={formik.touched.roomHour && formik.errors.roomHour} 
                         sx={{gridColumn: 'span 2'}}
                     />
+
+
+                    <Grid item xs={6} gridColumn='span 2'>
+                        <InputLabel htmlFor="search-type">Nome do Responsável</InputLabel>
+                        <Select
+                            fullWidth
+                            variant="outlined"
+                            label="Responsable"
+                            value={formik.values.roomResponsable}
+                            onBlur={formik.handleBlur} 
+                            onChange={formik.handleChange}
+                            inputProps={{
+                                name: 'roomResponsable',
+                                id: 'responsable-select',
+                            }}
+                        >
+                            <MenuItem value="">Todas</MenuItem> {/* Add an empty option */}
+                            {persons.map((person) => (
+                                <MenuItem key={person} value={person}>
+                                    {person}
+                            </MenuItem>
+                            ))}
+                        </Select>
+                    </Grid>
                     </Box>
                     <Box display='flex' justifyContent='end' mt='20px'>
                         <Button type='submit' color='secondary' variant='contained'>
@@ -183,7 +223,7 @@ const roomSchema = yup.object().shape({
              </form>
         </LocalizationProvider>
 
-
+        <Box display='flex' alignItems='center'>
         <Box backgroundColor={colors.primary[400]} overflow='auto' mt="40px" maxWidth='400px'>
             <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
                 <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
@@ -210,6 +250,35 @@ const roomSchema = yup.object().shape({
             </Box>
 
             ))}
+        </Box>
+
+        <Box backgroundColor={colors.primary[400]} overflow='auto' mt="40px" maxWidth='400px' ml="40px">
+            <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
+                <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
+                    Reservas da sala {room.name} no dia selecionado
+                </Typography>
+            </Box>
+    
+            {schedule.map((schedule, index) => (
+            <Box key={`${schedule.name}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                <Typography variant='h6' fontWeight={600}> 
+                    {schedule.day} - feira
+                </Typography>
+
+
+                <Box display='flex' justifyContent='space-between' alignItems='center' >
+                    <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' mr='10px'>
+                        {schedule.start_time}
+                    </Box>
+                    -
+                    <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' ml='10px'>
+                        {schedule.end_time}
+                    </Box>
+                </Box>
+            </Box>
+
+            ))}
+        </Box>
         </Box>
 
 
