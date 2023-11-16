@@ -8,15 +8,12 @@ import Header from "../../components/Header"
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from "react"
 import { tokens } from '../../theme'
-import { fetchPeopleData } from "../../data/getData"
+import { fetchPeopleData, fetchRoomDataByName } from "../../data/getData"
+import { updateRoomOnServer } from '../../data/pushData'
 
 
 // Validation logger for each field
 const roomSchema = yup.object().shape({
-    roomName: yup.string().required('Campo obrigatório'),
-    roomType: yup.string(),
-    roomProjectors: yup.number(),
-    roomCapacity: yup.number(),
     roomDay: yup.date().required('Campo obrigatório'),
     //only possible from 09:00 until 21:00
     roomHour: yup.string().matches(/^(09|1\d|20):[0-5][0-9]$/, 'Formato de hora inválido. Use HH:mm das 09:00 às 21:00').required('Campo obrigatório'),
@@ -30,7 +27,7 @@ const roomSchema = yup.object().shape({
         const room = state ? state.selectedRoom : null
         const schedule = state ? state.roomSchedule : null
         const [activePeople, setActivePeople] = useState([])
-        const [searchPerson, setSearchPerson] = useState('')
+        const [roomData, setRoomData] = useState([])
 
 
         useEffect(() => {
@@ -38,6 +35,8 @@ const roomSchema = yup.object().shape({
               try {
                 const dataActive = await fetchPeopleData()
                 setActivePeople(dataActive)
+                const room = await fetchRoomDataByName(room.name)
+                setRoomData(roomData)
           
               } catch (error) {
                 console.error('Error fetching data:', error)
@@ -45,6 +44,7 @@ const roomSchema = yup.object().shape({
             }
             fetchData()
           }, [])
+        
 
 
         const persons = activePeople.map(person => person.nome)
@@ -73,7 +73,7 @@ const roomSchema = yup.object().shape({
           roomResponsable: '',
         },
         validationSchema: roomSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
           // custom validation logic
           const selectedDay = new Date(values.roomDay).toLocaleDateString('pt-BR', { weekday: 'long' }).replace(/-feira$/, '')
           const selectedTime = values.roomHour
@@ -95,8 +95,29 @@ const roomSchema = yup.object().shape({
             formik.setFieldError('roomHour', 'O dia e hora têm de ser no futuro');
             // You can also prevent form submission here if needed
           }else {
-            console.log('Form submission successful:', values);
-            // Add your logic here for the successful form submission
+            try {
+                // Your existing form submission logic
+                console.log('Form submission successful:', values);
+          
+                // Additional logic to prepare the updated room data
+                const updatedRoom = {
+                  name: values.roomName,
+                  reservas: [
+                    {
+                      roomDay: values.roomDay,
+                      roomHour: values.roomHour,
+                      roomResponsable: values.roomResponsable,
+                    },
+                  ],
+                };
+          
+                // Call the function to update the room on the server
+                await updateRoomOnServer(updatedRoom)
+          
+              } catch (error) {
+                // Handle any errors that occur during form submission or server update
+                console.error('Error during form submission or server update:', error);
+              }
           }
         },
       });

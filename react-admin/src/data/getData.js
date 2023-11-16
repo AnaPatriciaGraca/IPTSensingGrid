@@ -20,6 +20,34 @@ export async function fetchRoomsData() {
   }
 }
 
+//rooms data by Name
+export async function fetchRoomDataByName(roomName) {
+  try {
+    const response = await fetch(`https://smartcampus.ci2.ipt.pt/rooms?name=${roomName}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+
+    const data = await response.json()
+
+    console.log(data)
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+
+
+
+
 //buildings data
 export async function fetchBuildsData() {
   try {
