@@ -6,7 +6,7 @@ const NoiseData = ({ noiseData, isDashboard }) => {
 
   const transformedData = noiseData.map((sensor) => {
     const dataEntry = {
-      id: `Sensor ${sensor.id}`,
+      id: `${sensor.description}`,
       decibel: sensor.decibel,
     };
 

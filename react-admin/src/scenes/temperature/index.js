@@ -36,7 +36,7 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={tempData[0].temperature + ' ºC'}
-              subtitle={"Sensor " + tempData[0].id}
+              subtitle={tempData[0].description}
               progress='0.75'
               increase='75%'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
@@ -45,7 +45,7 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={tempData[1].temperature + ' ºC'}
-              subtitle={"Sensor " + tempData[1].id}
+              subtitle={tempData[1].description}
               progress='0.75'
               increase='75%'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
@@ -54,7 +54,7 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={tempData[2].temperature + ' ºC'}
-              subtitle={"Sensor " + tempData[2].id}
+              subtitle={tempData[2].description}
               progress='0.75'
               increase='75%'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}

@@ -65,9 +65,9 @@ const CourseDetails = ({ selectedCourse }) => {
                     <Typography>
                         {unit.name}
                     </Typography>
-                    <Button sx={{background: colors.greenAccent[500], '&:hover':{background: colors.greenAccent[800]} ,borderRadius: '8px', padding: '10px', ml: "10px", fontWeight: "bold"}}>
+                    {/* <Button sx={{background: colors.greenAccent[500], '&:hover':{background: colors.greenAccent[800]} ,borderRadius: '8px', padding: '10px', ml: "10px", fontWeight: "bold"}}>
                         Ver Detalhes
-                    </Button>
+                    </Button> */}
                 </Box>
         ))}
 

@@ -8,7 +8,7 @@ const BatteryLevel = ( { data }) => {
 
     // Transform the data to use "battery" as the value
     const transformedData = data.map(item => ({
-        id: "Sensor - " + item.id,
+        id: item.description.replace(/Pressão sonora, |Temperatura, /g, ''),
         value: item.battery, // Use "battery" as the value
     }));
 

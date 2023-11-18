@@ -35,8 +35,8 @@ const EventCalendar = () => {
             </Box>
             <Box ml="20px" mr="20px">
             </Box>
-            {classesI.map((classI, i) =>(
-            <Box key={`${classI.name}-${classI.day}-${classI.start_time}-${classI.room}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+            {classesI.map((classI, index) =>(
+            <Box key={`${index}-${classI.name}-${classI.room}-${classI.day}-${classI.start_time}-${classI.room}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
                 <Box>
                 <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
                     {classI.name}

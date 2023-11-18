@@ -7,7 +7,7 @@ const LocationRoom = ({ room }) => {
   return (
     <div className='locationMarker'>
       {/* Polygon draw on map with tooltip */}
-        <Polygon color={(room.isOccupied === 1) ? 'red' : 'green'} positions={room.location.coordinates}>
+        <Polygon color={(room.isOccupied === 1) ? 'red' : 'green'} positions={room.location?.coordinates || []}>
             { (room.type == 'room')
                 ? <Tooltip>Sala <b>{room.name}</b><br/>{room['function.']}</Tooltip>
                 : <Tooltip>

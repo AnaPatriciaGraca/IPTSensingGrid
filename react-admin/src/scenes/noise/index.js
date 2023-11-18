@@ -36,7 +36,7 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={noiseData[0].decibel + ' dB'}
-              subtitle={"Sensor " + noiseData[0].id}
+              subtitle={noiseData[0].description}
               progress='0.75'
               increase='75%'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
@@ -45,7 +45,7 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={noiseData[1].decibel + ' dB'}
-              subtitle={"Sensor " + noiseData[1].id}
+              subtitle={noiseData[1].description}
               progress='0.75'
               increase='75%'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
@@ -54,7 +54,7 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
           <Box gridColumn='span 3' backgroundColor={colors.primary[400]} display='flex' alignItems='center' justifyContent='center'>
             <StatBox 
               title={noiseData[2].decibel + ' dB'}
-              subtitle={"Sensor " + noiseData[2].id}
+              subtitle={noiseData[2].description}
               progress='0.75'
               increase='75%'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
