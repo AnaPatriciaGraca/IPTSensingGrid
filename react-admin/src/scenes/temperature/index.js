@@ -18,6 +18,24 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
     navigate('/mapaTomar', { state: { showTempSensors } } );
   }
 
+  const calculateDeviationPercentage = (sensor) => {
+    const thresholdMin = 18
+    const thresholdMax = 25
+    
+    const aboveThresholdCount = sensor.history.filter(value => value > thresholdMax).length;
+    const belowThresholdCount = sensor.history.filter(value => value < thresholdMin).length;
+
+    const totalValues = sensor.history.length;
+    
+    const overallDeviationPercentage = (aboveThresholdCount + belowThresholdCount) / totalValues
+
+    return overallDeviationPercentage;
+}
+
+  const devPercSensor1 = calculateDeviationPercentage(tempData[0])
+  const devPercSensor2 = calculateDeviationPercentage(tempData[1])
+  const devPercSensor3 = calculateDeviationPercentage(tempData[2])
+
   return (
     <Box m='20px'>
         <Header title='Temperatura' subtitle='Dados da temperatura' />
@@ -28,8 +46,9 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
             <StatBox 
               title={parseInt(calcAvgTemperature) + ' ºC'}
               subtitle='Média da Temperatura'
-              progress='0.75'
-              increase='75%'
+              progress={(devPercSensor1+devPercSensor2+devPercSensor3)/3}
+              increase={Math.floor((devPercSensor1+devPercSensor2+devPercSensor3)/3*100)+'%'}
+              toolTip='Percentagem de valores abaixo de 18ºC ou acima de 25ºC de todos os sensores'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -37,8 +56,9 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
             <StatBox 
               title={tempData[0].temperature + ' ºC'}
               subtitle={tempData[0].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPercSensor1}
+              increase={Math.floor(devPercSensor1*100)+'%'}
+              toolTip='Percentagem de valores abaixo de 18ºC ou acima de 25ºC'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -46,8 +66,9 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
             <StatBox 
               title={tempData[1].temperature + ' ºC'}
               subtitle={tempData[1].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPercSensor2}
+              increase={Math.floor(devPercSensor2*100)+'%'}
+              toolTip='Percentagem de valores abaixo de 18ºC ou acima de 25ºC'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -55,8 +76,9 @@ const Temperature = ( {tempData, calcAvgTemperature} ) => {
             <StatBox 
               title={tempData[2].temperature + ' ºC'}
               subtitle={tempData[2].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPercSensor3}
+              increase={Math.floor(devPercSensor3*100)+'%'}
+              toolTip='Percentagem de valores abaixo de 18ºC ou acima de 25ºC'
               icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>

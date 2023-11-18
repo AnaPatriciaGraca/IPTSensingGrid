@@ -30,9 +30,9 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
           <StatBox 
             title={parseInt(calcAvgTemperature) + ' ºC'}
             subtitle='Temperatura média'
-            toolTip='Sensores dentro dos valores "normais"'
-            progress='0.75'
-            increase='75%'
+            toolTip='Percentagem total de valores abaixo dos 18ºC ou acima dos 25ºC'
+            progress='0.2'
+            increase='20%'
             alert='Sensores do bloco I'
             icon={<DeviceThermostatIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />
@@ -42,9 +42,9 @@ const DashboardTest = ({ calcAvgTemperature, tempData, noiseData }) => {
           <StatBox 
             title='80 dB' 
             subtitle='Ruído médio'
-            toolTip='Sensores dentro dos valores "normais"'
-            progress='0.5'
-            increase='50%'
+            toolTip='Percentagem total de valores acima dos 40dB'
+            progress='0.8'
+            increase='80%'
             alert='Sensores do bloco I'
             icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
           />

@@ -18,6 +18,19 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
     navigate('/mapaTomar', { state: { showNoiseSensors } } );
   }
 
+  const calculateSoundDeviationPercentage = (sensor) => {
+    const threshold = 40
+    const aboveThresholdCount = sensor.history.filter(value => value > threshold).length
+    const totalValues = sensor.history.length
+    const aboveThresholdPercentage = aboveThresholdCount / totalValues
+
+    return aboveThresholdPercentage
+  }
+
+  const devPerSound1 = calculateSoundDeviationPercentage(noiseData[0])
+  const devPerSound2 = calculateSoundDeviationPercentage(noiseData[1])
+  const devPerSound3 = calculateSoundDeviationPercentage(noiseData[2])
+
   return (
     <Box m='20px'>
         <Header title='Ruído' subtitle='Dados do Ruído' />
@@ -28,8 +41,9 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
             <StatBox 
               title={ parseInt(calcAvgNoise) + ' dB'}
               subtitle='Média da Ruído'
-              progress='0.75'
-              increase='75%'
+              progress={(devPerSound1+devPerSound2+devPerSound3)/3}
+              increase={Math.floor((devPerSound1+devPerSound2+devPerSound3)/3*100)+'%'}
+              toolTip='Percentagem de valores acima dos 40dB de todos os sensores'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -37,8 +51,9 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
             <StatBox 
               title={noiseData[0].decibel + ' dB'}
               subtitle={noiseData[0].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPerSound1}
+              increase={Math.floor(devPerSound1*100)+'%'}
+              toolTip='Percentagem de valores acima dos 40dB'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -46,8 +61,9 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
             <StatBox 
               title={noiseData[1].decibel + ' dB'}
               subtitle={noiseData[1].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPerSound2}
+              increase={Math.floor(devPerSound2*100)+'%'}
+              toolTip='Percentagem de valores acima dos 40dB'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
@@ -55,8 +71,9 @@ const Noise = ({ noiseData, calcAvgNoise }) => {
             <StatBox 
               title={noiseData[2].decibel + ' dB'}
               subtitle={noiseData[2].description}
-              progress='0.75'
-              increase='75%'
+              progress={devPerSound3}
+              increase={Math.floor(devPerSound3*100)+'%'}
+              toolTip='Percentagem de valores acima dos 40dB'
               icon={<MicOutlinedIcon sx={{color: colors.greenAccent[600], fontSize: '26px'}}/>}
             />
           </Box>
