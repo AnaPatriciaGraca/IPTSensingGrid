@@ -26,8 +26,10 @@ const roomSchema = yup.object().shape({
         const isNonMobile = useMediaQuery('(min-width:600px)')
         const room = state ? state.selectedRoom : null
         const schedule = state ? state.roomSchedule : null
+        let reservs = room.reservas ? [room.reservas] : []
         const [activePeople, setActivePeople] = useState([])
-        const [roomData, setRoomData] = useState([])
+        // const [roomData, setRoomData] = useState([])
+
 
 
         useEffect(() => {
@@ -35,8 +37,8 @@ const roomSchema = yup.object().shape({
               try {
                 const dataActive = await fetchPeopleData()
                 setActivePeople(dataActive)
-                const room = await fetchRoomDataByName(room.name)
-                setRoomData(roomData)
+                // const room = await fetchRoomDataByName(room.name)
+                // setRoomData(roomData)
           
               } catch (error) {
                 console.error('Error fetching data:', error)
@@ -113,6 +115,7 @@ const roomSchema = yup.object().shape({
           
                 // Call the function to update the room on the server
                 await updateRoomOnServer(updatedRoom)
+                let reserv = updatedRoom.reservas
           
               } catch (error) {
                 // Handle any errors that occur during form submission or server update
@@ -121,8 +124,6 @@ const roomSchema = yup.object().shape({
           }
         },
       });
-
-
 
 
 
@@ -245,33 +246,37 @@ const roomSchema = yup.object().shape({
         </LocalizationProvider>
 
         <Box display='flex' alignItems='center'>
-        <Box backgroundColor={colors.primary[400]} overflow='auto' mt="40px" maxWidth='400px'>
+        <Box backgroundColor={colors.primary[400]} overflow='auto' mt="40px" maxWidth='600px'>
             <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
                 <Typography color={colors.greenAccent[500]} variant='h5' fontWeight={600}>
                     Horário de Ocupação da sala {room.name}
                 </Typography>
             </Box>
-    
-            {schedule.map((schedule, index) => (
-            <Box key={`${schedule.name}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
-                <Typography variant='h6' fontWeight={600}> 
-                    {schedule.day} - feira
+
+            {schedule.length === 0 ? (
+                <Typography variant='body1' color='textSecondary' ml='20px'>
+                    Não existe um horário para esta sala
                 </Typography>
-
-
-                <Box display='flex' justifyContent='space-between' alignItems='center' >
-                    <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' mr='10px'>
+                ) : (
+                schedule.map((schedule, index) => (
+                    <Box key={`${schedule.name}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                    <Typography variant='h6' fontWeight={600}> 
+                        {schedule.day} - feira
+                    </Typography>
+                    <Box display='flex' justifyContent='space-between' alignItems='center' >
+                        <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' mr='10px'>
                         {schedule.start_time}
-                    </Box>
-                    -
-                    <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' ml='10px'>
+                        </Box>
+                        -
+                        <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' ml='10px'>
                         {schedule.end_time}
+                        </Box>
                     </Box>
-                </Box>
-            </Box>
-
-            ))}
+                    </Box>
+                )))
+            }
         </Box>
+
 
         <Box backgroundColor={colors.primary[400]} overflow='auto' mt="40px" maxWidth='400px' ml="40px">
             <Box display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} colors={colors.grey[100]} p='15px'>
@@ -280,26 +285,29 @@ const roomSchema = yup.object().shape({
                 </Typography>
             </Box>
     
-            {schedule.map((schedule, index) => (
-            <Box key={`${schedule.name}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
-                <Typography variant='h6' fontWeight={600}> 
-                    {schedule.day} - feira
+            
+            {reservs.length === 0 ? (
+                <Typography variant='body1' color='textSecondary' ml="20px">
+                    Não existem reservas para a sala
                 </Typography>
-
-
-                <Box display='flex' justifyContent='space-between' alignItems='center' >
-                    <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' mr='10px'>
-                        {schedule.start_time}
-                    </Box>
-                    -
+                ) : (
+                reservs.map((reserv, index) => (
+                    <Box key={`${reserv[index].roomResponsable}-${index}`} display='flex' justifyContent='space-between' alignItems='center' borderBottom={`4px solid ${colors.primary[400]}`} p='15px'>
+                    <Typography variant='h6' fontWeight={400} mr="20px"> 
+                        {reserv[index].roomResponsable}
+                    </Typography>
+                    <Typography variant='h6' fontWeight={600} mr="20px"> 
+                     {reserv[index].roomDay}
+                    </Typography>
                     <Box backgroundColor={colors.blueAccent[500]} p='5px 10px' borderRadius='4px' ml='10px'>
-                        {schedule.end_time}
+                        {reserv[index].roomHour}
                     </Box>
-                </Box>
-            </Box>
-
-            ))}
+                    </Box>
+                )))
+            }
         </Box>
+
+
         </Box>
 
 

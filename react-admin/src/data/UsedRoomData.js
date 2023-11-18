@@ -78,6 +78,11 @@ const UsedRoomData = ({ rooms, classes }) => {
 
     // Function to determine the category based on room.function
     const getCategory = (functionName) => {
+
+      if (!functionName) {
+        return 'outro'; 
+      }
+    
       if (
         functionName.toLowerCase().includes('sala de aula') ||
         functionName.toLowerCase().includes('sala de aulas')
