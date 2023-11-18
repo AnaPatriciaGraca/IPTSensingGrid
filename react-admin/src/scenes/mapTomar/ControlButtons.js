@@ -40,7 +40,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
             </IconButton>
           </Tooltip>
         </Box>
-        <Box m="2px">
+        {/* <Box m="2px">
           <Tooltip title="Minha Localização">
             <IconButton
               aria-label='Minha Localização'
@@ -51,7 +51,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
               <LocationOnOutlinedIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
       </Box>
       {/*Botoes sensores*/}
       <Typography mb="10px" mt="10px" variant='h5'>
@@ -82,7 +82,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
             </IconButton>
           </Tooltip>
         </Box>
-        <Box m="2px">
+        {/* <Box m="2px">
           <Tooltip title="Estacionamento">
             <IconButton
               aria-label='Estacionamento'
@@ -93,7 +93,7 @@ const ControlButtons = ({ handleRoomClick, handleBuildClick, handleMyLocation, c
               <LocalParkingOutlinedIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
         
       </Box>
 
