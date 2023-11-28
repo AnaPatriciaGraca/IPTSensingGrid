@@ -350,7 +350,7 @@ export async function fetchClassesDataByDay(day) {
 //classes building I
 export async function fetchClassesBuildingI() {
   try {
-    const response = await fetch(`https://smartcampus.ci2.ipt.pt/classes?room_like=I`, {
+    const response = await fetch(`https://smartcampus.ci2.ipt.pt/classes?room_like=I1`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
